@@ -717,6 +717,27 @@ input:focus, select:focus{
   margin-bottom:8px;
 }
 
+
+.settingsBtn.active{
+  border-color:rgba(255,140,40,.75)!important;
+  background:linear-gradient(180deg,rgba(255,120,20,.35),rgba(255,106,0,.12))!important;
+  color:#fff4d4!important;
+  box-shadow:
+    0 0 22px rgba(255,106,0,.38),
+    inset 0 0 12px rgba(255,180,60,.08);
+}
+
+.nodeSettings.open{
+  display:block;
+  border-color:rgba(255,140,40,.72)!important;
+  box-shadow:
+    0 0 28px rgba(255,106,0,.22),
+    inset 0 0 24px rgba(255,140,40,.05);
+  background:
+    radial-gradient(circle at top right, rgba(255,120,20,.12), transparent 42%),
+    rgba(0,0,0,.22);
+}
+
 .nodeModeBadge{
   display:inline-flex;
   align-items:center;
@@ -727,6 +748,38 @@ input:focus, select:focus{
   color:var(--gold);
   font-size:11px;
   background:rgba(255,255,255,.03);
+}
+
+
+.controlSourceRow{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+
+.sourceChoice{
+  border:1px solid rgba(231,184,79,.20);
+  border-radius:15px;
+  padding:12px;
+  background:rgba(255,255,255,.025);
+  cursor:pointer;
+  color:var(--muted);
+  font-weight:800;
+  text-align:center;
+}
+
+.sourceChoice.active{
+  border-color:rgba(255,140,40,.75);
+  color:#fff4d4;
+  background:linear-gradient(180deg,rgba(255,120,20,.32),rgba(255,106,0,.10));
+  box-shadow:0 0 20px rgba(255,106,0,.26);
+}
+
+.individualOnly.disabledBlock{
+  opacity:.38;
+  pointer-events:none;
+  filter:grayscale(.35);
 }
 
 @media(max-width:1050px){
@@ -760,7 +813,7 @@ input:focus, select:focus{
       <div class="pill active">Hub Online</div>
       <div class="pill" id="protoPill">Protocol: Auto</div>
       <div class="pill">Universe 7</div>
-      <div class="pill">4 Nodes</div>
+      <div class="pill">20 Nodes</div>
     </div>
   </header>
 
@@ -797,7 +850,7 @@ input:focus, select:focus{
             <p>Wireless flame control for candles, torches, sconces, chandeliers, and stage practicals.</p>
 
             <div class="metrics">
-              <div class="metric"><div class="label">Nodes</div><div class="value">4</div></div>
+              <div class="metric"><div class="label">Nodes</div><div class="value">20</div></div>
               <div class="metric"><div class="label">Input</div><div class="value" id="metricInput">Auto</div></div>
               <div class="metric"><div class="label">Mode</div><div class="value" id="metricMode">Show</div></div>
               <div class="metric"><div class="label">Battery Avg</div><div class="value" id="batteryAvg">82%</div></div>
@@ -1101,6 +1154,17 @@ input:focus, select:focus{
 
 
             <div class="control">
+              <div class="controlTitle">Match Group Settings vs Individual Control</div>
+              <div class="controlSub" style="margin-top:8px">
+                Each fixture can operate in only one control style at a time.<br><br>
+                <strong>Match Group Settings</strong> means the fixture follows the settings assigned to its group. This is best for chandeliers, sconces, tables, or any fixtures that should behave together.<br><br>
+                <strong>Individual Control</strong> unlocks the fixture’s own settings so it can have separate intensity, Flicker, bounce rate, low range, and high range values.<br><br>
+                Switching one option on automatically disables the other.
+              </div>
+            </div>
+
+
+            <div class="control">
               <div class="controlTitle">Node Settings Dropdown</div>
               <div class="controlSub" style="margin-top:8px">
                 Each fixture has a Settings button. Open it to choose the fixture’s DMX mode and adjust the controls available for that mode.<br><br>
@@ -1171,16 +1235,41 @@ input:focus, select:focus{
 
 <script>
 const nodes = [
-  {name:"Candle 01", battery:91, wifi:-48, dmx:101, group:"Chandelier A", status:"Online", mode:"2-Channel Basic", intensity:82, flicker:55, bounce:4, low:42, high:88},
-  {name:"Candle 02", battery:76, wifi:-61, dmx:103, group:"Chandelier A", status:"Online", mode:"2-Channel Basic", intensity:78, flicker:50, bounce:4, low:40, high:86},
-  {name:"Torch 01", battery:84, wifi:-54, dmx:121, group:"Torches", status:"Online", mode:"5-Channel Extended", intensity:95, flicker:70, bounce:7, low:55, high:100},
-  {name:"Table Candle 01", battery:77, wifi:-67, dmx:141, group:"Table Candles", status:"Online", mode:"Group Master", intensity:65, flicker:35, bounce:3, low:25, high:72}
+  {name:"Candle 01", battery:91, wifi:-48, dmx:101, group:"Chandelier A", status:"Online", mode:"2-Channel Basic", controlSource:"group", intensity:82, flicker:55, bounce:4, low:42, high:88},
+  {name:"Candle 02", battery:76, wifi:-61, dmx:103, group:"Chandelier A", status:"Online", mode:"2-Channel Basic", controlSource:"group", intensity:78, flicker:50, bounce:4, low:40, high:86},
+  {name:"Torch 01", battery:84, wifi:-54, dmx:121, group:"Torches", status:"Online", mode:"5-Channel Extended", controlSource:"individual", intensity:95, flicker:70, bounce:7, low:55, high:100},
+  {name:"Table Candle 01", battery:77, wifi:-67, dmx:141, group:"Table Candles", status:"Online", mode:"Group Master", controlSource:"group", intensity:65, flicker:35, bounce:3, low:25, high:72},
+
+  {name:"Candle 03", battery:88, wifi:-49, dmx:151, group:"Balcony Candles", status:"Online", mode:"2-Channel Basic", controlSource:"group", intensity:80, flicker:58, bounce:4, low:40, high:82},
+  {name:"Candle 04", battery:86, wifi:-51, dmx:153, group:"Balcony Candles", status:"Online", mode:"2-Channel Basic", controlSource:"group", intensity:79, flicker:52, bounce:4, low:39, high:84},
+  {name:"Candle 05", battery:82, wifi:-57, dmx:155, group:"Balcony Candles", status:"Online", mode:"2-Channel Basic", controlSource:"group", intensity:81, flicker:56, bounce:5, low:42, high:85},
+  {name:"Torch 02", battery:91, wifi:-46, dmx:161, group:"Torches", status:"Online", mode:"5-Channel Extended", controlSource:"individual", intensity:100, flicker:74, bounce:8, low:58, high:100},
+  {name:"Torch 03", battery:79, wifi:-59, dmx:166, group:"Torches", status:"Online", mode:"5-Channel Extended", controlSource:"individual", intensity:94, flicker:72, bounce:7, low:54, high:98},
+
+  {name:"Sconce 01", battery:75, wifi:-63, dmx:171, group:"Wall Sconces", status:"Online", mode:"Group Master", controlSource:"group", intensity:66, flicker:40, bounce:3, low:28, high:70},
+  {name:"Sconce 02", battery:73, wifi:-66, dmx:173, group:"Wall Sconces", status:"Online", mode:"Group Master", controlSource:"group", intensity:64, flicker:38, bounce:3, low:26, high:68},
+  {name:"Sconce 03", battery:81, wifi:-56, dmx:175, group:"Wall Sconces", status:"Online", mode:"Group Master", controlSource:"group", intensity:69, flicker:42, bounce:3, low:30, high:72},
+
+  {name:"Lantern 01", battery:93, wifi:-44, dmx:181, group:"Lanterns", status:"Online", mode:"5-Channel Extended", controlSource:"individual", intensity:88, flicker:62, bounce:5, low:48, high:92},
+  {name:"Lantern 02", battery:90, wifi:-47, dmx:186, group:"Lanterns", status:"Online", mode:"5-Channel Extended", controlSource:"individual", intensity:86, flicker:60, bounce:5, low:46, high:90},
+  {name:"Lantern 03", battery:85, wifi:-53, dmx:191, group:"Lanterns", status:"Online", mode:"5-Channel Extended", controlSource:"individual", intensity:87, flicker:61, bounce:5, low:47, high:91},
+
+  {name:"Table Candle 02", battery:71, wifi:-69, dmx:201, group:"Table Candles", status:"Online", mode:"Group Master", controlSource:"group", intensity:61, flicker:33, bounce:2, low:24, high:66},
+  {name:"Table Candle 03", battery:74, wifi:-64, dmx:203, group:"Table Candles", status:"Online", mode:"Group Master", controlSource:"group", intensity:63, flicker:35, bounce:2, low:26, high:68},
+  {name:"Table Candle 04", battery:77, wifi:-61, dmx:205, group:"Table Candles", status:"Online", mode:"Group Master", controlSource:"group", intensity:65, flicker:37, bounce:3, low:28, high:70},
+
+  {name:"Chandelier B 01", battery:89, wifi:-50, dmx:221, group:"Chandelier B", status:"Online", mode:"2-Channel Basic", controlSource:"group", intensity:83, flicker:57, bounce:4, low:41, high:87},
+  {name:"Chandelier B 02", battery:87, wifi:-52, dmx:223, group:"Chandelier B", status:"Online", mode:"2-Channel Basic", controlSource:"group", intensity:82, flicker:56, bounce:4, low:40, high:86}
 ];
 
 const groups = [
   {name:"Chandelier A", start:101, mode:"2-Channel Basic", nodes:["Candle 01","Candle 02"]},
-  {name:"Torches", start:121, mode:"5-Channel Extended", nodes:["Torch 01"]},
-  {name:"Table Candles", start:141, mode:"Group Master", nodes:["Table Candle 01"]}
+  {name:"Torches", start:121, mode:"5-Channel Extended", nodes:["Torch 01","Torch 02","Torch 03"]},
+  {name:"Table Candles", start:141, mode:"Group Master", nodes:["Table Candle 01","Table Candle 02","Table Candle 03","Table Candle 04"]},
+  {name:"Balcony Candles", start:151, mode:"2-Channel Basic", nodes:["Candle 03","Candle 04","Candle 05"]},
+  {name:"Wall Sconces", start:171, mode:"Group Master", nodes:["Sconce 01","Sconce 02","Sconce 03"]},
+  {name:"Lanterns", start:181, mode:"5-Channel Extended", nodes:["Lantern 01","Lantern 02","Lantern 03"]},
+  {name:"Chandelier B", start:221, mode:"2-Channel Basic", nodes:["Chandelier B 01","Chandelier B 02"]}
 ];
 
 const wifiNetworks = [
@@ -1239,7 +1328,7 @@ function renderNodes(){
       <div class="btnRow" style="margin-top:12px">
         <span class="helpTip"><button class="secondary" onclick="identifyNode(${i})">Identify</button><span class="tooltip">Briefly flashes or pulses the selected fixture so you can find it physically.</span></span>
         <span class="helpTip"><button class="secondary" onclick="renameNode(${i})">Rename</button><span class="tooltip">Changes the display name for this fixture inside the Hub.</span></span>
-        <span class="helpTip"><button onclick="toggleNodeSettings(${i})">Settings</button><span class="tooltip">Opens fixture-specific settings including DMX mode, intensity, Flicker, bounce rate, and range controls.</span></span>
+        <span class="helpTip"><button class="settingsBtn" id="settingsBtn-${i}" onclick="toggleNodeSettings(${i})">Settings</button><span class="tooltip">Opens fixture-specific settings including DMX mode, intensity, Flicker, bounce rate, and range controls.</span></span>
       </div>
 
       <div class="nodeSettings" id="nodeSettings-${i}">
@@ -1269,9 +1358,23 @@ function renderNodes(){
           </div>
         </div>
 
-        <div class="settingGrid">
+        <div class="controlSourceRow">
+          <span class="helpTip">
+            <div class="sourceChoice ${n.controlSource==="group" ? "active" : ""}" onclick="setNodeControlSource(${i}, 'group')">Match Group Settings</div>
+            <span class="tooltip">This fixture follows the settings of its assigned group. Individual controls are locked while this is active.</span>
+          </span>
+
+          <span class="helpTip">
+            <div class="sourceChoice ${n.controlSource==="individual" ? "active" : ""}" onclick="setNodeControlSource(${i}, 'individual')">Individual Control</div>
+            <span class="tooltip">This fixture uses its own intensity, Flicker, bounce, and range settings instead of matching the group.</span>
+          </span>
+        </div>
+
+        <div class="settingGrid individualOnly ${n.controlSource==="group" ? "disabledBlock" : ""}">
           ${nodeSettingsControls(n,i)}
         </div>
+
+        ${n.controlSource==="group" ? `<p class="controlSub" style="margin-top:12px">This node is currently matching <strong>${n.group}</strong>. Switch to Individual Control to edit node-specific settings.</p>` : ""}
       </div>
     </div>
   `).join("");
@@ -1417,18 +1520,55 @@ function nodeSettingsControls(n,i){
 
 function toggleNodeSettings(i){
   const panel = document.getElementById(`nodeSettings-${i}`);
-  if(panel) panel.classList.toggle("open");
+  const btn = document.getElementById(`settingsBtn-${i}`);
+
+  if(panel){
+    panel.classList.toggle("open");
+
+    if(btn){
+      btn.classList.toggle("active", panel.classList.contains("open"));
+    }
+  }
+}
+
+function setNodeControlSource(i, source){
+  nodes[i].controlSource = source;
+  renderNodes();
+
+  const panel = document.getElementById(`nodeSettings-${i}`);
+  const btn = document.getElementById(`settingsBtn-${i}`);
+
+  if(panel) panel.classList.add("open");
+  if(btn) btn.classList.add("active");
+
+  const label = source === "group" ? "Match Group Settings" : "Individual Control";
+  addLog(`${nodes[i].name} control source changed to ${label}.`);
 }
 
 function setNodeMode(i, mode){
   nodes[i].mode = mode;
+
+  if(mode === "Group Master"){
+    nodes[i].controlSource = "group";
+  }
+
   renderNodes();
+
   const panel = document.getElementById(`nodeSettings-${i}`);
+  const btn = document.getElementById(`settingsBtn-${i}`);
+
   if(panel) panel.classList.add("open");
+  if(btn) btn.classList.add("active");
+
   addLog(`${nodes[i].name} DMX mode changed to ${mode}.`);
 }
 
 function setNodeSetting(i, key, value){
+  if(nodes[i].controlSource === "group"){
+    addLog(`${nodes[i].name} is matching group settings. Switch to Individual Control before editing node settings.`);
+    return;
+  }
+
   nodes[i][key] = Number(value);
   const val = document.getElementById(`node-${i}-${key}-val`);
   if(val) val.textContent = value + (key === "bounce" ? "" : "%");
@@ -1765,7 +1905,7 @@ renderGroups();
 renderWifi();
 updateSliders();
 addLog("StageFlame Hub demo initialized.");
-addLog("4 simulated nodes connected.");
+addLog("20 simulated nodes connected.");
 </script>
 </body>
 </html>
