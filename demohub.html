@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>StageFlame Hub Demo</title>
+<style>
+:root{
+  --bg:#050505;
+  --bg2:#0b0704;
+  --panel:#11100e;
+  --panel2:#18130e;
+  --line:rgba(231,184,79,.24);
+  --line2:rgba(255,122,24,.32);
+  --gold:#f1c45a;
+  --gold2:#ffe09a;
+  --orange:#ff6a00;
+  --orange2:#ff9b2f;
+  --red:#ff3b14;
+  --green:#52ff93;
+  --blue:#65b9ff;
+  --text:#fff7e8;
+  --muted:#a99574;
+  --danger:#ff5050;
+  --ok:#48ff91;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 55% -10%, rgba(255,106,0,.22), transparent 33%),
+    radial-gradient(circle at 10% 20%, rgba(255,185,70,.07), transparent 26%),
+    linear-gradient(180deg,#080604,#020202 70%);
+  color:var(--text);
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.016) 1px, transparent 1px);
+  background-size:46px 46px;
+  mask-image:radial-gradient(circle at center,black,transparent 78%);
+  pointer-events:none;
+}
+
+.app{
+  position:relative;
+  z-index:2;
+  max-width:1580px;
+  margin:auto;
+  padding:20px;
+}
+
+.topbar{
+  min-height:82px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:10px 22px;
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:linear-gradient(180deg,rgba(18,18,18,.96),rgba(5,5,5,.98));
+  box-shadow:0 0 36px rgba(255,106,0,.08), inset 0 1px 0 rgba(255,255,255,.04);
+  overflow:hidden;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  min-width:260px;
+}
+
+.logoMark{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 48% 70%, #fff9c5 0 8%, #ffbf32 18%, #ff6800 45%, transparent 58%),
+    radial-gradient(circle, rgba(255,180,50,.24), rgba(255,106,0,.05) 62%, transparent 66%);
+  border:1px solid rgba(241,196,90,.55);
+  box-shadow:0 0 22px rgba(255,106,0,.34);
+  position:relative;
+}
+
+.logoMark:after{
+  content:"";
+  position:absolute;
+  left:18px; right:18px; bottom:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 12px rgba(255,211,120,.7);
+}
+
+.brandText strong{
+  font-size:25px;
+  letter-spacing:.11em;
+  font-weight:900;
+}
+.brandText strong span{color:var(--orange)}
+.brandText small{
+  display:block;
+  margin-top:2px;
+  color:var(--gold);
+  letter-spacing:.24em;
+  font-size:10px;
+}
+
+.pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:flex-end;
+}
+
+.pill{
+  padding:7px 12px;
+  border:1px solid rgba(231,184,79,.22);
+  border-radius:999px;
+  background:rgba(255,255,255,.025);
+  color:var(--gold);
+  font-size:12px;
+  white-space:nowrap;
+}
+
+.pill.active{
+  border-color:rgba(82,255,147,.42);
+  color:var(--green);
+  box-shadow:0 0 16px rgba(82,255,147,.08);
+}
+
+.layout{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns: 270px 1fr;
+  gap:14px;
+}
+
+.sidebar,.card{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(22,18,13,.94),rgba(7,7,7,.96));
+  border-radius:24px;
+  box-shadow:0 18px 50px rgba(0,0,0,.36);
+}
+
+.sidebar{
+  padding:14px;
+  min-height:calc(100vh - 130px);
+}
+
+.navTitle{
+  color:var(--muted);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  margin:8px 10px 12px;
+}
+
+.navBtn{
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  border:1px solid transparent;
+  color:var(--text);
+  background:transparent;
+  padding:13px 12px;
+  border-radius:15px;
+  cursor:pointer;
+  font-weight:700;
+  text-align:left;
+}
+
+.navBtn:hover,.navBtn.active{
+  border-color:var(--line);
+  background:rgba(255,255,255,.035);
+  color:var(--gold2);
+}
+
+.navBtn span:last-child{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.content{
+  display:grid;
+  gap:14px;
+}
+
+.heroGrid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:14px;
+}
+
+.card{
+  padding:22px;
+}
+
+.card h1,.card h2,.card h3{
+  margin:0;
+  color:var(--gold);
+  letter-spacing:.045em;
+}
+
+.card h1{font-size:28px}
+.card h2{font-size:21px}
+.card p{color:var(--muted);line-height:1.45}
+
+.demoBanner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:16px 18px;
+  border:1px solid rgba(255,106,0,.30);
+  border-radius:20px;
+  background:linear-gradient(90deg,rgba(255,106,0,.13),rgba(255,255,255,.025));
+}
+
+.demoBanner strong{color:var(--gold2)}
+.demoBanner small{display:block;color:var(--muted);margin-top:3px}
+
+.btnRow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+button,.selectLike{
+  border:1px solid var(--line);
+  border-radius:14px;
+  color:var(--text);
+  background:linear-gradient(180deg,rgba(255,106,0,.20),rgba(255,106,0,.055));
+  padding:12px 15px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+button.secondary{
+  background:rgba(255,255,255,.035);
+  color:var(--gold);
+}
+
+button.danger{
+  border-color:rgba(255,80,80,.35);
+  color:#ffd1d1;
+  background:linear-gradient(180deg,rgba(255,60,20,.22),rgba(255,60,20,.06));
+}
+
+button:hover{box-shadow:0 0 22px rgba(255,106,0,.22)}
+
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:14px;
+}
+
+.metric{
+  padding:16px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.03);
+}
+
+.metric .label{
+  color:var(--muted);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+.metric .value{
+  margin-top:8px;
+  font-size:26px;
+  font-weight:900;
+  color:var(--gold2);
+}
+
+.controls{
+  display:grid;
+  gap:14px;
+  margin-top:16px;
+}
+
+.control{
+  padding:16px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.032);
+}
+
+.controlHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:12px;
+}
+
+.controlTitle{
+  color:var(--gold2);
+  font-weight:900;
+}
+
+.controlSub{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:3px;
+}
+
+.rangeLine{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.valueBox{
+  min-width:56px;
+  text-align:right;
+  color:white;
+  font-weight:900;
+}
+
+input[type=range]{
+  width:100%;
+  accent-color:var(--orange);
+}
+
+input, select{
+  width:100%;
+  border:1px solid rgba(231,184,79,.22);
+  border-radius:13px;
+  background:rgba(0,0,0,.28);
+  color:var(--text);
+  padding:12px 13px;
+  font:inherit;
+  outline:none;
+}
+
+input:focus, select:focus{
+  border-color:rgba(255,106,0,.55);
+  box-shadow:0 0 18px rgba(255,106,0,.12);
+}
+
+.formGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.formGrid.three{
+  grid-template-columns:1fr 1fr 1fr;
+}
+
+.compactScenes{
+  grid-template-columns:1fr 1fr;
+  margin-top:0;
+}
+
+.groupManage{
+  display:grid;
+  gap:14px;
+  margin-top:16px;
+}
+
+.groupCard{
+  padding:16px;
+  border:1px solid rgba(231,184,79,.2);
+  border-radius:18px;
+  background:rgba(255,255,255,.03);
+}
+
+.groupTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:12px;
+}
+
+.groupTop strong{
+  color:var(--gold2);
+  font-size:18px;
+}
+
+.tagRow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:10px;
+}
+
+.tag{
+  border:1px solid rgba(231,184,79,.22);
+  border-radius:999px;
+  color:var(--gold);
+  background:rgba(255,255,255,.03);
+  padding:6px 9px;
+  font-size:12px;
+}
+
+.toggle{
+  position:relative;
+  width:60px;
+  height:32px;
+  flex:0 0 60px;
+}
+
+.toggle input{display:none}
+
+.toggle span{
+  position:absolute;
+  inset:0;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#2a2118;
+  cursor:pointer;
+}
+
+.toggle span:before{
+  content:"";
+  width:24px;
+  height:24px;
+  position:absolute;
+  left:3px;
+  top:3px;
+  border-radius:50%;
+  background:#7e6a4f;
+  transition:.22s;
+}
+
+.toggle input:checked + span{
+  background:linear-gradient(90deg,var(--orange),var(--gold));
+  box-shadow:0 0 20px rgba(255,106,0,.35);
+}
+.toggle input:checked + span:before{
+  transform:translateX(28px);
+  background:#fff5cf;
+}
+
+.nodeList{
+  display:grid;
+  gap:12px;
+  margin-top:14px;
+}
+
+.node{
+  padding:15px;
+  border:1px solid rgba(231,184,79,.20);
+  border-radius:18px;
+  background:rgba(255,255,255,.032);
+}
+
+.nodeTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.nodeName{font-weight:900;color:#fff4cf;font-size:18px}
+.nodeStatus{color:var(--green);font-weight:800;font-size:13px}
+
+.nodeGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  color:var(--muted);
+}
+
+.bar{
+  margin-top:6px;
+  height:7px;
+  background:#21160e;
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.fill{
+  height:100%;
+  width:var(--v);
+  background:linear-gradient(90deg,var(--orange),var(--gold));
+  box-shadow:0 0 14px rgba(255,106,0,.48);
+}
+
+.sectionGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.sceneGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:16px;
+}
+
+.scene{
+  padding:16px;
+  border:1px solid rgba(231,184,79,.2);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.14), transparent 36%),
+    rgba(255,255,255,.03);
+  cursor:pointer;
+}
+.scene:hover,.scene.active{border-color:var(--orange);box-shadow:0 0 22px rgba(255,106,0,.13)}
+.scene strong{color:var(--gold2)}
+.scene small{display:block;color:var(--muted);margin-top:6px}
+
+.protocolGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:16px;
+}
+
+.protocol{
+  padding:16px;
+  border:1px solid rgba(231,184,79,.20);
+  border-radius:18px;
+  background:rgba(255,255,255,.03);
+}
+.protocol strong{display:block;color:var(--gold2);margin-bottom:8px}
+.protocol .state{color:var(--muted)}
+.protocol.active .state{color:var(--green);font-weight:900}
+.protocol.active{border-color:rgba(82,255,147,.35)}
+
+.hidden{display:none!important}
+
+.log{
+  height:190px;
+  overflow:auto;
+  padding:14px;
+  border-radius:16px;
+  border:1px solid rgba(231,184,79,.16);
+  background:#050505;
+  color:#d7c19a;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:12px;
+  line-height:1.55;
+}
+
+.flamePreview{
+  min-height:240px;
+  display:grid;
+  place-items:center;
+  position:relative;
+  overflow:hidden;
+  border-radius:20px;
+  border:1px solid rgba(231,184,79,.18);
+  background:
+    radial-gradient(circle at center, rgba(255,106,0,.16), transparent 35%),
+    linear-gradient(180deg,rgba(255,255,255,.035),rgba(0,0,0,.18));
+}
+
+.flame{
+  width:72px;
+  height:122px;
+  border-radius:62% 62% 55% 55%;
+  background:
+    radial-gradient(circle at 52% 68%, #fffbd1 0 10%, #ffd64d 21%, #ff801a 48%, #bd1700 70%, transparent 72%);
+  filter:drop-shadow(0 0 30px rgba(255,106,0,.75));
+  animation:flame 1.7s infinite ease-in-out;
+  transform-origin:bottom center;
+}
+
+.flame:after{
+  content:"";
+  position:absolute;
+  width:160px;
+  height:160px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,106,0,.23), transparent 62%);
+  transform:translate(-44px,28px);
+  z-index:-1;
+}
+
+@keyframes flame{
+  0%,100%{transform:scale(.92,1) rotate(-2deg);opacity:.82}
+  45%{transform:scale(1.05,1.18) rotate(2deg);opacity:1}
+  70%{transform:scale(.96,1.05) rotate(-1deg);opacity:.9}
+}
+
+.footerNote{
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  padding:22px 0 6px;
+}
+
+
+.helpTip{
+  position:relative;
+  cursor:help;
+}
+
+.tooltip{
+  position:absolute;
+  left:0;
+  top:125%;
+  min-width:240px;
+  max-width:320px;
+  padding:12px 14px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(8,8,8,.96);
+  color:var(--text);
+  font-size:13px;
+  line-height:1.45;
+  box-shadow:0 12px 40px rgba(0,0,0,.42);
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(4px);
+  transition:.22s;
+  z-index:999;
+}
+
+.helpTip.show .tooltip{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.navBtn .tooltip{
+  left:calc(100% + 10px);
+  top:0;
+}
+
+.pills .tooltip,
+.protocolGrid .protocol:nth-child(3) .tooltip,
+.sectionGrid .card:nth-child(3) .tooltip{
+  left:auto;
+  right:0;
+}
+
+.helpWrap{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.helpWrap select,
+.helpWrap input{
+  flex:1;
+}
+
+.inlineHelp{
+  flex:0 0 auto;
+}
+
+.helpIcon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:18px;
+  height:18px;
+  margin-left:8px;
+  border-radius:50%;
+  border:1px solid rgba(231,184,79,.28);
+  color:var(--gold);
+  font-size:11px;
+  font-weight:900;
+  background:rgba(255,255,255,.03);
+}
+
+
+@media(max-width:1050px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{min-height:auto}
+  .heroGrid,.sectionGrid,.protocolGrid{grid-template-columns:1fr}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .topbar{align-items:flex-start;flex-direction:column}
+  .pills{justify-content:flex-start}
+}
+
+@media(max-width:620px){
+  .app{padding:12px}
+  .metrics,.nodeGrid,.sceneGrid,.formGrid,.formGrid.three{grid-template-columns:1fr}
+  .brandText strong{font-size:18px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logoMark"></div>
+      <div class="brandText">
+        <strong>STAGE<span>FLAME</span></strong>
+        <small>REAL FLAME. REAL MAGIC.</small>
+      </div>
+    </div>
+    <div class="pills">
+      <div class="pill active">Demo Mode</div>
+      <div class="pill active">Hub Online</div>
+      <div class="pill" id="protoPill">Protocol: Auto</div>
+      <div class="pill">Universe 7</div>
+      <div class="pill">4 Nodes</div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="navTitle">Hub Navigation</div>
+      <button class="navBtn active helpTip" data-page="dashboard"><span>Dashboard</span><span>Live</span><span class="tooltip">Main operating screen for live control, scenes, quick setup, node status, and blackout.</span></button>
+      <button class="navBtn helpTip" data-page="nodes"><span>Nodes</span><span>4</span><span class="tooltip">View each connected fixture, check battery and signal, assign groups, set addresses, identify, or rename fixtures.</span></button>
+      <button class="navBtn helpTip" data-page="groups"><span>Groups</span><span>3</span><span class="tooltip">Create fixture groups, assign fixtures, choose addressing modes, and set group start addresses.</span></button>
+      <button class="navBtn helpTip" data-page="protocols"><span>DMX / Art-Net / sACN</span><span>Auto</span><span class="tooltip">Configure lighting input, universe, protocol behavior, and addressing source.</span></button>
+      <button class="navBtn helpTip" data-page="network"><span>Network / WiFi</span><span>House</span><span class="tooltip">Connect the Hub to venue WiFi or view the local dashboard access address.</span></button>
+      <button class="navBtn helpTip" data-page="power"><span>Power Modes</span><span>Standby</span><span class="tooltip">Choose Show, Standby, Deep Sleep, or Rehearsal mode for runtime and operating behavior.</span></button>
+      <button class="navBtn helpTip" data-page="diagnostics"><span>Diagnostics</span><span>OK</span><span class="tooltip">Review system messages, connection events, settings changes, and simulated Hub activity.</span></button>
+      <button class="navBtn helpTip" data-page="instructions"><span>Instructions</span><span>Guide</span><span class="tooltip">Open the customer quick guide for basic operation and setup workflow.</span></button>
+    </aside>
+
+    <main class="content">
+
+      <section id="dashboard" class="page">
+        <div class="demoBanner">
+          <div>
+            <strong>Interactive website demo</strong>
+            <small>This version simulates a StageFlame Hub so future customers can test the interface without hardware.</small>
+          </div>
+          <div class="btnRow">
+            <span class="helpTip"><button id="wakeAll">Wake All</button><span class="tooltip">Wakes connected fixtures and returns them to active control mode.</span></span>
+            <span class="helpTip"><button class="danger" id="blackout">Blackout</button><span class="tooltip">Immediately turns all flame outputs off.</span></span>
+          </div>
+        </div>
+
+        <div class="heroGrid">
+          <div class="card">
+            <h1>StageFlame Hub</h1>
+            <p>Wireless flame control for candles, torches, sconces, chandeliers, and stage practicals.</p>
+
+            <div class="metrics">
+              <div class="metric"><div class="label">Nodes</div><div class="value">4</div></div>
+              <div class="metric"><div class="label">Input</div><div class="value" id="metricInput">Auto</div></div>
+              <div class="metric"><div class="label">Mode</div><div class="value" id="metricMode">Show</div></div>
+              <div class="metric"><div class="label">Battery Avg</div><div class="value" id="batteryAvg">82%</div></div>
+            </div>
+
+            <div class="controls">
+              <div class="control">
+                <div class="controlHead">
+                  <div><div class="controlTitle">Hero Flame <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Controls the main visible flame output. Use this for the primary candle, torch, or practical flame level.</span></span></div><div class="controlSub">Primary animated flame channel</div></div>
+                  <label class="toggle"><input id="pin5On" type="checkbox" checked><span></span></label>
+                </div>
+                <div class="rangeLine"><input id="heroMaster" type="range" min="0" max="100" value="82"><div class="valueBox" id="heroMasterVal">82%</div></div>
+              </div>
+
+              <div class="control">
+                <div class="controlHead">
+                  <div><div class="controlTitle">Hero Flame Low Range <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Sets the lowest brightness the Hero Flame will dip to while bounce is enabled.</span></span></div><div class="controlSub">Lowest point of the flame bounce</div></div>
+                </div>
+                <div class="rangeLine"><input id="heroLow" type="range" min="0" max="100" value="42"><div class="valueBox" id="heroLowVal">42%</div></div>
+              </div>
+
+              <div class="control">
+                <div class="controlHead">
+                  <div><div class="controlTitle">Hero Flame High Range <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Sets the brightest point the Hero Flame can reach while bounce is enabled.</span></span></div><div class="controlSub">Highest point of the flame bounce</div></div>
+                </div>
+                <div class="rangeLine"><input id="heroHigh" type="range" min="0" max="100" value="88"><div class="valueBox" id="heroHighVal">88%</div></div>
+              </div>
+
+              <div class="control">
+                <div class="controlHead">
+                  <div>
+                    <div class="controlTitle">Hero Flame Bounce <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Turns the natural rising and falling flame motion on or off. Off gives a steady Hero Flame level.</span></span></div>
+                    <div class="controlSub">Enable or disable animated flame movement</div>
+                  </div>
+                  <label class="toggle">
+                    <input id="heroBounce" type="checkbox" checked>
+                    <span></span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="control">
+                <div class="controlHead">
+                  <div><div class="controlTitle">Flicker <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Controls the secondary shimmer/glow channel. Use it to add fullness or subtle flame detail.</span></span></div><div class="controlSub">Secondary flame channel for shimmer and glow control</div></div>
+                  <label class="toggle"><input id="pin7On" type="checkbox" checked><span></span></label>
+                </div>
+                <div class="rangeLine"><input id="pin7" type="range" min="0" max="100" value="55"><div class="valueBox" id="pin7Val">55%</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Quick Setup</h2>
+            <p>Demo controls for customer-facing setup: network selection, grouping, addressing, and show presets.</p>
+
+            <div class="controls">
+              <div class="control">
+                <div class="controlHead">
+                  <div><div class="controlTitle">House WiFi <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Enter the venue WiFi so phones, tablets, or computers on that network can open the Hub dashboard.</span></span></div><div class="controlSub">Connect the Hub to in-house WiFi for browser control and wireless node management.</div></div>
+                </div>
+                <div class="formGrid">
+                  <span class="helpTip"><input id="wifiSsidQuick" placeholder="Network name / SSID" value="StageFlame_ShowNet"><span class="tooltip">Name of the WiFi network the Hub should join.</span></span>
+                  <span class="helpTip"><input id="wifiPassQuick" placeholder="Password" type="password" value="stageflame"><span class="tooltip">Password for the selected WiFi network. This demo does not actually store credentials.</span></span>
+                </div>
+                <div class="btnRow" style="margin-top:12px">
+                  <span class="helpTip"><button onclick="connectWifiQuick()">Connect WiFi</button><span class="tooltip">Connects the Hub to the entered venue or house WiFi network.</span></span>
+                  <span class="helpTip"><button class="secondary" onclick="scanWifi()">Scan Networks</button><span class="tooltip">Searches for available WiFi networks near the Hub.</span></span>
+                </div>
+              </div>
+
+              <div class="control">
+                <div class="controlHead">
+                  <div><div class="controlTitle">Fast Group Add <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Quickly creates a new fixture group from the dashboard. Use Groups & Addressing later to add fixtures and refine settings.</span></span></div><div class="controlSub">Create a group, then assign nodes from the Groups page.</div></div>
+                </div>
+                <div class="formGrid">
+                  <span class="helpTip"><input id="quickGroupName" placeholder="Group name" value="Balcony Candles"><span class="tooltip">Name for the new fixture group, such as Chandelier A, Balcony Rail, or Table Candles.</span></span>
+                  <span class="helpTip"><input id="quickGroupStart" placeholder="DMX start address" type="number" value="151"><span class="tooltip">First lighting address assigned to this group.</span></span>
+                </div>
+                <span class="helpTip"><button style="margin-top:12px" onclick="quickCreateGroup()">Create Group</button><span class="tooltip">Creates a new fixture group using the name and DMX start address entered above.</span></span>
+              </div>
+
+              <div class="control">
+                <div class="controlHead">
+                  <div><div class="controlTitle">Scenes <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Scenes are saved looks that quickly change flame behavior for different moods or production needs.</span></span></div><div class="controlSub">Load a simulated look without showing a flame preview.</div></div>
+                </div>
+                <div class="sceneGrid compactScenes">
+                  <div class="scene active helpTip" data-scene="Opera Warm"><strong>Opera Warm</strong><small>Soft realistic candlelight.</small><span class="tooltip">Loads a warm, subtle candle look suited for theatre, opera, church scenes, and classical interiors.</span></div>
+                  <div class="scene helpTip" data-scene="Haunted Low"><strong>Haunted Low</strong><small>Dim uneasy flicker.</small><span class="tooltip">Loads a low, moody look for haunted scenes, crypts, mansions, and suspenseful lighting.</span></div>
+                  <div class="scene helpTip" data-scene="Torch Procession"><strong>Torch Procession</strong><small>Brighter movement.</small><span class="tooltip">Loads a brighter, more active look intended for handheld torches or processional effects.</span></div>
+                  <div class="scene helpTip" data-scene="Storm Flicker"><strong>Storm Flicker</strong><small>Chaotic candle reaction.</small><span class="tooltip">Loads a more unstable look for storm, wind, or supernatural disturbance moments.</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sectionGrid" style="margin-top:14px">
+          <div class="card"><h2>Input Priority</h2><p>Wired DMX, Art-Net, or sACN can override manual controls during show mode.</p><span class="helpTip"><button class="secondary" onclick="demoProtocol()">Simulate Input Change</button><span class="tooltip">Cycles the demo through input sources so you can see how the Hub displays active lighting control.</span></span></div>
+          <div class="card"><h2>Power Control</h2><p>Wake all nodes, enter standby between shows, or deep sleep overnight.</p><span class="helpTip"><button class="secondary" onclick="setMode('Standby')">Enter Standby</button><span class="tooltip">Places fixtures into a lower-power state between performances while keeping them ready to wake.</span></span></div>
+          <div class="card"><h2>Safety</h2><p>Emergency blackout turns off all simulated flame outputs immediately.</p><span class="helpTip"><button class="danger" onclick="blackoutNow()">Blackout</button><span class="tooltip">Immediately turns all flame outputs off.</span></span></div>
+        </div>
+      </section>
+
+      <section id="nodes" class="page hidden">
+        <div class="card">
+          <h1>Connected Nodes</h1>
+          <p>Simulated wireless StageFlame nodes automatically appear when connected to the hub.</p>
+          <div class="nodeList" id="nodeList"></div>
+        </div>
+      </section>
+
+      <section id="groups" class="page hidden">
+        <div class="card">
+          <h1>Groups & Addressing</h1>
+          <p>Create groups, assign nodes, choose addressing mode, and set DMX start addresses.</p>
+
+          <div class="control">
+            <div class="controlHead">
+              <div>
+                <div class="controlTitle">Create New Group</div>
+                <div class="controlSub">Example: Chandelier A, Torches, Table Candles, Stage Left, Balcony Rail.</div>
+              </div>
+            </div>
+            <div class="formGrid three">
+              <span class="helpTip"><input id="newGroupName" placeholder="Group name"><span class="tooltip">Enter a customer-friendly group name, such as Chandelier A, Torches, or Stage Left.</span></span>
+              <span class="helpTip"><input id="newGroupStart" type="number" min="1" max="512" placeholder="DMX start"><span class="tooltip">First control address assigned to this group.</span></span>
+              <div class="helpWrap">
+                <select id="newGroupMode">
+                  <option>2-Channel Basic</option>
+                  <option>5-Channel Extended</option>
+                  <option>Group Master</option>
+                </select>
+                <span class="helpTip inlineHelp"><span class="helpIcon">?</span><span class="tooltip">Choose how the group listens to lighting control. Basic uses fewer channels, Extended gives more flame shaping control, and Group Master controls the whole group together.</span></span>
+              </div>
+            </div>
+            <span class="helpTip"><button style="margin-top:12px" onclick="createGroupFromForm()">Add Group</button><span class="tooltip">Adds this group to the Hub so fixtures can be assigned to it.</span></span>
+          </div>
+
+          <div class="groupManage" id="groupManage"></div>
+        </div>
+      </section>
+
+      <section id="protocols" class="page hidden">
+        <div class="card">
+          <h1>DMX / Art-Net / sACN</h1>
+          <p>The real hub can accept wired 5-pin DMX input, Ethernet Art-Net, Ethernet sACN, or WiFi network input.</p>
+
+          <div class="protocolGrid">
+            <div class="protocol active helpTip"><strong>Wired DMX</strong><div class="state">Active Signal</div><p>5-pin DMX IN with DMX THRU.</p><span class="tooltip">Uses a physical lighting cable from the console or DMX network. THRU passes signal to other fixtures.</span></div>
+            <div class="protocol helpTip"><strong>Art-Net</strong><div class="state">Listening</div><p>Universe 7 over Ethernet or WiFi.</p><span class="tooltip">Receives Art-Net control over the network from a console, media server, or show controller.</span></div>
+            <div class="protocol helpTip"><strong>sACN / E1.31</strong><div class="state">Listening</div><p>Multicast or unicast input.</p><span class="tooltip">Receives sACN/E1.31 control over the network, commonly used by modern lighting consoles.</span></div>
+          </div>
+
+          <div class="controls">
+            <div class="control">
+              <div class="controlHead">
+                <div>
+                  <div class="controlTitle">Input Mode <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Auto Detect chooses the active lighting source automatically. Manual modes can lock the Hub to a specific input.</span></span></div>
+                  <div class="controlSub">Auto Detect, DMX, Art-Net, or sACN</div>
+                </div>
+                <div class="selectLike">Auto Detect</div>
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlHead">
+                <div>
+                  <div class="controlTitle">Universe <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">The lighting universe is the control network number the Hub listens to. It must match the console output.</span></span></div>
+                  <div class="controlSub">Primary lighting universe</div>
+                </div>
+              </div>
+
+              <div class="formGrid">
+                <span class="helpTip"><input id="universeInput" type="number" min="1" max="63999" value="7"><span class="tooltip">Enter the desired universe number. Typical DMX universe addressing uses 1–512 channels per universe.</span></span>
+                <span class="helpTip"><button onclick="setUniverse()">Apply Universe</button><span class="tooltip">Sets the lighting universe the Hub listens to for DMX, Art-Net, or sACN control.</span></span>
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlHead">
+                <div>
+                  <div class="controlTitle">DMX Addressing <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Choose whether fixtures respond individually or as groups from shared control addresses.</span></span></div>
+                  <div class="controlSub">Group or individual node addressing</div>
+                </div>
+                <div class="selectLike">Individual</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="network" class="page hidden">
+        <div class="card">
+          <h1>Network / WiFi Setup</h1>
+          <p>Demo page for connecting the StageFlame Hub to the venue or in-house WiFi network.</p>
+
+          <div class="sectionGrid">
+            <div class="card">
+              <h2>Current Network</h2>
+              <p><strong>SSID:</strong> <span id="currentSsid">StageFlame_ShowNet</span></p>
+              <p><strong>IP Address:</strong> 192.168.1.122</p>
+              <p><strong>Signal:</strong> -48 dBm</p>
+            </div>
+
+            <div class="card">
+              <h2>Connect to WiFi</h2>
+              <div class="controls">
+                <span class="helpTip"><input id="wifiSsid" placeholder="House WiFi SSID" value="Theatre_WiFi"><span class="tooltip">Name of the venue or house WiFi network.</span></span>
+                <span class="helpTip"><input id="wifiPass" placeholder="WiFi Password" type="password"><span class="tooltip">Password for the selected venue WiFi network.</span></span>
+                <span class="helpTip"><button onclick="connectWifi()">Connect</button><span class="tooltip">Saves the entered WiFi network and connects the Hub to it.</span></span>
+              </div>
+            </div>
+
+            <div class="card">
+              <h2>Hub Access</h2>
+              <p>Local dashboard address:</p>
+              <p><strong>http://stageflame-hub.local</strong></p>
+              <p>Fallback AP:</p>
+              <p><strong>StageFlame_Setup</strong></p>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:14px">
+            <h2>Detected Networks</h2>
+            <div class="nodeList" id="wifiList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="power" class="page hidden">
+        <div class="card">
+          <h1>Power Modes</h1>
+          <p>Reduce battery use between shows without losing professional show control.</p>
+          <div class="sceneGrid">
+            <div class="scene active" onclick="setMode('Show')"><strong>Show Mode</strong><span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Show Mode is intended for live performances and active operation. All fixtures respond at full speed and external lighting control takes priority.</span></span><small>Full response, DMX priority, live flame output.</small></div>
+            <div class="scene" onclick="setMode('Standby')"><strong>Standby</strong><span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Standby Mode reduces power consumption between performances while keeping fixtures connected and ready to wake quickly.</span></span><small>LEDs off or ember low, slower heartbeat.</small></div>
+            <div class="scene" onclick="setMode('Deep Sleep')"><strong>Deep Sleep</strong><span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Deep Sleep is intended for overnight shutdown, storage, and transport. Wireless communication is minimized for maximum battery life.</span></span><small>Overnight / storage mode, lowest battery use.</small></div>
+            <div class="scene" onclick="setMode('Rehearsal')"><strong>Rehearsal</strong><span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Rehearsal Mode allows manual adjustment and testing without requiring live console input.</span></span><small>Manual controls unlocked for setup and testing.</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="diagnostics" class="page hidden">
+        <div class="card">
+          <h1>Diagnostics <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Diagnostics show connection events, fixture activity, network changes, and system messages for troubleshooting.</span></span></h1>
+          <p>Simulated system log and health reporting.</p>
+          <div class="log" id="log"></div>
+        </div>
+      </section>
+
+      
+      <section id="instructions" class="page hidden">
+        <div class="card">
+          <h1>StageFlame Hub Instructions</h1>
+          <p>This guide explains how to use the StageFlame Hub to manage wireless flame fixtures during setup, rehearsal, and live operation.</p>
+
+          <div class="controls">
+
+            <div class="control">
+              <div class="controlTitle">1. Powering the System</div>
+              <div class="controlSub" style="margin-top:8px">
+                Power on the StageFlame Hub first, then turn on all StageFlame fixtures. 
+                Connected fixtures will automatically appear in the Nodes page once detected.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">2. Connecting to WiFi</div>
+              <div class="controlSub" style="margin-top:8px">
+                Open the Network / WiFi page to connect the Hub to the venue or in-house wireless network. 
+                Once connected, the Hub can be accessed from any device on the same network using the local dashboard address.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">3. Creating Groups</div>
+              <div class="controlSub" style="margin-top:8px">
+                Use the Groups page to create fixture groups such as chandeliers, torches, sconces, or table candles.
+                Fixtures can be assigned to groups for synchronized control and shared addressing.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">4. Addressing Fixtures</div>
+              <div class="controlSub" style="margin-top:8px">
+                Fixtures may operate in individual addressing mode or group addressing mode.
+                DMX start addresses can be assigned from the Nodes or Groups pages.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">Addressing Modes</div>
+              <div class="controlSub" style="margin-top:8px">
+                <strong>2-Channel Basic</strong> uses two control channels: Hero Flame intensity and Flicker intensity. This is best when you want simple control and want to use fewer lighting channels.<br><br>
+
+                <strong>5-Channel Extended</strong> gives the lighting operator more creative control. In addition to Hero Flame and Flicker intensity, it allows control over Hero Flame low range, high range, and bounce behavior.<br><br>
+
+                <strong>Group Master</strong> lets a full group of fixtures respond together from one address block. This is ideal for chandeliers, wall sconces, table candles, torch lines, and other grouped scenic elements.
+              </div>
+            </div>
+
+
+            <div class="control">
+              <div class="controlTitle">5. Hero Flame</div>
+              <div class="controlSub" style="margin-top:8px">
+                Hero Flame controls the primary animated flame behavior.
+                Adjust intensity, low range, high range, and bounce behavior to achieve the desired flame appearance.
+                Bounce may be enabled or disabled using the Hero Flame Bounce toggle.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">6. Flicker</div>
+              <div class="controlSub" style="margin-top:8px">
+                Flicker controls the secondary flame shimmer and dimming level.
+                This channel is designed for supplemental glow and subtle movement enhancement.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">7. Input Sources</div>
+              <div class="controlSub" style="margin-top:8px">
+                The Hub supports wired DMX, Art-Net, and sACN input.
+                Input priority can be configured from the DMX / Art-Net / sACN page.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">8. Operating Modes</div>
+              <div class="controlSub" style="margin-top:8px">
+                <strong>Show Mode</strong> is intended for live performances and active operation. Fixtures respond immediately and external lighting input takes priority.<br><br>
+
+                <strong>Standby Mode</strong> reduces power consumption between shows while keeping fixtures available for quick wake and reconnection.<br><br>
+
+                <strong>Deep Sleep Mode</strong> is intended for overnight shutdown, storage, and transportation. Battery usage is minimized and wireless activity is greatly reduced.<br><br>
+
+                <strong>Rehearsal Mode</strong> is intended for programming, setup, and testing where manual adjustment of fixtures and scenes is preferred.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">9. Blackout</div>
+              <div class="controlSub" style="margin-top:8px">
+                The Blackout command immediately disables all flame outputs across connected fixtures.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+
+      <div class="footerNote">StageFlame Hub Demo · Website-safe simulated interface · No hardware connection required</div>
+    </main>
+  </div>
+</div>
+
+<script>
+const nodes = [
+  {name:"Candle 01", battery:91, wifi:-48, dmx:101, group:"Chandelier A", status:"Online"},
+  {name:"Candle 02", battery:76, wifi:-61, dmx:103, group:"Chandelier A", status:"Online"},
+  {name:"Torch 01", battery:84, wifi:-54, dmx:121, group:"Torches", status:"Online"},
+  {name:"Table Candle 01", battery:77, wifi:-67, dmx:141, group:"Table Candles", status:"Online"}
+];
+
+const groups = [
+  {name:"Chandelier A", start:101, mode:"2-Channel Basic", nodes:["Candle 01","Candle 02"]},
+  {name:"Torches", start:121, mode:"5-Channel Extended", nodes:["Torch 01"]},
+  {name:"Table Candles", start:141, mode:"Group Master", nodes:["Table Candle 01"]}
+];
+
+const wifiNetworks = [
+  {ssid:"Theatre_WiFi", signal:-45, security:"WPA2"},
+  {ssid:"StageFlame_ShowNet", signal:-48, security:"WPA2"},
+  {ssid:"Backstage_Guest", signal:-64, security:"WPA2"},
+  {ssid:"Lighting_Network", signal:-58, security:"Hidden / Manual"}
+];
+
+const log = document.getElementById("log");
+
+function addLog(msg){
+  const time = new Date().toLocaleTimeString();
+  log.innerHTML = `[${time}] ${msg}<br>` + log.innerHTML;
+}
+
+function wifiPercent(dbm){
+  return Math.max(12, Math.min(100, Math.round((dbm + 90) * 2.1)));
+}
+
+function renderNodes(){
+  const wrap = document.getElementById("nodeList");
+  if(!wrap) return;
+
+  const groupOptions = groups.map(g => `<option>${g.name}</option>`).join("");
+
+  wrap.innerHTML = nodes.map((n,i)=>`
+    <div class="node">
+      <div class="nodeTop">
+        <div class="nodeName">${n.name}</div>
+        <div class="nodeStatus">${n.status}</div>
+      </div>
+      <div class="nodeGrid">
+        <div>Battery: ${n.battery}%<div class="bar"><div class="fill" style="--v:${n.battery}%"></div></div></div>
+        <div>WiFi: ${n.wifi} dBm<div class="bar"><div class="fill" style="--v:${wifiPercent(n.wifi)}%"></div></div></div>
+        <div>
+          <label style="color:var(--muted);font-size:13px">DMX Address</label>
+          <span class="helpTip"><input type="number" min="1" max="512" value="${n.dmx}" onchange="setNodeAddress(${i}, this.value)"><span class="tooltip">Sets this fixture’s first control address.</span></span>
+        </div>
+        <div>
+          <label style="color:var(--muted);font-size:13px">Group</label>
+          <span class="helpTip"><select onchange="assignNodeGroup(${i}, this.value)">
+            ${groupOptions.replace(`<option>${n.group}</option>`, `<option selected>${n.group}</option>`)}
+          </select><span class="tooltip">Assigns this fixture to a group so it can be controlled with related fixtures.</span></span>
+        </div>
+      </div>
+      <div class="btnRow" style="margin-top:12px">
+        <span class="helpTip"><button class="secondary" onclick="identifyNode(${i})">Identify</button><span class="tooltip">Briefly flashes or pulses the selected fixture so you can find it physically.</span></span>
+        <span class="helpTip"><button class="secondary" onclick="renameNode(${i})">Rename</button><span class="tooltip">Changes the display name for this fixture inside the Hub.</span></span>
+      </div>
+    </div>
+  `).join("");
+}
+
+function identifyNode(i){
+  addLog(`Identify command sent to ${nodes[i].name}.`);
+}
+
+function renameNode(i){
+  const next = prompt("Demo rename:", nodes[i].name);
+  if(next){
+    nodes[i].name = next;
+    
+const tooltipTimers = new WeakMap();
+
+document.addEventListener('mouseover', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  const timer = setTimeout(() => {
+    tip.classList.add('show');
+  }, 2000);
+
+  tooltipTimers.set(tip, timer);
+});
+
+document.addEventListener('mouseout', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  clearTimeout(tooltipTimers.get(tip));
+  tip.classList.remove('show');
+});
+
+
+renderNodes();
+    addLog(`Node renamed to ${next}.`);
+  }
+}
+
+function updateSliders(){
+  ["heroMaster","heroLow","heroHigh","pin7"].forEach(id=>{
+    const el = document.getElementById(id);
+    const val = document.getElementById(id+"Val");
+    if(el && val) val.textContent = el.value + "%";
+  });
+}
+
+function setScene(name){
+  document.querySelectorAll(".scene").forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll(`[data-scene="${name}"]`).forEach(s=>s.classList.add("active"));
+
+  const presets = {
+    "Opera Warm":[82,42,88,55],
+    "Haunted Low":[34,12,48,22],
+    "Torch Procession":[95,55,100,70],
+    "Storm Flicker":[72,10,100,45]
+  };
+  const p = presets[name] || presets["Opera Warm"];
+  ["heroMaster","heroLow","heroHigh","pin7"].forEach((id,i)=>document.getElementById(id).value = p[i]);
+  updateSliders();
+  addLog(`Scene loaded: ${name}.`);
+}
+
+function setMode(mode){
+  document.getElementById("metricMode").textContent = mode;
+  addLog(`Power mode changed to ${mode}.`);
+}
+
+function modeHelp(mode){
+  if(mode === "2-Channel Basic"){
+    return "2-Channel Basic uses two control channels: Hero Flame intensity and Flicker intensity. Best for simple setups and conserving DMX channels.";
+  }
+  if(mode === "5-Channel Extended"){
+    return "5-Channel Extended gives more control: Hero Flame intensity, Flicker intensity, Hero low range, Hero high range, and Hero bounce speed/behavior.";
+  }
+  if(mode === "Group Master"){
+    return "Group Master lets one address block control every fixture in the group together. Best for chandeliers, table groups, sconces, or matching looks.";
+  }
+  return "Select how this fixture or group responds to lighting control.";
+}
+
+function renderGroups(){
+  const wrap = document.getElementById("groupManage");
+  if(!wrap) return;
+
+  const nodeOptions = nodes.map(n => `<option>${n.name}</option>`).join("");
+
+  wrap.innerHTML = groups.map((g,i)=>`
+    <div class="groupCard">
+      <div class="groupTop">
+        <div>
+          <strong>${g.name}</strong>
+          <div class="controlSub">DMX Start ${g.start} · ${g.mode}</div>
+          <div class="tagRow">${g.nodes.map(n=>`<span class="tag">${n}</span>`).join("") || `<span class="tag">No nodes assigned</span>`}</div>
+        </div>
+        <span class="helpTip">
+          <button class="secondary" onclick="deleteGroup(${i})">Delete</button>
+          <span class="tooltip">Removes this group from the Hub. Fixtures are not deleted; they become unassigned until added to another group.</span>
+        </span>
+      </div>
+      <div class="formGrid three">
+        <span class="helpTip"><input value="${g.name}" onchange="updateGroupName(${i}, this.value)"><span class="tooltip">Renames this group in the Hub.</span></span>
+        <span class="helpTip"><input type="number" min="1" max="512" value="${g.start}" onchange="updateGroupStart(${i}, this.value)"><span class="tooltip">Changes the first lighting address used by this group.</span></span>
+        <div class="helpWrap">
+          <select onchange="updateGroupMode(${i}, this.value)">
+            <option ${g.mode==="2-Channel Basic"?"selected":""}>2-Channel Basic</option>
+            <option ${g.mode==="5-Channel Extended"?"selected":""}>5-Channel Extended</option>
+            <option ${g.mode==="Group Master"?"selected":""}>Group Master</option>
+          </select>
+          <span class="helpTip inlineHelp"><span class="helpIcon">?</span><span class="tooltip">${modeHelp(g.mode)}</span></span>
+        </div>
+      </div>
+      <div class="formGrid" style="margin-top:10px">
+        <span class="helpTip"><select id="addNode-${i}">${nodeOptions}</select><span class="tooltip">Select the fixture you want to add to this group.</span></span>
+        <span class="helpTip">
+          <button onclick="addNodeToGroup(${i})">Add Node to Group</button>
+          <span class="tooltip">Assigns the selected fixture to this group so it follows this group’s addressing and control settings.</span>
+        </span>
+      </div>
+    </div>
+  `).join("");
+}
+
+function createGroup(name, start, mode="2-Channel Basic"){
+  if(!name) return;
+  groups.push({name, start:Number(start)||1, mode, nodes:[]});
+  renderGroups();
+  
+const tooltipTimers = new WeakMap();
+
+document.addEventListener('mouseover', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  const timer = setTimeout(() => {
+    tip.classList.add('show');
+  }, 2000);
+
+  tooltipTimers.set(tip, timer);
+});
+
+document.addEventListener('mouseout', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  clearTimeout(tooltipTimers.get(tip));
+  tip.classList.remove('show');
+});
+
+
+renderNodes();
+  addLog(`Group created: ${name}, DMX start ${start}.`);
+}
+
+function createGroupFromForm(){
+  createGroup(
+    document.getElementById("newGroupName").value,
+    document.getElementById("newGroupStart").value,
+    document.getElementById("newGroupMode").value
+  );
+}
+
+function quickCreateGroup(){
+  createGroup(
+    document.getElementById("quickGroupName").value,
+    document.getElementById("quickGroupStart").value,
+    "2-Channel Basic"
+  );
+}
+
+function addNodeToGroup(groupIndex){
+  const nodeName = document.getElementById(`addNode-${groupIndex}`).value;
+  const g = groups[groupIndex];
+  if(!g.nodes.includes(nodeName)) g.nodes.push(nodeName);
+
+  const node = nodes.find(n => n.name === nodeName);
+  if(node) node.group = g.name;
+
+  renderGroups();
+  
+const tooltipTimers = new WeakMap();
+
+document.addEventListener('mouseover', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  const timer = setTimeout(() => {
+    tip.classList.add('show');
+  }, 2000);
+
+  tooltipTimers.set(tip, timer);
+});
+
+document.addEventListener('mouseout', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  clearTimeout(tooltipTimers.get(tip));
+  tip.classList.remove('show');
+});
+
+
+renderNodes();
+  addLog(`${nodeName} added to ${g.name}.`);
+}
+
+function assignNodeGroup(nodeIndex, groupName){
+  const node = nodes[nodeIndex];
+  groups.forEach(g => g.nodes = g.nodes.filter(n => n !== node.name));
+  const g = groups.find(g => g.name === groupName);
+  if(g && !g.nodes.includes(node.name)) g.nodes.push(node.name);
+  node.group = groupName;
+  renderGroups();
+  addLog(`${node.name} assigned to ${groupName}.`);
+}
+
+function setNodeAddress(nodeIndex, value){
+  nodes[nodeIndex].dmx = Number(value);
+  addLog(`${nodes[nodeIndex].name} DMX address set to ${value}.`);
+}
+
+function updateGroupName(i, value){
+  const old = groups[i].name;
+  groups[i].name = value;
+  nodes.forEach(n => { if(n.group === old) n.group = value; });
+  renderGroups();
+  
+const tooltipTimers = new WeakMap();
+
+document.addEventListener('mouseover', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  const timer = setTimeout(() => {
+    tip.classList.add('show');
+  }, 2000);
+
+  tooltipTimers.set(tip, timer);
+});
+
+document.addEventListener('mouseout', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  clearTimeout(tooltipTimers.get(tip));
+  tip.classList.remove('show');
+});
+
+
+renderNodes();
+}
+
+function updateGroupStart(i, value){
+  groups[i].start = Number(value);
+  addLog(`${groups[i].name} DMX start changed to ${value}.`);
+}
+
+function updateGroupMode(i, value){
+  groups[i].mode = value;
+  addLog(`${groups[i].name} mode changed to ${value}.`);
+}
+
+function deleteGroup(i){
+  const name = groups[i].name;
+  groups.splice(i,1);
+  nodes.forEach(n => { if(n.group === name) n.group = "Unassigned"; });
+  renderGroups();
+  
+const tooltipTimers = new WeakMap();
+
+document.addEventListener('mouseover', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  const timer = setTimeout(() => {
+    tip.classList.add('show');
+  }, 2000);
+
+  tooltipTimers.set(tip, timer);
+});
+
+document.addEventListener('mouseout', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  clearTimeout(tooltipTimers.get(tip));
+  tip.classList.remove('show');
+});
+
+
+renderNodes();
+  addLog(`Group deleted: ${name}.`);
+}
+
+function renderWifi(){
+  const wrap = document.getElementById("wifiList");
+  if(!wrap) return;
+  wrap.innerHTML = wifiNetworks.map(w=>`
+    <div class="node">
+      <div class="nodeTop">
+        <div class="nodeName">${w.ssid}</div>
+        <div class="nodeStatus">${w.security}</div>
+      </div>
+      <div class="nodeGrid">
+        <div>Signal: ${w.signal} dBm<div class="bar"><div class="fill" style="--v:${wifiPercent(w.signal)}%"></div></div></div>
+        <div><span class="helpTip"><button class="secondary" onclick="chooseWifi('${w.ssid}')">Use Network</button><span class="tooltip">Copies this network name into the WiFi connection field.</span></span></div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function chooseWifi(ssid){
+  document.getElementById("wifiSsid").value = ssid;
+  document.getElementById("wifiSsidQuick").value = ssid;
+  addLog(`Selected WiFi network: ${ssid}.`);
+}
+
+function connectWifi(){
+  const ssid = document.getElementById("wifiSsid").value;
+  document.getElementById("currentSsid").textContent = ssid;
+  addLog(`Demo WiFi connected to ${ssid}.`);
+}
+
+function connectWifiQuick(){
+  const ssid = document.getElementById("wifiSsidQuick").value;
+  const current = document.getElementById("currentSsid");
+  if(current) current.textContent = ssid;
+  addLog(`Demo WiFi connected to ${ssid}.`);
+}
+
+function scanWifi(){
+  renderWifi();
+  addLog("WiFi scan complete: 4 demo networks found.");
+}
+
+function blackoutNow(){
+  document.getElementById("heroMaster").value = 0;
+  document.getElementById("pin7").value = 0;
+  updateSliders();
+  addLog("Blackout activated: all flame outputs set to 0%.");
+}
+
+function setUniverse(){
+  const universe = document.getElementById("universeInput").value;
+  document.querySelectorAll(".pill").forEach(p => {
+    if(p.textContent.includes("Universe")){
+      p.textContent = "Universe " + universe;
+    }
+  });
+  addLog(`Universe changed to ${universe}.`);
+}
+
+
+function demoProtocol(){
+  const list = ["Wired DMX","Art-Net","sACN","Auto"];
+  const current = document.getElementById("metricInput").textContent;
+  const next = list[(list.indexOf(current)+1) % list.length] || "Wired DMX";
+  document.getElementById("metricInput").textContent = next;
+  document.getElementById("protoPill").textContent = "Protocol: " + next;
+  addLog(`Input source simulated: ${next}.`);
+}
+
+document.querySelectorAll(".navBtn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".navBtn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+    document.getElementById(btn.dataset.page).classList.remove("hidden");
+  });
+});
+
+document.querySelectorAll("input[type=range], input[type=checkbox]").forEach(el=>{
+  el.addEventListener("input", updateSliders);
+  el.addEventListener("change", updateSliders);
+});
+
+document.querySelectorAll("[data-scene]").forEach(el=>{
+  el.addEventListener("click",()=>setScene(el.dataset.scene));
+});
+
+document.getElementById("wakeAll").addEventListener("click",()=>{setMode("Show"); addLog("Wake all nodes command sent.");});
+document.getElementById("blackout").addEventListener("click",blackoutNow);
+
+
+const tooltipTimers = new WeakMap();
+
+document.addEventListener('mouseover', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  const timer = setTimeout(() => {
+    tip.classList.add('show');
+  }, 2000);
+
+  tooltipTimers.set(tip, timer);
+});
+
+document.addEventListener('mouseout', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  clearTimeout(tooltipTimers.get(tip));
+  tip.classList.remove('show');
+});
+
+
+renderNodes();
+renderGroups();
+renderWifi();
+updateSliders();
+addLog("StageFlame Hub demo initialized.");
+addLog("4 simulated nodes connected.");
+</script>
+</body>
+</html>
