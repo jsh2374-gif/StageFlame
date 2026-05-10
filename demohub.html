@@ -679,6 +679,56 @@ input:focus, select:focus{
 }
 
 
+
+.nodeSettings{
+  display:none;
+  margin-top:12px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:16px;
+  background:rgba(0,0,0,.22);
+}
+
+.nodeSettings.open{
+  display:block;
+}
+
+.settingGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:12px;
+}
+
+.settingItem{
+  padding:12px;
+  border:1px solid rgba(231,184,79,.14);
+  border-radius:14px;
+  background:rgba(255,255,255,.025);
+}
+
+.settingItem label{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  color:var(--gold2);
+  font-size:13px;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.nodeModeBadge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:5px 8px;
+  border:1px solid rgba(231,184,79,.2);
+  border-radius:999px;
+  color:var(--gold);
+  font-size:11px;
+  background:rgba(255,255,255,.03);
+}
+
 @media(max-width:1050px){
   .layout{grid-template-columns:1fr}
   .sidebar{min-height:auto}
@@ -690,7 +740,7 @@ input:focus, select:focus{
 
 @media(max-width:620px){
   .app{padding:12px}
-  .metrics,.nodeGrid,.sceneGrid,.formGrid,.formGrid.three{grid-template-columns:1fr}
+  .metrics,.nodeGrid,.sceneGrid,.formGrid,.formGrid.three,.settingGrid{grid-template-columns:1fr}
   .brandText strong{font-size:18px}
 }
 </style>
@@ -1051,6 +1101,20 @@ input:focus, select:focus{
 
 
             <div class="control">
+              <div class="controlTitle">Node Settings Dropdown</div>
+              <div class="controlSub" style="margin-top:8px">
+                Each fixture has a Settings button. Open it to choose the fixture’s DMX mode and adjust the controls available for that mode.<br><br>
+
+                <strong>2-Channel Basic</strong> shows Hero Flame intensity and Flicker only.<br><br>
+
+                <strong>5-Channel Extended</strong> shows Hero Flame intensity, Flicker, bounce rate, low range, and high range.<br><br>
+
+                <strong>Group Master</strong> lets the fixture follow its assigned group while allowing local trim adjustments.
+              </div>
+            </div>
+
+
+            <div class="control">
               <div class="controlTitle">5. Hero Flame</div>
               <div class="controlSub" style="margin-top:8px">
                 Hero Flame controls the primary animated flame behavior.
@@ -1107,10 +1171,10 @@ input:focus, select:focus{
 
 <script>
 const nodes = [
-  {name:"Candle 01", battery:91, wifi:-48, dmx:101, group:"Chandelier A", status:"Online"},
-  {name:"Candle 02", battery:76, wifi:-61, dmx:103, group:"Chandelier A", status:"Online"},
-  {name:"Torch 01", battery:84, wifi:-54, dmx:121, group:"Torches", status:"Online"},
-  {name:"Table Candle 01", battery:77, wifi:-67, dmx:141, group:"Table Candles", status:"Online"}
+  {name:"Candle 01", battery:91, wifi:-48, dmx:101, group:"Chandelier A", status:"Online", mode:"2-Channel Basic", intensity:82, flicker:55, bounce:4, low:42, high:88},
+  {name:"Candle 02", battery:76, wifi:-61, dmx:103, group:"Chandelier A", status:"Online", mode:"2-Channel Basic", intensity:78, flicker:50, bounce:4, low:40, high:86},
+  {name:"Torch 01", battery:84, wifi:-54, dmx:121, group:"Torches", status:"Online", mode:"5-Channel Extended", intensity:95, flicker:70, bounce:7, low:55, high:100},
+  {name:"Table Candle 01", battery:77, wifi:-67, dmx:141, group:"Table Candles", status:"Online", mode:"Group Master", intensity:65, flicker:35, bounce:3, low:25, high:72}
 ];
 
 const groups = [
@@ -1146,9 +1210,17 @@ function renderNodes(){
   wrap.innerHTML = nodes.map((n,i)=>`
     <div class="node">
       <div class="nodeTop">
-        <div class="nodeName">${n.name}</div>
+        <div>
+          <div class="nodeName">${n.name}</div>
+          <div class="tagRow" style="margin-top:6px">
+            <span class="nodeModeBadge">${n.mode}</span>
+            <span class="nodeModeBadge">DMX ${n.dmx}</span>
+            <span class="nodeModeBadge">${n.group}</span>
+          </div>
+        </div>
         <div class="nodeStatus">${n.status}</div>
       </div>
+
       <div class="nodeGrid">
         <div>Battery: ${n.battery}%<div class="bar"><div class="fill" style="--v:${n.battery}%"></div></div></div>
         <div>WiFi: ${n.wifi} dBm<div class="bar"><div class="fill" style="--v:${wifiPercent(n.wifi)}%"></div></div></div>
@@ -1163,9 +1235,43 @@ function renderNodes(){
           </select><span class="tooltip">Assigns this fixture to a group so it can be controlled with related fixtures.</span></span>
         </div>
       </div>
+
       <div class="btnRow" style="margin-top:12px">
         <span class="helpTip"><button class="secondary" onclick="identifyNode(${i})">Identify</button><span class="tooltip">Briefly flashes or pulses the selected fixture so you can find it physically.</span></span>
         <span class="helpTip"><button class="secondary" onclick="renameNode(${i})">Rename</button><span class="tooltip">Changes the display name for this fixture inside the Hub.</span></span>
+        <span class="helpTip"><button onclick="toggleNodeSettings(${i})">Settings</button><span class="tooltip">Opens fixture-specific settings including DMX mode, intensity, Flicker, bounce rate, and range controls.</span></span>
+      </div>
+
+      <div class="nodeSettings" id="nodeSettings-${i}">
+        <div class="controlHead">
+          <div>
+            <div class="controlTitle">Node Settings</div>
+            <div class="controlSub">${nodeModeDescription(n.mode)}</div>
+          </div>
+        </div>
+
+        <div class="formGrid">
+          <div>
+            <label style="color:var(--muted);font-size:13px">DMX Mode</label>
+            <span class="helpTip">
+              <select onchange="setNodeMode(${i}, this.value)">
+                <option ${n.mode==="2-Channel Basic"?"selected":""}>2-Channel Basic</option>
+                <option ${n.mode==="5-Channel Extended"?"selected":""}>5-Channel Extended</option>
+                <option ${n.mode==="Group Master"?"selected":""}>Group Master</option>
+              </select>
+              <span class="tooltip">${modeHelp(n.mode)}</span>
+            </span>
+          </div>
+
+          <div>
+            <label style="color:var(--muted);font-size:13px">Address Preview</label>
+            <div class="selectLike">${nodeAddressPreview(n)}</div>
+          </div>
+        </div>
+
+        <div class="settingGrid">
+          ${nodeSettingsControls(n,i)}
+        </div>
       </div>
     </div>
   `).join("");
@@ -1247,6 +1353,86 @@ function modeHelp(mode){
     return "Group Master lets one address block control every fixture in the group together. Best for chandeliers, table groups, sconces, or matching looks.";
   }
   return "Select how this fixture or group responds to lighting control.";
+}
+
+function nodeModeDescription(mode){
+  if(mode === "2-Channel Basic") return "Basic control: Hero Flame intensity and Flicker intensity.";
+  if(mode === "5-Channel Extended") return "Extended control: intensity, Flicker, bounce rate, low range, and high range.";
+  if(mode === "Group Master") return "This fixture follows its group master settings while allowing local trim adjustment.";
+  return "Choose how this fixture responds to lighting control.";
+}
+
+function nodeAddressPreview(n){
+  if(n.mode === "2-Channel Basic"){
+    return `CH ${n.dmx}: Hero · CH ${Number(n.dmx)+1}: Flicker`;
+  }
+  if(n.mode === "5-Channel Extended"){
+    return `CH ${n.dmx}-${Number(n.dmx)+4}: Extended`;
+  }
+  if(n.mode === "Group Master"){
+    return `Group: ${n.group}`;
+  }
+  return `CH ${n.dmx}`;
+}
+
+function settingControl(label, key, value, nodeIndex, help, min=0, max=100){
+  return `
+    <div class="settingItem">
+      <label>
+        <span>${label} <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">${help}</span></span></span>
+        <span id="node-${nodeIndex}-${key}-val">${value}${key==="bounce" ? "" : "%"}</span>
+      </label>
+      <input type="range" min="${min}" max="${max}" value="${value}" oninput="setNodeSetting(${nodeIndex}, '${key}', this.value)">
+    </div>
+  `;
+}
+
+function nodeSettingsControls(n,i){
+  if(n.mode === "2-Channel Basic"){
+    return `
+      ${settingControl("Hero Flame Intensity", "intensity", n.intensity, i, "Controls the main flame brightness for this fixture.")}
+      ${settingControl("Flicker", "flicker", n.flicker, i, "Controls the secondary shimmer/glow level for this fixture.")}
+    `;
+  }
+
+  if(n.mode === "5-Channel Extended"){
+    return `
+      ${settingControl("Hero Flame Intensity", "intensity", n.intensity, i, "Controls the main flame brightness for this fixture.")}
+      ${settingControl("Flicker", "flicker", n.flicker, i, "Controls the secondary shimmer/glow level for this fixture.")}
+      ${settingControl("Bounce Rate", "bounce", n.bounce, i, "Controls how quickly the Hero Flame rises and falls when bounce is enabled.", 1, 10)}
+      ${settingControl("Low Range", "low", n.low, i, "Lowest brightness point used by the Hero Flame bounce.")}
+      ${settingControl("High Range", "high", n.high, i, "Highest brightness point used by the Hero Flame bounce.")}
+    `;
+  }
+
+  if(n.mode === "Group Master"){
+    return `
+      ${settingControl("Local Intensity Trim", "intensity", n.intensity, i, "Adjusts this fixture slightly above or below the group master look.")}
+      ${settingControl("Local Flicker Trim", "flicker", n.flicker, i, "Adjusts this fixture’s Flicker level relative to the group master.")}
+    `;
+  }
+
+  return "";
+}
+
+function toggleNodeSettings(i){
+  const panel = document.getElementById(`nodeSettings-${i}`);
+  if(panel) panel.classList.toggle("open");
+}
+
+function setNodeMode(i, mode){
+  nodes[i].mode = mode;
+  renderNodes();
+  const panel = document.getElementById(`nodeSettings-${i}`);
+  if(panel) panel.classList.add("open");
+  addLog(`${nodes[i].name} DMX mode changed to ${mode}.`);
+}
+
+function setNodeSetting(i, key, value){
+  nodes[i][key] = Number(value);
+  const val = document.getElementById(`node-${i}-${key}-val`);
+  if(val) val.textContent = value + (key === "bounce" ? "" : "%");
+  addLog(`${nodes[i].name} ${key} set to ${value}${key === "bounce" ? "" : "%"}.`);
 }
 
 function renderGroups(){
