@@ -6742,14 +6742,14 @@ function renderGroups(){
         <div class="controlHead">
           <div>
             <div class="controlTitle">Assign Nodes to Group</div>
-            <div class="controlSub">Select one or more nodes, then add them to this group.</div>
+            <div class="controlSub">Select the exact nodes that should belong to this group, then click Update Group.</div>
           </div>
         </div>
 
         <div class="multiNodeTools">
           <button class="secondary" onclick="selectAllNodesForGroup(${i}, true)">Select All</button>
           <button class="secondary" onclick="selectAllNodesForGroup(${i}, false)">Clear Selection</button>
-          <button onclick="addSelectedNodesToGroup(${i})">Add Selected Nodes</button>
+          <button onclick="updateGroupNodes(${i})">Update Group</button>
         </div>
 
         <div class="multiNodeList" id="multiNodeList-${i}">
@@ -6789,19 +6789,35 @@ function selectAllNodesForGroup(groupIndex, checked){
   });
 }
 
-function addSelectedNodesToGroup(groupIndex){
+function updateGroupNodes(groupIndex){
   const list = document.getElementById(`multiNodeList-${groupIndex}`);
   if(!list || !groups[groupIndex]) return;
+
+  const group = groups[groupIndex];
 
   const selectedNames = [...list.querySelectorAll("input[type='checkbox']:checked")]
     .map(box => nodes[Number(box.value)]?.name)
     .filter(Boolean);
 
-  groups[groupIndex].nodes = [...new Set([...groups[groupIndex].nodes, ...selectedNames])];
+  const previousNames = Array.isArray(group.nodes) ? [...group.nodes] : [];
 
-  selectedNames.forEach(name=>{
-    const node = nodes.find(n=>n.name === name);
-    if(node) node.group = groups[groupIndex].name;
+  // Remove this group from nodes that were previously assigned but are now unchecked.
+  previousNames.forEach(name => {
+    if(!selectedNames.includes(name)){
+      const node = nodes.find(n => n.name === name);
+      if(node && node.group === group.name){
+        node.group = "Unassigned";
+      }
+    }
+  });
+
+  // Replace group membership exactly with the checked nodes.
+  group.nodes = [...new Set(selectedNames)];
+
+  // Assign checked nodes to this group.
+  group.nodes.forEach(name => {
+    const node = nodes.find(n => n.name === name);
+    if(node) node.group = group.name;
   });
 
   renderGroups();
@@ -6810,7 +6826,12 @@ function addSelectedNodesToGroup(groupIndex){
   if(typeof renderCompactWebControl === "function") renderCompactWebControl();
   if(typeof renderWebControl === "function") renderWebControl();
 
-  addLog(`${selectedNames.length} node(s) assigned to ${groups[groupIndex].name}.`);
+  addLog(`${group.name} updated: ${group.nodes.length} node(s) assigned.`);
+}
+
+// Backwards-compatible alias in case any older buttons remain.
+function addSelectedNodesToGroup(groupIndex){
+  updateGroupNodes(groupIndex);
 }
 
 function createGroup(name, start, mode="3-Channel"){
