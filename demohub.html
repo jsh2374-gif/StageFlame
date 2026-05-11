@@ -788,6 +788,4769 @@ input:focus, select:focus{
   filter:grayscale(.35);
 }
 
+
+.webTopBar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+  padding:14px;
+  border:2px solid rgba(255,106,0,.38);
+  border-radius:20px;
+  background:radial-gradient(circle at top right, rgba(255,106,0,.16), transparent 42%), rgba(255,255,255,.025);
+}
+
+.webTopBar h1{margin:0}
+
+.bigBlackout{
+  font-size:18px;
+  padding:16px 24px;
+  border:3px solid rgba(255,80,40,.72)!important;
+  box-shadow:0 0 28px rgba(255,60,20,.22);
+}
+
+.webControlGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.controlTable{
+  display:grid;
+  gap:10px;
+  margin-top:14px;
+}
+
+.controlRow{
+  display:grid;
+  grid-template-columns:1.1fr 1fr 1fr 90px;
+  gap:10px;
+  align-items:center;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:16px;
+  background:rgba(255,255,255,.026);
+}
+
+.controlRow strong{color:var(--gold2)}
+
+.controlMini{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.controlMini label{
+  color:var(--muted);
+  font-size:12px;
+  min-width:44px;
+}
+
+.chasePanel{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:14px;
+}
+
+.chasePreview{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:12px;
+}
+
+.chaseDot{
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  border:1px solid rgba(231,184,79,.24);
+  background:rgba(255,255,255,.05);
+  display:inline-block;
+}
+
+.chaseDot.active{
+  background:radial-gradient(circle,#fff2b3,#ff8a16 60%,#371100);
+  box-shadow:0 0 18px rgba(255,106,0,.72);
+}
+
+.fadeButtons{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:12px;
+}
+
+
+.consoleSurface{
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:24px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(18,18,18,.96), rgba(5,5,5,.98));
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  margin-bottom:16px;
+}
+
+.consoleSelector{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.consoleSelector button.active{
+  border:2px solid rgba(255,145,35,.9);
+  box-shadow:0 0 20px rgba(255,106,0,.35);
+}
+
+.faderBank{
+  display:grid;
+  grid-template-columns:140px 1fr;
+  gap:16px;
+}
+
+.masterStrip{
+  min-height:440px;
+  padding:14px;
+  border:3px solid rgba(255,145,35,.78);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    rgba(255,255,255,.03);
+  box-shadow:0 0 32px rgba(255,106,0,.24);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.faderScroller{
+  overflow-x:auto;
+  padding-bottom:10px;
+}
+
+.faderRows{
+  display:flex;
+  gap:12px;
+  min-width:max-content;
+}
+
+.faderStrip{
+  width:118px;
+  min-height:440px;
+  padding:12px 10px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.faderStrip.active{
+  border-color:rgba(255,145,35,.82);
+  box-shadow:0 0 20px rgba(255,106,0,.18);
+}
+
+.faderName{
+  color:var(--gold2);
+  font-weight:900;
+  font-size:13px;
+  text-align:center;
+  min-height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.faderValue{
+  color:#fff5d6;
+  font-size:22px;
+  font-weight:900;
+  margin:8px 0;
+}
+
+.verticalFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:230px;
+  accent-color:var(--orange);
+}
+
+.faderLabel{
+  color:var(--muted);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.lifeSelectSmall{
+  font-size:12px;
+  padding:8px;
+  margin-top:8px;
+}
+
+.consoleSubControls{
+  margin-top:16px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+
+.consoleSurface{
+  background:
+    linear-gradient(180deg, rgba(32,34,72,.96), rgba(16,18,48,.98))!important;
+  border-color:rgba(120,150,255,.35)!important;
+}
+
+.consoleHeader h2{
+  color:#fff6d0;
+}
+
+.faderBank{
+  grid-template-columns:110px 1fr!important;
+}
+
+.masterStrip{
+  min-height:520px!important;
+  border-color:rgba(255,145,35,.9)!important;
+}
+
+.faderRows{
+  gap:10px!important;
+  align-items:stretch;
+}
+
+.consoleFixture{
+  width:260px;
+  min-height:520px;
+  padding:10px;
+  border:1px solid rgba(210,220,255,.24);
+  border-radius:10px;
+  background:
+    linear-gradient(180deg, rgba(59,61,112,.92), rgba(37,39,86,.96));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border-color:rgba(255,145,35,.85);
+  box-shadow:0 0 20px rgba(255,106,0,.22);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.18);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:8px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:#d6dafd;
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:410px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:8px;
+  background:rgba(0,0,0,.12);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(0,0,0,.22);
+  color:#e9eaff;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:6px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:#00ff77;
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:#f7f7ff;
+}
+
+.lifeReadout{
+  color:#ffd36e;
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+  accent-color:var(--orange);
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+
+/* Web Control v23 fixes */
+.consoleSurface,
+.addFaderPanel,
+.faderScroller,
+.faderRows{
+  overflow:visible!important;
+}
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+}
+
+.addFaderPanel{
+  display:block!important;
+  position:relative;
+  z-index:20;
+  margin-bottom:16px;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:10px 0 12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+  width:100%;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+.consoleFader,
+.verticalFader{
+  writing-mode:vertical-lr!important;
+  direction:rtl!important;
+  appearance:auto;
+  -webkit-appearance:slider-vertical;
+  width:34px;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.faderRows{
+  min-height:490px;
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+}
+
+
+/* v24 repair: visible group list and web-control add list */
+.groupManage{
+  display:grid!important;
+  gap:14px!important;
+  margin-top:16px!important;
+}
+
+.webAddPanel{
+  margin-bottom:16px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.webAddButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:10px 0 12px;
+}
+
+.webAddButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.webAddList{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+  gap:10px;
+}
+
+.webAddItem{
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+  width:100%;
+}
+
+.webAddItem strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.webAddItem small{
+  color:var(--muted);
+}
+
+.webAddItem.added{
+  opacity:.55;
+}
+
+.consoleSurface,
+.faderScroller,
+.faderRows{
+  overflow:visible!important;
+}
+
+.faderScroller{
+  overflow-x:auto!important;
+}
+
+
+/* v25 Web Control rebuild */
+.webAddPanel{
+  display:block!important;
+  margin-bottom:16px!important;
+  padding:14px!important;
+  border:1px solid rgba(231,184,79,.22)!important;
+  border-radius:18px!important;
+  background:rgba(255,255,255,.025)!important;
+  overflow:visible!important;
+}
+
+.webAddButtons{
+  display:flex!important;
+  gap:10px!important;
+  flex-wrap:wrap!important;
+  margin-bottom:12px!important;
+}
+
+.webAddButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32)!important;
+}
+
+.webAddList{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr))!important;
+  gap:10px!important;
+}
+
+.webAddItem{
+  width:100%!important;
+  text-align:left!important;
+  padding:12px!important;
+  border-radius:14px!important;
+  border:1px solid rgba(231,184,79,.22)!important;
+  background:rgba(255,255,255,.035)!important;
+  color:var(--text)!important;
+  cursor:pointer!important;
+}
+
+.webAddItem strong{
+  display:block!important;
+  color:var(--gold2)!important;
+  margin-bottom:4px!important;
+}
+
+.webAddItem small{
+  color:var(--muted)!important;
+}
+
+.webAddItem.added{
+  opacity:.55!important;
+}
+
+.consoleSurface{
+  overflow:visible!important;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+}
+
+.faderScroller{
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+}
+
+.faderRows{
+  min-height:500px!important;
+  align-items:stretch!important;
+}
+
+.consoleFader{
+  writing-mode:vertical-lr!important;
+  direction:rtl!important;
+  -webkit-appearance:slider-vertical!important;
+  appearance:slider-vertical!important;
+  width:34px!important;
+  accent-color:var(--orange)!important;
+}
+
+
+/* v26 simplified all-node web control */
+.simpleMasterPanel{
+  display:grid;
+  grid-template-columns:1fr 2fr 80px;
+  gap:14px;
+  align-items:center;
+  padding:16px;
+  border:2px solid rgba(255,145,35,.55);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.13), transparent 42%),
+    rgba(255,255,255,.03);
+  margin-bottom:16px;
+}
+
+.allNodeMiniFaders{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+  gap:12px;
+}
+
+.miniNodeStrip{
+  padding:12px;
+  border:1px solid rgba(231,184,79,.22);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.09), transparent 42%),
+    rgba(255,255,255,.025);
+}
+
+.miniNodeStrip.active{
+  border:2px solid rgba(255,145,35,.75);
+  box-shadow:0 0 22px rgba(255,106,0,.18);
+}
+
+.miniNodeTop{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:flex-start;
+  margin-bottom:10px;
+}
+
+.miniNodeTop strong{
+  color:var(--gold2);
+  font-size:15px;
+}
+
+.miniNodeTop small{
+  display:block;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.miniChannels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.miniChannel{
+  height:250px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:7px 4px;
+  border:1px solid rgba(231,184,79,.14);
+  border-radius:12px;
+  background:rgba(0,0,0,.16);
+}
+
+.miniChannel label{
+  color:var(--gold);
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  min-height:28px;
+}
+
+.miniFader{
+  writing-mode:vertical-lr!important;
+  direction:rtl!important;
+  -webkit-appearance:slider-vertical!important;
+  appearance:slider-vertical!important;
+  width:30px!important;
+  height:145px!important;
+  accent-color:var(--orange)!important;
+}
+
+.miniVal{
+  color:#fff;
+  font-weight:900;
+  font-size:13px;
+}
+
+.miniCh{
+  color:var(--green);
+  font-size:10px;
+  font-weight:900;
+}
+
+.miniLifeName{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:20px;
+}
+
+@media(max-width:800px){
+  .simpleMasterPanel{
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* v28 group + node console controls */
+.allNodeMiniFaders{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr))!important;
+  gap:12px!important;
+}
+
+.miniNodeStrip.groupStrip{
+  border-color:rgba(255,145,35,.42);
+  background:
+    radial-gradient(circle at top right, rgba(255,145,35,.13), transparent 42%),
+    rgba(255,255,255,.025);
+}
+
+.miniNodeStrip.nodeStrip{
+  border-color:rgba(231,184,79,.20);
+}
+
+
+/* v29 force render 7 groups + 20 nodes on Web Control */
+.allNodeMiniFaders{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr))!important;
+  gap:12px!important;
+  width:100%!important;
+}
+
+.miniNodeStrip{
+  display:block!important;
+  min-height:330px!important;
+}
+
+.miniChannels{
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+  gap:8px!important;
+}
+
+.groupStrip{
+  border:2px solid rgba(255,145,35,.48)!important;
+  background:
+    radial-gradient(circle at top right, rgba(255,145,35,.13), transparent 42%),
+    rgba(255,255,255,.025)!important;
+}
+
+.nodeStrip{
+  border:1px solid rgba(231,184,79,.22)!important;
+}
+
+.nodeModeBadge{
+  vertical-align:middle;
+  margin-left:8px;
+}
+
+
+/* v30 rendered strips */
+.allNodeMiniFaders{
+ display:grid!important;
+ grid-template-columns:repeat(auto-fill,minmax(240px,1fr))!important;
+ gap:14px!important;
+ margin-top:18px!important;
+}
+
+.miniNodeStrip{
+ background:linear-gradient(180deg, rgba(30,18,8,.95), rgba(5,5,5,.95));
+ border:2px solid rgba(255,145,35,.35)!important;
+ border-radius:22px;
+ padding:14px;
+ min-height:420px;
+ display:flex!important;
+ flex-direction:column;
+}
+
+.groupStrip{
+ box-shadow:0 0 24px rgba(255,120,0,.14);
+}
+
+.stripHeader{
+ display:flex;
+ justify-content:space-between;
+ align-items:flex-start;
+ margin-bottom:10px;
+}
+
+.stripTitle{
+ color:var(--gold2);
+ font-size:20px;
+ font-weight:900;
+}
+
+.stripSub{
+ color:var(--muted);
+ font-size:12px;
+ margin-top:3px;
+}
+
+.stripStatus{
+ color:#44ff99;
+ font-size:12px;
+ font-weight:800;
+}
+
+.stripFaders{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ flex:1;
+ align-items:end;
+ margin-top:10px;
+}
+
+.faderCol{
+ border:1px solid rgba(255,255,255,.08);
+ border-radius:16px;
+ padding:10px 6px;
+ background:rgba(255,255,255,.03);
+ text-align:center;
+ min-height:260px;
+ display:flex;
+ flex-direction:column;
+ justify-content:space-between;
+ align-items:center;
+}
+
+.faderCol label{
+ color:var(--gold);
+ font-size:11px;
+ font-weight:800;
+ line-height:1.2;
+}
+
+.consoleFader{
+ writing-mode:vertical-lr!important;
+ direction:rtl!important;
+ -webkit-appearance:slider-vertical!important;
+ appearance:slider-vertical!important;
+ width:28px!important;
+ height:170px!important;
+ accent-color:#ff7a00!important;
+}
+
+.faderValue{
+ color:white;
+ font-weight:900;
+ font-size:15px;
+}
+
+.blackoutBtn{
+ width:100%;
+ margin-top:14px;
+ background:linear-gradient(180deg,#ff7a00,#9c4200);
+ border:2px solid rgba(255,170,90,.6);
+ color:white;
+ font-weight:900;
+ padding:12px;
+ border-radius:14px;
+ cursor:pointer;
+ box-shadow:0 0 18px rgba(255,120,0,.22);
+}
+
+
+/* v31 force visible rendered faders */
+#allGroupMiniFaders,
+#allNodeMiniFaders{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr))!important;
+  gap:14px!important;
+  margin-top:20px!important;
+  min-height:0!important;
+}
+
+.miniNodeStrip{
+  display:flex!important;
+  flex-direction:column!important;
+  min-height:440px!important;
+  padding:14px!important;
+  border-radius:22px!important;
+  background:linear-gradient(180deg, rgba(30,18,8,.95), rgba(5,5,5,.95))!important;
+  border:2px solid rgba(255,145,35,.38)!important;
+  box-shadow:0 0 20px rgba(255,106,0,.12)!important;
+}
+
+.stripHeader{
+  display:flex!important;
+  justify-content:space-between!important;
+  gap:10px!important;
+  margin-bottom:12px!important;
+}
+
+.stripTitle{
+  color:var(--gold2)!important;
+  font-size:19px!important;
+  font-weight:900!important;
+}
+
+.stripSub{
+  color:var(--muted)!important;
+  font-size:12px!important;
+  margin-top:4px!important;
+}
+
+.stripStatus{
+  color:var(--green)!important;
+  font-size:12px!important;
+  font-weight:900!important;
+  white-space:nowrap!important;
+}
+
+.stripFaders{
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+  gap:9px!important;
+  flex:1!important;
+}
+
+.faderCol{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  min-height:275px!important;
+  padding:10px 5px!important;
+  border:1px solid rgba(231,184,79,.16)!important;
+  border-radius:14px!important;
+  background:rgba(0,0,0,.18)!important;
+  text-align:center!important;
+}
+
+.faderCol label{
+  color:var(--gold)!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  line-height:1.25!important;
+}
+
+.consoleFader{
+  writing-mode:vertical-lr!important;
+  direction:rtl!important;
+  -webkit-appearance:slider-vertical!important;
+  appearance:slider-vertical!important;
+  width:32px!important;
+  height:165px!important;
+  accent-color:var(--orange)!important;
+}
+
+.faderValue{
+  color:#fff!important;
+  font-weight:900!important;
+  font-size:15px!important;
+}
+
+.blackoutBtn{
+  margin-top:12px!important;
+  width:100%!important;
+  border:2px solid rgba(255,170,90,.6)!important;
+  background:linear-gradient(180deg,#ff7a00,#883600)!important;
+  color:white!important;
+  font-weight:900!important;
+  padding:11px!important;
+  border-radius:14px!important;
+  cursor:pointer!important;
+}
+
+.miniLifeName{
+  color:var(--gold)!important;
+  font-size:10px!important;
+  min-height:18px!important;
+}
+
+
+/* v32 selected-target console layout */
+.targetTabs{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:14px 0;
+}
+
+.targetTabs button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32)!important;
+}
+
+.targetGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:10px;
+  max-height:260px;
+  overflow:auto;
+  padding:10px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:18px;
+  background:rgba(0,0,0,.18);
+}
+
+.targetBtn{
+  text-align:left;
+  padding:11px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+  cursor:pointer;
+}
+
+.targetBtn.selected{
+  border:3px solid rgba(255,145,35,.95)!important;
+  background:linear-gradient(180deg,rgba(255,120,20,.30),rgba(255,106,0,.10));
+  box-shadow:0 0 18px rgba(255,106,0,.25);
+}
+
+.targetBtn strong{
+  display:block;
+  color:var(--gold2);
+  font-size:13px;
+}
+
+.targetBtn small{
+  color:var(--muted);
+  display:block;
+  margin-top:4px;
+}
+
+.selectedSummary{
+  margin-top:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:16px;
+  background:rgba(255,255,255,.025);
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.selectedSummary strong{
+  color:var(--gold);
+}
+
+.selectedConsole{
+  display:grid;
+  grid-template-columns:140px 1fr;
+  gap:18px;
+  align-items:stretch;
+}
+
+.compactMaster{
+  min-height:360px!important;
+}
+
+.channelConsole{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.bigFader{
+  min-height:360px;
+  padding:16px;
+  border:1px solid rgba(231,184,79,.22);
+  border-radius:22px;
+  background:rgba(255,255,255,.025);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.bigFader label{
+  color:var(--gold);
+  font-weight:900;
+  text-align:center;
+}
+
+.bigFader .consoleFader,
+.compactMaster .consoleFader{
+  height:220px!important;
+}
+
+@media(max-width:900px){
+  .selectedConsole{
+    grid-template-columns:1fr;
+  }
+  .channelConsole{
+    grid-template-columns:1fr;
+  }
+  .bigFader{
+    min-height:260px;
+  }
+}
+
+
+/* v33 compact all-visible web control */
+.compactWebTop{
+  padding:16px 18px!important;
+  margin-bottom:10px!important;
+}
+
+.compactMasterBar{
+  display:grid;
+  grid-template-columns:90px 1fr 70px;
+  gap:12px;
+  align-items:center;
+  padding:12px 14px;
+  border:2px solid rgba(255,145,35,.45);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+  margin-bottom:10px;
+}
+
+.compactMasterBar strong,
+.compactMasterBar b{
+  color:var(--gold);
+  font-weight:900;
+}
+
+.compactSection{
+  border:1px solid rgba(231,184,79,.22);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 34%),
+    rgba(255,255,255,.018);
+  padding:12px;
+  margin-bottom:10px;
+}
+
+.compactHeader{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.compactHeader h2{
+  margin:0;
+  color:var(--gold);
+  font-size:24px;
+}
+
+.compactGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:8px;
+}
+
+.compactStrip{
+  border:1px solid rgba(231,184,79,.20);
+  border-radius:14px;
+  padding:9px;
+  background:linear-gradient(180deg,rgba(28,17,9,.92),rgba(5,5,5,.95));
+  min-height:118px;
+}
+
+.compactStrip.groupStrip{
+  border-color:rgba(255,145,35,.42);
+}
+
+.compactTop{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:flex-start;
+  margin-bottom:6px;
+}
+
+.compactTop strong{
+  display:block;
+  color:var(--gold2);
+  font-size:14px;
+  line-height:1.05;
+}
+
+.compactTop small{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+  line-height:1.1;
+}
+
+.miniBlackout{
+  padding:5px 7px!important;
+  border-radius:9px!important;
+  font-size:10px!important;
+  background:linear-gradient(180deg,#ff7a00,#7b3000)!important;
+  color:white!important;
+  border:1px solid rgba(255,170,90,.45)!important;
+  white-space:nowrap;
+}
+
+.compactSliders{
+  display:grid;
+  gap:5px;
+}
+
+.compactSliders label{
+  display:grid;
+  grid-template-columns:44px 1fr 42px;
+  gap:6px;
+  align-items:center;
+}
+
+.compactSliders span{
+  color:var(--gold);
+  font-size:10px;
+  font-weight:900;
+}
+
+.compactSliders input[type=range]{
+  width:100%;
+  accent-color:var(--orange);
+}
+
+.compactSliders b{
+  color:#fff;
+  font-size:11px;
+  text-align:right;
+}
+
+.compactSliders em{
+  grid-column:2 / 4;
+  color:var(--muted);
+  font-size:9px;
+  font-style:normal;
+  margin-top:-3px;
+}
+
+@media(max-width:1400px){
+  .compactGrid{
+    grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+  }
+  .compactStrip{
+    min-height:110px;
+  }
+}
+
+@media(max-width:900px){
+  .compactMasterBar{
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* v35 multi-node group assignment */
+.multiNodeTools{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:10px 0;
+}
+
+.multiNodeList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+  gap:8px;
+  max-height:180px;
+  overflow:auto;
+  padding:10px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:14px;
+  background:rgba(0,0,0,.16);
+}
+
+.nodeCheck{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px;
+  border:1px solid rgba(231,184,79,.14);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+  color:var(--text);
+  font-size:12px;
+  cursor:pointer;
+}
+
+.nodeCheck input{
+  width:auto;
+}
+
+.nodeCheck span{
+  color:var(--gold2);
+  font-weight:800;
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{
+    grid-template-columns:1fr;
+  }
+  .masterStrip{
+    min-height:260px;
+  }
+  .consoleSubControls{
+    grid-template-columns:1fr;
+  }
+}
+
+
+.consoleSurface{
+  background:
+    linear-gradient(180deg, rgba(32,34,72,.96), rgba(16,18,48,.98))!important;
+  border-color:rgba(120,150,255,.35)!important;
+}
+
+.consoleHeader h2{
+  color:#fff6d0;
+}
+
+.faderBank{
+  grid-template-columns:110px 1fr!important;
+}
+
+.masterStrip{
+  min-height:520px!important;
+  border-color:rgba(255,145,35,.9)!important;
+}
+
+.faderRows{
+  gap:10px!important;
+  align-items:stretch;
+}
+
+.consoleFixture{
+  width:260px;
+  min-height:520px;
+  padding:10px;
+  border:1px solid rgba(210,220,255,.24);
+  border-radius:10px;
+  background:
+    linear-gradient(180deg, rgba(59,61,112,.92), rgba(37,39,86,.96));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border-color:rgba(255,145,35,.85);
+  box-shadow:0 0 20px rgba(255,106,0,.22);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.18);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:8px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:#d6dafd;
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:410px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:8px;
+  background:rgba(0,0,0,.12);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(0,0,0,.22);
+  color:#e9eaff;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:6px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:#00ff77;
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:#f7f7ff;
+}
+
+.lifeReadout{
+  color:#ffd36e;
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+  accent-color:var(--orange);
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .webControlGrid,.chasePanel{grid-template-columns:1fr}
+  .controlRow{grid-template-columns:1fr}
+}
+
+
+.consoleSurface{
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:24px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(18,18,18,.96), rgba(5,5,5,.98));
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  margin-bottom:16px;
+}
+
+.consoleSelector{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.consoleSelector button.active{
+  border:2px solid rgba(255,145,35,.9);
+  box-shadow:0 0 20px rgba(255,106,0,.35);
+}
+
+.faderBank{
+  display:grid;
+  grid-template-columns:140px 1fr;
+  gap:16px;
+}
+
+.masterStrip{
+  min-height:440px;
+  padding:14px;
+  border:3px solid rgba(255,145,35,.78);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    rgba(255,255,255,.03);
+  box-shadow:0 0 32px rgba(255,106,0,.24);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.faderScroller{
+  overflow-x:auto;
+  padding-bottom:10px;
+}
+
+.faderRows{
+  display:flex;
+  gap:12px;
+  min-width:max-content;
+}
+
+.faderStrip{
+  width:118px;
+  min-height:440px;
+  padding:12px 10px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.faderStrip.active{
+  border-color:rgba(255,145,35,.82);
+  box-shadow:0 0 20px rgba(255,106,0,.18);
+}
+
+.faderName{
+  color:var(--gold2);
+  font-weight:900;
+  font-size:13px;
+  text-align:center;
+  min-height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.faderValue{
+  color:#fff5d6;
+  font-size:22px;
+  font-weight:900;
+  margin:8px 0;
+}
+
+.verticalFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:230px;
+  accent-color:var(--orange);
+}
+
+.faderLabel{
+  color:var(--muted);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.lifeSelectSmall{
+  font-size:12px;
+  padding:8px;
+  margin-top:8px;
+}
+
+.consoleSubControls{
+  margin-top:16px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+
+.consoleSurface{
+  background:
+    linear-gradient(180deg, rgba(32,34,72,.96), rgba(16,18,48,.98))!important;
+  border-color:rgba(120,150,255,.35)!important;
+}
+
+.consoleHeader h2{
+  color:#fff6d0;
+}
+
+.faderBank{
+  grid-template-columns:110px 1fr!important;
+}
+
+.masterStrip{
+  min-height:520px!important;
+  border-color:rgba(255,145,35,.9)!important;
+}
+
+.faderRows{
+  gap:10px!important;
+  align-items:stretch;
+}
+
+.consoleFixture{
+  width:260px;
+  min-height:520px;
+  padding:10px;
+  border:1px solid rgba(210,220,255,.24);
+  border-radius:10px;
+  background:
+    linear-gradient(180deg, rgba(59,61,112,.92), rgba(37,39,86,.96));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border-color:rgba(255,145,35,.85);
+  box-shadow:0 0 20px rgba(255,106,0,.22);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.18);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:8px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:#d6dafd;
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:410px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:8px;
+  background:rgba(0,0,0,.12);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(0,0,0,.22);
+  color:#e9eaff;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:6px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:#00ff77;
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:#f7f7ff;
+}
+
+.lifeReadout{
+  color:#ffd36e;
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+  accent-color:var(--orange);
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{
+    grid-template-columns:1fr;
+  }
+  .masterStrip{
+    min-height:260px;
+  }
+  .consoleSubControls{
+    grid-template-columns:1fr;
+  }
+}
+
+
+.consoleSurface{
+  background:
+    linear-gradient(180deg, rgba(32,34,72,.96), rgba(16,18,48,.98))!important;
+  border-color:rgba(120,150,255,.35)!important;
+}
+
+.consoleHeader h2{
+  color:#fff6d0;
+}
+
+.faderBank{
+  grid-template-columns:110px 1fr!important;
+}
+
+.masterStrip{
+  min-height:520px!important;
+  border-color:rgba(255,145,35,.9)!important;
+}
+
+.faderRows{
+  gap:10px!important;
+  align-items:stretch;
+}
+
+.consoleFixture{
+  width:260px;
+  min-height:520px;
+  padding:10px;
+  border:1px solid rgba(210,220,255,.24);
+  border-radius:10px;
+  background:
+    linear-gradient(180deg, rgba(59,61,112,.92), rgba(37,39,86,.96));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border-color:rgba(255,145,35,.85);
+  box-shadow:0 0 20px rgba(255,106,0,.22);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.18);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:8px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:#d6dafd;
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:410px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:8px;
+  background:rgba(0,0,0,.12);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(0,0,0,.22);
+  color:#e9eaff;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:6px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:#00ff77;
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:#f7f7ff;
+}
+
+.lifeReadout{
+  color:#ffd36e;
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+  accent-color:var(--orange);
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
 @media(max-width:1050px){
   .layout{grid-template-columns:1fr}
   .sidebar{min-height:auto}
@@ -819,7 +5582,7 @@ input:focus, select:focus{
       <div class="pill active">Hub Online</div>
       <div class="pill" id="protoPill">Protocol: Auto</div>
       <div class="pill">Universe 7</div>
-      <div class="pill">20 Nodes</div>
+      <div class="pill" id="topNodeCount">20 Nodes</div>
     </div>
   </header>
 
@@ -827,8 +5590,9 @@ input:focus, select:focus{
     <aside class="sidebar">
       <div class="navTitle">Hub Navigation</div>
       <button class="navBtn active helpTip" data-page="dashboard"><span>Dashboard</span><span>Live</span><span class="tooltip">Main operating screen for live control, scenes, quick setup, node status, and blackout.</span></button>
-      <button class="navBtn helpTip" data-page="nodes"><span>Nodes</span><span>4</span><span class="tooltip">View each connected fixture, check battery and signal, assign groups, set addresses, identify, or rename fixtures.</span></button>
-      <button class="navBtn helpTip" data-page="groups"><span>Groups</span><span>3</span><span class="tooltip">Create fixture groups, assign fixtures, choose addressing modes, and set group start addresses.</span></button>
+      <button class="navBtn helpTip" data-page="webcontrol"><span>Web Control</span><span>Live</span><span class="tooltip">Simple live control page for groups, nodes, fades, chase sequences, and blackout.</span></button>
+      <button class="navBtn helpTip" data-page="nodes"><span>Nodes</span><span id="sideNodeCount">20</span><span class="tooltip">View each connected fixture, check battery and signal, assign groups, set addresses, identify, or rename fixtures.</span></button>
+      <button class="navBtn helpTip" data-page="groups"><span>Groups</span><span id="sideGroupCount">7</span><span class="tooltip">Create fixture groups, assign fixtures, choose addressing modes, and set group start addresses.</span></button>
       <button class="navBtn helpTip" data-page="protocols"><span>DMX / Art-Net / sACN</span><span>Auto</span><span class="tooltip">Configure lighting input, universe, protocol behavior, and addressing source.</span></button>
       <button class="navBtn helpTip" data-page="network"><span>Network / WiFi</span><span>House</span><span class="tooltip">Connect the Hub to venue WiFi or view the local dashboard access address.</span></button>
       <button class="navBtn helpTip" data-page="power"><span>Power Modes</span><span>Standby</span><span class="tooltip">Choose Show, Standby, Deep Sleep, or Rehearsal mode for runtime and operating behavior.</span></button>
@@ -856,10 +5620,11 @@ input:focus, select:focus{
             <p>Wireless flame control for candles, torches, sconces, chandeliers, and stage practicals.</p>
 
             <div class="metrics">
-              <div class="metric"><div class="label">Nodes</div><div class="value">20</div></div>
+              <div class="metric"><div class="label">Nodes</div><div class="value" id="metricNodeCount">20</div></div>
               <div class="metric"><div class="label">Input</div><div class="value" id="metricInput">Auto</div></div>
               <div class="metric"><div class="label">Mode</div><div class="value" id="metricMode">Show</div></div>
               <div class="metric"><div class="label">Battery Avg</div><div class="value" id="batteryAvg">82%</div></div>
+              <div class="metric"><div class="label">Groups</div><div class="value" id="metricGroupCount">7</div></div>
             </div>
 
             <div class="controls">
@@ -976,6 +5741,49 @@ input:focus, select:focus{
         </div>
       </section>
 
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <section id="webcontrol" class="page hidden">
+        <div class="webTopBar compactWebTop">
+          <div>
+            <h1>Web Control</h1>
+            <p style="margin:6px 0 0;color:var(--muted)">Per-group and per-node 3-channel controls. Group faders also update the nodes assigned to that group.</p>
+          </div>
+          <button class="danger bigBlackout" onclick="sfCompactBlackoutAll()">Blackout All</button>
+        </div>
+
+        <div class="compactMasterBar">
+          <strong>Master</strong>
+          <input id="compactMaster" type="range" min="0" max="100" value="100" oninput="document.getElementById('compactMasterVal').textContent=this.value+'%'">
+          <b id="compactMasterVal">100%</b>
+        </div>
+
+        <div class="compactSection">
+          <div class="compactHeader">
+            <h2>Group Faders</h2>
+            <span class="nodeModeBadge" id="compactGroupCount">7 Groups</span>
+          </div>
+          <div class="compactGrid groupGrid" id="compactGroupGrid"></div>
+        </div>
+
+        <div class="compactSection">
+          <div class="compactHeader">
+            <h2>Node Faders</h2>
+            <span class="nodeModeBadge" id="compactNodeCount">20 Nodes</span>
+          </div>
+          <div class="compactGrid nodeGridCompact" id="compactNodeGrid"></div>
+        </div>
+      </section>
+
       <section id="nodes" class="page hidden">
         <div class="card">
           <h1>Connected Nodes</h1>
@@ -984,36 +5792,50 @@ input:focus, select:focus{
         </div>
       </section>
 
+      
       <section id="groups" class="page hidden">
         <div class="card">
           <h1>Groups & Addressing</h1>
-          <p>Create groups, assign nodes, choose addressing mode, and set DMX start addresses.</p>
+          <p>Create groups, assign nodes, and set DMX start addresses.</p>
 
           <div class="groupManage" id="groupManage"></div>
 
-
-
-          <div class="control">
+          <div class="control" style="margin-top:18px">
             <div class="controlHead">
               <div>
                 <div class="controlTitle">Create New Group</div>
-                <div class="controlSub">Example: Chandelier A, Breezees, Table Candles, Stage Left, Balcony Rail.</div>
+                <div class="controlSub">Example: Chandelier A, Breezeways, Table Candles, Stage Left, Balcony Rail.</div>
               </div>
             </div>
+
             <div class="formGrid three">
-              <span class="helpTip"><input id="newGroupName" placeholder="Group name"><span class="tooltip">Enter a customer-friendly group name, such as Chandelier A, Breezees, or Stage Left.</span></span>
-              <span class="helpTip"><input id="newGroupStart" type="number" min="1" max="512" placeholder="DMX start"><span class="tooltip">First control address assigned to this group.</span></span>
+              <span class="helpTip">
+                <input id="newGroupName" placeholder="Group name">
+                <span class="tooltip">Enter a customer-friendly group name, such as Chandelier A, Torches, or Stage Left.</span>
+              </span>
+
+              <span class="helpTip">
+                <input id="newGroupStart" type="number" min="1" max="512" placeholder="DMX start">
+                <span class="tooltip">First control address assigned to this group.</span>
+              </span>
+
               <div class="helpWrap">
                 <div class="selectLike">3-Channel</div>
-                <span class="helpTip inlineHelp"><span class="helpIcon">?</span><span class="tooltip">Choose how the group listens to lighting control. 3-Channel uses direct intensity control, 3-Channel adds a mode slider for flame personality, and 3-Channel controls the whole group together.</span></span>
+                <span class="helpTip inlineHelp">
+                  <span class="helpIcon">?</span>
+                  <span class="tooltip">All StageFlame fixtures use 3 channels: Channel 1 Hero Flame, Channel 2 Flicker, Channel 3 Life Mode.</span>
+                </span>
               </div>
             </div>
-            <span class="helpTip"><button style="margin-top:12px" onclick="createGroupFromForm()">Add Group</button><span class="tooltip">Adds this group to the Hub so fixtures can be assigned to it.</span></span>
-          </div>
 
-          
+            <span class="helpTip">
+              <button style="margin-top:12px" onclick="createGroupFromForm()">Add Group</button>
+              <span class="tooltip">Adds this group to the Hub so fixtures can be assigned to it.</span>
+            </span>
+          </div>
         </div>
       </section>
+
 
       <section id="protocols" class="page hidden">
         <div class="card">
@@ -1205,6 +6027,18 @@ input:focus, select:focus{
             <div class="control">
               
             <div class="control">
+              
+            <div class="control">
+              <div class="controlTitle">Web Control Page</div>
+              <div class="controlSub" style="margin-top:8px">
+                The Web Control tab is designed for simple live operation from a browser. It shows group controls and individual node controls on one page.<br><br>
+                Use the top Blackout button to immediately turn off all flame outputs.<br><br>
+                Use Add Slider Strip to place only the groups or nodes you want on the Web Control surface. Each added strip shows Hero, Flicker, and Life Mode vertical faders.<br><br>
+                Timed Fades let you quickly fade levels up or down using a selected fade time.<br><br>
+                Chase Sequence runs a simple moving effect across groups or nodes.
+              </div>
+            </div>
+
               <div class="controlTitle">3-Channel Layout</div>
               <div class="controlSub" style="margin-top:8px">
                 <strong>Channel 1 — Hero Flame:</strong> main flame intensity.<br><br>
@@ -1330,7 +6164,32 @@ function wifiPercent(dbm){
   return Math.max(12, Math.min(100, Math.round((dbm + 90) * 2.1)));
 }
 
+
+function updateCounts(){
+  const nodeCount = Array.isArray(nodes) ? nodes.length : 0;
+  const groupCount = Array.isArray(groups) ? groups.length : 0;
+
+  const topNodeCount = document.getElementById("topNodeCount");
+  const sideNodeCount = document.getElementById("sideNodeCount");
+  const sideGroupCount = document.getElementById("sideGroupCount");
+  const metricNodeCount = document.getElementById("metricNodeCount");
+  const metricGroupCount = document.getElementById("metricGroupCount");
+  const batteryAvg = document.getElementById("batteryAvg");
+
+  if(topNodeCount) topNodeCount.textContent = `${nodeCount} Nodes`;
+  if(sideNodeCount) sideNodeCount.textContent = nodeCount;
+  if(sideGroupCount) sideGroupCount.textContent = groupCount;
+  if(metricNodeCount) metricNodeCount.textContent = nodeCount;
+  if(metricGroupCount) metricGroupCount.textContent = groupCount;
+
+  if(batteryAvg && nodeCount){
+    const avg = Math.round(nodes.reduce((sum,n)=>sum + Number(n.battery || 0), 0) / nodeCount);
+    batteryAvg.textContent = `${avg}%`;
+  }
+}
+
 function renderNodes(){
+  updateCounts();
   const wrap = document.getElementById("nodeList");
   if(!wrap) return;
 
@@ -1446,6 +6305,260 @@ document.addEventListener('mouseout', (event) => {
   tip.classList.remove('show');
 });
 
+
+
+
+
+
+
+
+
+
+
+
+let webMaster = 100;
+let webChaseTimer = null;
+let webChaseIndex = 0;
+let webChaseForward = true;
+
+function webDefaults(item, type){
+  if(typeof item.webHero !== "number") item.webHero = item.intensity ?? 80;
+  if(typeof item.webFlicker !== "number") item.webFlicker = item.flicker ?? 50;
+  if(typeof item.webLife !== "number") item.webLife = item.lifeMode ?? 20;
+
+  if(type === "group"){
+    if(typeof item.webHero !== "number") item.webHero = 80;
+    if(typeof item.webFlicker !== "number") item.webFlicker = 50;
+    if(typeof item.webLife !== "number") item.webLife = 20;
+  }
+}
+
+
+function renderWebControl(){
+  const groupWrap = document.getElementById("allGroupMiniFaders");
+  const nodeWrap = document.getElementById("allNodeMiniFaders");
+
+  if(groupWrap){
+    groupWrap.innerHTML = groups.map((g,i)=>renderStrip(g,i,'group')).join('');
+  }
+
+  if(nodeWrap){
+    nodeWrap.innerHTML = nodes.map((n,i)=>renderStrip(n,i,'node')).join('');
+  }
+
+  const groupCount = document.getElementById("webGroupCount");
+  const nodeCount = document.getElementById("webNodeCount");
+
+  if(groupCount) groupCount.textContent = `${groups.length} Groups`;
+  if(nodeCount) nodeCount.textContent = `${nodes.length} Nodes`;
+}
+
+function renderStrip(item,index,type){
+  if(item.webHero === undefined) item.webHero = item.intensity || 80;
+  if(item.webFlicker === undefined) item.webFlicker = item.flicker || 50;
+  if(item.webLife === undefined) item.webLife = item.lifeMode || 20;
+
+  const start = Number(item.dmx || item.start || 1);
+  const hero = Math.round(item.webHero * webMaster / 100);
+  const flicker = Math.round(item.webFlicker * webMaster / 100);
+  const life = item.webLife;
+
+  return `
+    <div class="miniNodeStrip ${type==='group'?'groupStrip':'nodeStrip'}">
+      <div class="stripHeader">
+        <div>
+          <div class="stripTitle">${item.name}</div>
+          <div class="stripSub">
+            ${type === 'group' ? 'GROUP' : item.group} · DMX ${start}-${start+2}
+          </div>
+        </div>
+        <div class="stripStatus">
+          ${type === 'group' ? ((item.nodes?.length || 0) + ' Nodes') : 'ONLINE'}
+        </div>
+      </div>
+
+      <div class="stripFaders">
+
+        <div class="faderCol">
+          <label>CH ${start}<br>Hero Flame</label>
+          <input class="consoleFader" type="range" min="0" max="100"
+            value="${item.webHero}"
+            oninput="webSetValue('${type}',${index},'webHero',this.value)">
+          <div class="faderValue" id="${type}-${index}-hero">${hero}%</div>
+        </div>
+
+        <div class="faderCol">
+          <label>CH ${start+1}<br>Flicker</label>
+          <input class="consoleFader" type="range" min="0" max="100"
+            value="${item.webFlicker}"
+            oninput="webSetValue('${type}',${index},'webFlicker',this.value)">
+          <div class="faderValue" id="${type}-${index}-flicker">${flicker}%</div>
+        </div>
+
+        <div class="faderCol">
+          <label>CH ${start+2}<br>Life Mode</label>
+          <input class="consoleFader" type="range" min="1" max="255"
+            value="${item.webLife}"
+            oninput="webSetValue('${type}',${index},'webLife',this.value)">
+          <div class="faderValue" id="${type}-${index}-life">${life}</div>
+          <div style="color:var(--gold);font-size:10px;text-align:center">
+            ${lifeModeName(life)}
+          </div>
+        </div>
+
+      </div>
+
+      <button class="blackoutBtn"
+        onclick="webBlackout('${type}',${index})">
+        BLACKOUT
+      </button>
+    </div>
+  `;
+}
+
+function webBlackout(type,index){
+  const item = type === 'group' ? groups[index] : nodes[index];
+
+  item.webHero = 0;
+  item.webFlicker = 0;
+
+  renderWebControl();
+  addLog(`${item.name} blackout activated.`);
+}
+
+function webSetMaster(value){
+  webMaster = Number(value);
+
+  const label = document.getElementById("masterFaderVal");
+  if(label) label.textContent = webMaster + "%";
+
+  renderWebControl();
+}
+
+function webCollection(type){
+  return type === "group" ? groups : nodes;
+}
+
+function updateMiniValues(type,index){
+  const item = webCollection(type)[index];
+  if(!item) return;
+
+  const idBase = `${type}-${index}`;
+  const hero = item.webHero ?? 80;
+  const flicker = item.webFlicker ?? 50;
+  const life = item.webLife ?? 20;
+
+  const heroOut = Math.round(hero * webMaster / 100);
+  const flickerOut = Math.round(flicker * webMaster / 100);
+
+  const heroEl = document.getElementById(`mini-${idBase}-hero`);
+  const flickerEl = document.getElementById(`mini-${idBase}-flicker`);
+  const lifeEl = document.getElementById(`mini-${idBase}-life`);
+  const lifeNameEl = document.getElementById(`mini-${idBase}-lifeName`);
+  const strip = document.getElementById(`mini-${idBase}`);
+
+  if(heroEl) heroEl.textContent = heroOut + "%";
+  if(flickerEl) flickerEl.textContent = flickerOut + "%";
+  if(lifeEl) lifeEl.textContent = life;
+  if(lifeNameEl) lifeNameEl.textContent = lifeModeName(life);
+  if(strip) strip.classList.toggle("active", heroOut > 0 || flickerOut > 0);
+}
+
+function webSetValue(type,index,key,value){
+  const item = type === 'group' ? groups[index] : nodes[index];
+  item[key] = Number(value);
+
+  const hero = Math.round((item.webHero || 0) * webMaster / 100);
+  const flicker = Math.round((item.webFlicker || 0) * webMaster / 100);
+
+  const heroEl = document.getElementById(`${type}-${index}-hero`);
+  const flickerEl = document.getElementById(`${type}-${index}-flicker`);
+  const lifeEl = document.getElementById(`${type}-${index}-life`);
+
+  if(heroEl) heroEl.textContent = hero + '%';
+  if(flickerEl) flickerEl.textContent = flicker + '%';
+  if(lifeEl) lifeEl.textContent = item.webLife;
+}
+
+function webFade(direction){
+  const level = direction === "up" ? 100 : 0;
+
+  groups.forEach((group,index)=>{
+    group.webHero = level;
+    group.webFlicker = direction === "up" ? 60 : 0;
+    updateMiniValues("group",index);
+  });
+
+  nodes.forEach((node,index)=>{
+    node.webHero = level;
+    node.webFlicker = direction === "up" ? 60 : 0;
+    updateMiniValues("node",index);
+  });
+
+  addLog(`Web Control ${direction === "up" ? "fade up" : "fade down"} applied to ${groups.length} groups and ${nodes.length} nodes.`);
+}
+
+function webRenderChasePreview(){
+  const preview = document.getElementById("chasePreview");
+  if(!preview) return;
+
+  const target = document.getElementById("chaseTarget")?.value || "nodes";
+  const list = target === "groups" ? groups : nodes;
+
+  preview.innerHTML = list.map((item,i)=>{
+    return `<span class="helpTip"><span class="chaseDot ${i === webChaseIndex ? "active" : ""}"></span><span class="tooltip">${item.name}</span></span>`;
+  }).join("");
+}
+
+function webStartChase(){
+  webStopChase();
+
+  const speed = Number(document.getElementById("chaseSpeed")?.value || 5);
+  const interval = Math.max(120, 900 - speed * 70);
+
+  webChaseTimer = setInterval(()=>{
+    const target = document.getElementById("chaseTarget")?.value || "nodes";
+    const type = target === "groups" ? "group" : "node";
+    const list = target === "groups" ? groups : nodes;
+    const direction = document.getElementById("chaseDirection")?.value || "forward";
+    const level = Number(document.getElementById("chaseLevel")?.value || 80);
+
+    if(!list.length) return;
+
+    list.forEach((item,index)=>{
+      item.webHero = 0;
+      updateMiniValues(type,index);
+    });
+
+    if(direction === "reverse"){
+      webChaseIndex = (webChaseIndex - 1 + list.length) % list.length;
+    } else if(direction === "bounce"){
+      if(webChaseForward){
+        webChaseIndex++;
+        if(webChaseIndex >= list.length - 1) webChaseForward = false;
+      } else {
+        webChaseIndex--;
+        if(webChaseIndex <= 0) webChaseForward = true;
+      }
+    } else {
+      webChaseIndex = (webChaseIndex + 1) % list.length;
+    }
+
+    list[webChaseIndex].webHero = level;
+    updateMiniValues(type,webChaseIndex);
+    webRenderChasePreview();
+  }, interval);
+
+  addLog("Web Control chase started.");
+}
+
+function webStopChase(){
+  if(webChaseTimer){
+    clearInterval(webChaseTimer);
+    webChaseTimer = null;
+    addLog("Web Control chase stopped.");
+  }
+}
 
 renderNodes();
     addLog(`Node renamed to ${next}.`);
@@ -1588,41 +6701,116 @@ function setNodeSetting(i, key, value){
 }
 
 function renderGroups(){
+  updateCounts();
   const wrap = document.getElementById("groupManage");
   if(!wrap) return;
 
-  const nodeOptions = nodes.map(n => `<option>${n.name}</option>`).join("");
-
   wrap.innerHTML = groups.map((g,i)=>`
-    <div class="groupCard">
-      <div class="groupTop">
+    <div class="node">
+      <div class="nodeTop">
         <div>
-          <strong>${g.name}</strong>
-          <div class="controlSub">DMX Start ${g.start} · ${g.mode}</div>
-          <div class="tagRow">${g.nodes.map(n=>`<span class="tag">${n}</span>`).join("") || `<span class="tag">No nodes assigned</span>`}</div>
+          <div class="nodeName">${g.name}</div>
+          <div class="tagRow" style="margin-top:6px">
+            <span class="nodeModeBadge">3-Channel</span>
+            <span class="nodeModeBadge">DMX ${g.start}</span>
+            <span class="nodeModeBadge">${g.nodes.length} Nodes</span>
+          </div>
         </div>
+      </div>
+
+      <div class="formGrid">
+        <span class="helpTip">
+          <input value="${g.name}" onchange="updateGroupName(${i}, this.value)">
+          <span class="tooltip">Renames this group in the Hub.</span>
+        </span>
+
+        <span class="helpTip">
+          <input type="number" min="1" max="512" value="${g.start}" onchange="updateGroupStart(${i}, this.value)">
+          <span class="tooltip">Changes the first lighting address used by this group.</span>
+        </span>
+
+        <div class="helpWrap">
+          <div class="selectLike">3-Channel</div>
+          <span class="helpTip inlineHelp">
+            <span class="helpIcon">?</span>
+            <span class="tooltip">Fixed 3-channel mode: Hero Flame, Flicker, and Life Mode.</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="control" style="margin-top:12px">
+        <div class="controlHead">
+          <div>
+            <div class="controlTitle">Assign Nodes to Group</div>
+            <div class="controlSub">Select one or more nodes, then add them to this group.</div>
+          </div>
+        </div>
+
+        <div class="multiNodeTools">
+          <button class="secondary" onclick="selectAllNodesForGroup(${i}, true)">Select All</button>
+          <button class="secondary" onclick="selectAllNodesForGroup(${i}, false)">Clear Selection</button>
+          <button onclick="addSelectedNodesToGroup(${i})">Add Selected Nodes</button>
+        </div>
+
+        <div class="multiNodeList" id="multiNodeList-${i}">
+          ${nodes.map((n,nodeIndex)=>{
+            const checked = g.nodes.includes(n.name) ? "checked" : "";
+            return `
+              <label class="nodeCheck">
+                <input type="checkbox" value="${nodeIndex}" ${checked}>
+                <span>${n.name}</span>
+              </label>
+            `;
+          }).join("")}
+        </div>
+      </div>
+
+      <div class="controlSub" style="margin-top:10px">
+        <strong>Assigned:</strong> ${g.nodes.length ? g.nodes.join(", ") : "No nodes assigned"}
+      </div>
+
+      <div class="btnRow" style="margin-top:12px">
         <span class="helpTip">
           <button class="secondary" onclick="deleteGroup(${i})">Delete</button>
           <span class="tooltip">Removes this group from the Hub. Fixtures are not deleted; they become unassigned until added to another group.</span>
         </span>
       </div>
-      <div class="formGrid three">
-        <span class="helpTip"><input value="${g.name}" onchange="updateGroupName(${i}, this.value)"><span class="tooltip">Renames this group in the Hub.</span></span>
-        <span class="helpTip"><input type="number" min="1" max="512" value="${g.start}" onchange="updateGroupStart(${i}, this.value)"><span class="tooltip">Changes the first lighting address used by this group.</span></span>
-        <div class="helpWrap">
-          <div class="selectLike">3-Channel</div>
-          <span class="helpTip inlineHelp"><span class="helpIcon">?</span><span class="tooltip">${modeHelp(g.mode)}</span></span>
-        </div>
-      </div>
-      <div class="formGrid" style="margin-top:10px">
-        <span class="helpTip"><select id="addNode-${i}">${nodeOptions}</select><span class="tooltip">Select the fixture you want to add to this group.</span></span>
-        <span class="helpTip">
-          <button onclick="addNodeToGroup(${i})">Add Node to Group</button>
-          <span class="tooltip">Assigns the selected fixture to this group so it follows this group’s addressing and control settings.</span>
-        </span>
-      </div>
     </div>
   `).join("");
+}
+
+
+function selectAllNodesForGroup(groupIndex, checked){
+  const list = document.getElementById(`multiNodeList-${groupIndex}`);
+  if(!list) return;
+
+  list.querySelectorAll("input[type='checkbox']").forEach(box=>{
+    box.checked = checked;
+  });
+}
+
+function addSelectedNodesToGroup(groupIndex){
+  const list = document.getElementById(`multiNodeList-${groupIndex}`);
+  if(!list || !groups[groupIndex]) return;
+
+  const selectedNames = [...list.querySelectorAll("input[type='checkbox']:checked")]
+    .map(box => nodes[Number(box.value)]?.name)
+    .filter(Boolean);
+
+  groups[groupIndex].nodes = [...new Set([...groups[groupIndex].nodes, ...selectedNames])];
+
+  selectedNames.forEach(name=>{
+    const node = nodes.find(n=>n.name === name);
+    if(node) node.group = groups[groupIndex].name;
+  });
+
+  renderGroups();
+  renderNodes();
+
+  if(typeof renderCompactWebControl === "function") renderCompactWebControl();
+  if(typeof renderWebControl === "function") renderWebControl();
+
+  addLog(`${selectedNames.length} node(s) assigned to ${groups[groupIndex].name}.`);
 }
 
 function createGroup(name, start, mode="3-Channel"){
@@ -1841,7 +7029,25 @@ function blackoutNow(){
   document.getElementById("heroMaster").value = 0;
   document.getElementById("pin7").value = 0;
   updateSliders();
-  addLog("Blackout activated: all flame outputs set to 0%.");
+
+  if(typeof groups !== "undefined"){
+    groups.forEach((g,index) => {
+      g.webHero = 0;
+      g.webFlicker = 0;
+      if(typeof updateMiniValues === "function") updateMiniValues("group",index);
+    });
+  }
+
+  if(typeof nodes !== "undefined"){
+    nodes.forEach((n,index) => {
+      n.webHero = 0;
+      n.webFlicker = 0;
+      if(typeof updateMiniValues === "function") updateMiniValues("node",index);
+    });
+  }
+
+  if(typeof renderWebControl === "function") renderWebControl();
+  addLog("Blackout activated: all group and node outputs set to 0%.");
 }
 
 function setUniverse(){
@@ -1870,6 +7076,7 @@ document.querySelectorAll(".navBtn").forEach(btn=>{
     btn.classList.add("active");
     document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
     document.getElementById(btn.dataset.page).classList.remove("hidden");
+    if(btn.dataset.page === "webcontrol"){ if(typeof renderCompactWebControl === "function") renderCompactWebControl(); }
   });
 });
 
@@ -1908,12 +7115,451 @@ document.addEventListener('mouseout', (event) => {
 });
 
 
+updateCounts();
 renderNodes();
+renderWebControl();
 renderGroups();
 renderWifi();
 updateSliders();
 addLog("StageFlame Hub demo initialized.");
-addLog("20 simulated nodes connected.");
+addLog(`${nodes.length} simulated nodes connected.`);
+
+function sfUpdateStatic(input){
+  const val = input.parentElement.querySelector(".faderValue");
+  if(val) val.textContent = input.value + "%";
+}
+function sfLifeName(v){
+  v = Number(v);
+  if(v <= 51) return "Calm";
+  if(v <= 102) return "Light Air";
+  if(v <= 153) return "Breeze";
+  if(v <= 204) return "Windy";
+  return "Storm";
+}
+function sfUpdateLifeStatic(input){
+  const val = input.parentElement.querySelector(".faderValue");
+  const name = input.parentElement.querySelector(".miniLifeName");
+  if(val) val.textContent = input.value;
+  if(name) name.textContent = sfLifeName(input.value);
+}
+function sfBlackoutStrip(btn){
+  const strip = btn.closest(".miniNodeStrip");
+  if(!strip) return;
+  const sliders = strip.querySelectorAll("input[type='range']");
+  sliders.forEach((s, i) => {
+    if(i < 2){
+      s.value = 0;
+      sfUpdateStatic(s);
+    }
+  });
+}
+
+
+const sfOriginalRenderWebControl = typeof renderWebControl === "function" ? renderWebControl : null;
+renderWebControl = function(){
+  // Static faders are pre-rendered in v31. Keep them visible.
+  return true;
+};
+
+
+// v32 selected-target web control
+let sfActiveTab = "groups";
+let sfSelected = new Set();
+let sfMasterValue = 100;
+
+function sfKey(type,index){ return `${type}:${index}`; }
+
+function sfTargetsForTab(){
+  if(sfActiveTab === "groups") return groups.map((g,i)=>({type:"group", index:i, item:g}));
+  if(sfActiveTab === "nodes") return nodes.map((n,i)=>({type:"node", index:i, item:n}));
+  return [
+    ...groups.map((g,i)=>({type:"group", index:i, item:g})),
+    ...nodes.map((n,i)=>({type:"node", index:i, item:n}))
+  ];
+}
+
+function sfSetTab(tab){
+  sfActiveTab = tab;
+  document.getElementById("sfTabGroups")?.classList.toggle("active", tab==="groups");
+  document.getElementById("sfTabNodes")?.classList.toggle("active", tab==="nodes");
+  document.getElementById("sfTabAll")?.classList.toggle("active", tab==="all");
+  sfRenderTargets();
+}
+
+function sfRenderTargets(){
+  const grid = document.getElementById("sfTargetGrid");
+  if(!grid) return;
+
+  const targets = sfTargetsForTab();
+  grid.innerHTML = targets.map(t=>{
+    const key = sfKey(t.type,t.index);
+    const isSelected = sfSelected.has(key);
+    const addr = t.item.start || t.item.dmx || "";
+    const sub = t.type === "group" ? `${t.item.nodes?.length || 0} nodes` : t.item.group;
+    return `
+      <button class="targetBtn ${isSelected ? "selected" : ""}" onclick="sfToggleTarget('${t.type}',${t.index})">
+        <strong>${t.item.name}</strong>
+        <small>${t.type.toUpperCase()} · ${sub} · DMX ${addr}</small>
+      </button>
+    `;
+  }).join("");
+
+  sfUpdateSummary();
+}
+
+function sfToggleTarget(type,index){
+  const key = sfKey(type,index);
+  if(sfSelected.has(key)) sfSelected.delete(key);
+  else sfSelected.add(key);
+  sfRenderTargets();
+}
+
+function sfSelectedEntries(){
+  return [...sfSelected].map(key=>{
+    const [type, idx] = key.split(":");
+    const index = Number(idx);
+    const item = type === "group" ? groups[index] : nodes[index];
+    return {type,index,item};
+  }).filter(e=>e.item);
+}
+
+function sfUpdateSummary(){
+  const entries = sfSelectedEntries();
+  const count = document.getElementById("sfSelectedCount");
+  const names = document.getElementById("sfSelectedNames");
+  if(count) count.textContent = `${entries.length} Selected`;
+  if(names) names.textContent = entries.length ? entries.map(e=>e.item.name).slice(0,10).join(", ") + (entries.length>10 ? "…" : "") : "Choose targets above.";
+}
+
+function sfSelectAll(){
+  sfTargetsForTab().forEach(t=>sfSelected.add(sfKey(t.type,t.index)));
+  sfRenderTargets();
+}
+
+function sfClearSelection(){
+  sfSelected.clear();
+  sfRenderTargets();
+}
+
+function sfApplyMaster(value){
+  sfMasterValue = Number(value);
+  const el = document.getElementById("sfMasterVal");
+  if(el) el.textContent = `${sfMasterValue}%`;
+}
+
+function sfApplyChannel(channel,value){
+  const v = Number(value);
+  const entries = sfSelectedEntries();
+
+  entries.forEach(e=>{
+    if(channel === "hero") e.item.webHero = v;
+    if(channel === "flicker") e.item.webFlicker = v;
+    if(channel === "life") e.item.webLife = v;
+  });
+
+  if(channel === "hero") document.getElementById("sfHeroVal").textContent = `${v}%`;
+  if(channel === "flicker") document.getElementById("sfFlickerVal").textContent = `${v}%`;
+  if(channel === "life"){
+    document.getElementById("sfLifeVal").textContent = v;
+    document.getElementById("sfLifeName").textContent = sfLifeName(v);
+  }
+}
+
+function sfFadeSelected(direction){
+  const level = direction === "up" ? 100 : 0;
+  sfSelectedEntries().forEach(e=>{
+    e.item.webHero = level;
+    e.item.webFlicker = direction === "up" ? 60 : 0;
+  });
+  document.getElementById("sfHeroVal").textContent = `${level}%`;
+  document.getElementById("sfFlickerVal").textContent = `${direction === "up" ? 60 : 0}%`;
+}
+
+function sfSelectedBlackout(){
+  sfSelectedEntries().forEach(e=>{
+    e.item.webHero = 0;
+    e.item.webFlicker = 0;
+  });
+  document.getElementById("sfHeroVal").textContent = "0%";
+  document.getElementById("sfFlickerVal").textContent = "0%";
+}
+
+function sfLifeName(v){
+  v = Number(v);
+  if(v <= 51) return "Calm";
+  if(v <= 102) return "Light Air";
+  if(v <= 153) return "Breeze";
+  if(v <= 204) return "Windy";
+  return "Storm";
+}
+
+const sfOldNavClick = document.addEventListener;
+setTimeout(()=>sfRenderTargets(), 0);
+
+
+function sfCompactUpdate(input,suffix){
+  const b = input.parentElement.querySelector("b");
+  if(b) b.textContent = input.value + suffix;
+}
+
+function sfCompactLife(input){
+  const b = input.parentElement.querySelector("b");
+  const em = input.parentElement.querySelector("em");
+  if(b) b.textContent = input.value;
+  if(em) em.textContent = sfCompactLifeName(input.value);
+}
+
+function sfCompactLifeName(v){
+  v = Number(v);
+  if(v <= 51) return "Calm";
+  if(v <= 102) return "Light Air";
+  if(v <= 153) return "Breeze";
+  if(v <= 204) return "Windy";
+  return "Storm";
+}
+
+function sfCompactBlackout(btn){
+  const card = btn.closest(".compactStrip");
+  if(!card) return;
+  const sliders = card.querySelectorAll("input[type='range']");
+  sliders.forEach((s,i)=>{
+    if(i < 2){
+      s.value = 0;
+      sfCompactUpdate(s,"%");
+    }
+  });
+}
+
+function sfCompactBlackoutAll(){
+  document.querySelectorAll(".compactStrip").forEach(card=>{
+    const sliders = card.querySelectorAll("input[type='range']");
+    sliders.forEach((s,i)=>{
+      if(i < 2){
+        s.value = 0;
+        sfCompactUpdate(s,"%");
+      }
+    });
+  });
+}
+
+
+function compactLifeName(v){
+  v = Number(v);
+  if(v <= 51) return "Calm";
+  if(v <= 102) return "Light Air";
+  if(v <= 153) return "Breeze";
+  if(v <= 204) return "Windy";
+  return "Storm";
+}
+
+function compactEnsureValues(item){
+  if(typeof item.webHero !== "number") item.webHero = item.intensity ?? 80;
+  if(typeof item.webFlicker !== "number") item.webFlicker = item.flicker ?? 50;
+  if(typeof item.webLife !== "number") item.webLife = item.lifeMode ?? 20;
+}
+
+function compactCard(item, index, type){
+  compactEnsureValues(item);
+
+  const start = Number(item.start || item.dmx || 1);
+  const sub = type === "group"
+    ? `${item.nodes?.length || 0} Nodes`
+    : item.group;
+
+  return `
+    <div class="compactStrip ${type}Strip" data-kind="${type}" data-index="${index}">
+      <div class="compactTop">
+        <div>
+          <strong>${item.name}</strong>
+          <small>${sub} · DMX ${start}-${start + 2}</small>
+        </div>
+        <button class="miniBlackout" onclick="sfCompactBlackout(this)">Blackout</button>
+      </div>
+
+      <div class="compactSliders">
+        <label>
+          <span>Hero</span>
+          <input type="range" min="0" max="100" value="${item.webHero}" oninput="sfCompactUpdateLive(this,'${type}',${index},'webHero','%')">
+          <b>${item.webHero}%</b>
+        </label>
+
+        <label>
+          <span>Flicker</span>
+          <input type="range" min="0" max="100" value="${item.webFlicker}" oninput="sfCompactUpdateLive(this,'${type}',${index},'webFlicker','%')">
+          <b>${item.webFlicker}%</b>
+        </label>
+
+        <label>
+          <span>Life</span>
+          <input type="range" min="1" max="255" value="${item.webLife}" oninput="sfCompactUpdateLifeLive(this,'${type}',${index})">
+          <b>${item.webLife}</b>
+          <em>${compactLifeName(item.webLife)}</em>
+        </label>
+      </div>
+    </div>
+  `;
+}
+
+function renderCompactWebControl(){
+  const groupGrid = document.getElementById("compactGroupGrid");
+  const nodeGrid = document.getElementById("compactNodeGrid");
+  const groupCount = document.getElementById("compactGroupCount");
+  const nodeCount = document.getElementById("compactNodeCount");
+
+  if(groupGrid){
+    groupGrid.innerHTML = groups.map((group,index)=>compactCard(group,index,"group")).join("");
+  }
+
+  if(nodeGrid){
+    nodeGrid.innerHTML = nodes.map((node,index)=>compactCard(node,index,"node")).join("");
+  }
+
+  if(groupCount) groupCount.textContent = `${groups.length} Groups`;
+  if(nodeCount) nodeCount.textContent = `${nodes.length} Nodes`;
+}
+
+function sfCompactUpdateLive(input,type,index,key,suffix){
+  const collection = type === "group" ? groups : nodes;
+  if(collection[index]) collection[index][key] = Number(input.value);
+  sfCompactUpdate(input,suffix);
+}
+
+function sfCompactUpdateLifeLive(input,type,index){
+  const collection = type === "group" ? groups : nodes;
+  if(collection[index]) collection[index].webLife = Number(input.value);
+  sfCompactLife(input);
+}
+
+const oldSfCompactBlackout = typeof sfCompactBlackout === "function" ? sfCompactBlackout : null;
+sfCompactBlackout = function(btn){
+  const card = btn.closest(".compactStrip");
+  if(!card) return;
+
+  const type = card.dataset.kind;
+  const index = Number(card.dataset.index);
+  const collection = type === "group" ? groups : nodes;
+  if(collection[index]){
+    collection[index].webHero = 0;
+    collection[index].webFlicker = 0;
+  }
+
+  const sliders = card.querySelectorAll("input[type='range']");
+  sliders.forEach((s,i)=>{
+    if(i < 2){
+      s.value = 0;
+      sfCompactUpdate(s,"%");
+    }
+  });
+};
+
+sfCompactBlackoutAll = function(){
+  groups.forEach(g=>{
+    g.webHero = 0;
+    g.webFlicker = 0;
+  });
+  nodes.forEach(n=>{
+    n.webHero = 0;
+    n.webFlicker = 0;
+  });
+  renderCompactWebControl();
+};
+
+
+/* v36 group fader propagation */
+function sfFindGroupForCard(card){
+  if(!card) return null;
+  const groupName = card.querySelector(".compactTop strong")?.textContent?.trim();
+  return groups.find(g => g.name === groupName) || null;
+}
+
+function sfUpdateNodeCardsForGroup(group, key, value){
+  if(!group || !Array.isArray(group.nodes)) return;
+
+  group.nodes.forEach(nodeName => {
+    const node = nodes.find(n => n.name === nodeName);
+    if(!node) return;
+
+    node[key] = Number(value);
+
+    document.querySelectorAll(".nodeStrip").forEach(card => {
+      const title = card.querySelector(".compactTop strong")?.textContent?.trim();
+      if(title !== node.name) return;
+
+      const sliders = card.querySelectorAll("input[type='range']");
+
+      if(key === "webHero" && sliders[0]){
+        sliders[0].value = value;
+        sfCompactUpdate(sliders[0], "%");
+      }
+
+      if(key === "webFlicker" && sliders[1]){
+        sliders[1].value = value;
+        sfCompactUpdate(sliders[1], "%");
+      }
+
+      if(key === "webLife" && sliders[2]){
+        sliders[2].value = value;
+        sfCompactLife(sliders[2]);
+      }
+    });
+  });
+}
+
+function sfCompactUpdateLive(input,type,index,key,suffix){
+  const collection = type === "group" ? groups : nodes;
+
+  if(collection[index]){
+    collection[index][key] = Number(input.value);
+  }
+
+  sfCompactUpdate(input,suffix);
+
+  if(type === "group"){
+    sfUpdateNodeCardsForGroup(collection[index], key, input.value);
+  }
+}
+
+function sfCompactUpdateLifeLive(input,type,index){
+  const collection = type === "group" ? groups : nodes;
+
+  if(collection[index]){
+    collection[index].webLife = Number(input.value);
+  }
+
+  sfCompactLife(input);
+
+  if(type === "group"){
+    sfUpdateNodeCardsForGroup(collection[index], "webLife", input.value);
+  }
+}
+
+sfCompactBlackout = function(btn){
+  const card = btn.closest(".compactStrip");
+  if(!card) return;
+
+  const type = card.dataset.kind;
+  const index = Number(card.dataset.index);
+  const collection = type === "group" ? groups : nodes;
+
+  if(collection[index]){
+    collection[index].webHero = 0;
+    collection[index].webFlicker = 0;
+  }
+
+  const sliders = card.querySelectorAll("input[type='range']");
+  sliders.forEach((s,i)=>{
+    if(i < 2){
+      s.value = 0;
+      sfCompactUpdate(s,"%");
+    }
+  });
+
+  if(type === "group"){
+    sfUpdateNodeCardsForGroup(collection[index], "webHero", 0);
+    sfUpdateNodeCardsForGroup(collection[index], "webFlicker", 0);
+  }
+};
+
 </script>
 </body>
 </html>
