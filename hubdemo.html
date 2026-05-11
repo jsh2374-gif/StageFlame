@@ -1,0 +1,7565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>StageFlame Hub Demo</title>
+<style>
+:root{
+  --bg:#050505;
+  --bg2:#0b0704;
+  --panel:#11100e;
+  --panel2:#18130e;
+  --line:rgba(231,184,79,.24);
+  --line2:rgba(255,122,24,.32);
+  --gold:#f1c45a;
+  --gold2:#ffe09a;
+  --orange:#ff6a00;
+  --orange2:#ff9b2f;
+  --red:#ff3b14;
+  --green:#52ff93;
+  --blue:#65b9ff;
+  --text:#fff7e8;
+  --muted:#a99574;
+  --danger:#ff5050;
+  --ok:#48ff91;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 55% -10%, rgba(255,106,0,.22), transparent 33%),
+    radial-gradient(circle at 10% 20%, rgba(255,185,70,.07), transparent 26%),
+    linear-gradient(180deg,#080604,#020202 70%);
+  color:var(--text);
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.016) 1px, transparent 1px);
+  background-size:46px 46px;
+  mask-image:radial-gradient(circle at center,black,transparent 78%);
+  pointer-events:none;
+}
+
+.app{
+  position:relative;
+  z-index:2;
+  max-width:1580px;
+  margin:auto;
+  padding:20px;
+}
+
+.topbar{
+  min-height:82px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:10px 22px;
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:linear-gradient(180deg,rgba(18,18,18,.96),rgba(5,5,5,.98));
+  box-shadow:0 0 36px rgba(255,106,0,.08), inset 0 1px 0 rgba(255,255,255,.04);
+  overflow:hidden;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  min-width:260px;
+}
+
+.logoMark{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 48% 70%, #fff9c5 0 8%, #ffbf32 18%, #ff6800 45%, transparent 58%),
+    radial-gradient(circle, rgba(255,180,50,.24), rgba(255,106,0,.05) 62%, transparent 66%);
+  border:1px solid rgba(241,196,90,.55);
+  box-shadow:0 0 22px rgba(255,106,0,.34);
+  position:relative;
+}
+
+.logoMark:after{
+  content:"";
+  position:absolute;
+  left:18px; right:18px; bottom:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 12px rgba(255,211,120,.7);
+}
+
+.brandText strong{
+  font-size:25px;
+  letter-spacing:.11em;
+  font-weight:900;
+}
+.brandText strong span{color:var(--orange)}
+.brandText small{
+  display:block;
+  margin-top:2px;
+  color:var(--gold);
+  letter-spacing:.24em;
+  font-size:10px;
+}
+
+.pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:flex-end;
+}
+
+.pill{
+  padding:7px 12px;
+  border:1px solid rgba(231,184,79,.22);
+  border-radius:999px;
+  background:rgba(255,255,255,.025);
+  color:var(--gold);
+  font-size:12px;
+  white-space:nowrap;
+}
+
+.pill.active{
+  border-color:rgba(82,255,147,.42);
+  color:var(--green);
+  box-shadow:0 0 16px rgba(82,255,147,.08);
+}
+
+.layout{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns: 270px 1fr;
+  gap:14px;
+}
+
+.sidebar,.card{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(22,18,13,.94),rgba(7,7,7,.96));
+  border-radius:24px;
+  box-shadow:0 18px 50px rgba(0,0,0,.36);
+}
+
+.sidebar{
+  padding:14px;
+  min-height:calc(100vh - 130px);
+}
+
+.navTitle{
+  color:var(--muted);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  margin:8px 10px 12px;
+}
+
+.navBtn{
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  border:1px solid transparent;
+  color:var(--text);
+  background:transparent;
+  padding:13px 12px;
+  border-radius:15px;
+  cursor:pointer;
+  font-weight:700;
+  text-align:left;
+}
+
+.navBtn:hover,.navBtn.active{
+  border-color:var(--line);
+  background:rgba(255,255,255,.035);
+  color:var(--gold2);
+}
+
+.navBtn span:last-child{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.content{
+  display:grid;
+  gap:14px;
+}
+
+.heroGrid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:14px;
+}
+
+.card{
+  padding:22px;
+}
+
+.card h1,.card h2,.card h3{
+  margin:0;
+  color:var(--gold);
+  letter-spacing:.045em;
+}
+
+.card h1{font-size:28px}
+.card h2{font-size:21px}
+.card p{color:var(--muted);line-height:1.45}
+
+.demoBanner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:16px 18px;
+  border:1px solid rgba(255,106,0,.30);
+  border-radius:20px;
+  background:linear-gradient(90deg,rgba(255,106,0,.13),rgba(255,255,255,.025));
+}
+
+.demoBanner strong{color:var(--gold2)}
+.demoBanner small{display:block;color:var(--muted);margin-top:3px}
+
+.btnRow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+button,.selectLike{
+  border:1px solid var(--line);
+  border-radius:14px;
+  color:var(--text);
+  background:linear-gradient(180deg,rgba(255,106,0,.20),rgba(255,106,0,.055));
+  padding:12px 15px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+button.secondary{
+  background:rgba(255,255,255,.035);
+  color:var(--gold);
+}
+
+button.danger{
+  border-color:rgba(255,80,80,.35);
+  color:#ffd1d1;
+  background:linear-gradient(180deg,rgba(255,60,20,.22),rgba(255,60,20,.06));
+}
+
+button:hover{box-shadow:0 0 22px rgba(255,106,0,.22)}
+
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:14px;
+}
+
+.metric{
+  padding:16px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.03);
+}
+
+.metric .label{
+  color:var(--muted);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+.metric .value{
+  margin-top:8px;
+  font-size:26px;
+  font-weight:900;
+  color:var(--gold2);
+}
+
+.controls{
+  display:grid;
+  gap:14px;
+  margin-top:16px;
+}
+
+.control{
+  padding:16px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.032);
+}
+
+.controlHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:12px;
+}
+
+.controlTitle{
+  color:var(--gold2);
+  font-weight:900;
+}
+
+.controlSub{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:3px;
+}
+
+.rangeLine{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.valueBox{
+  min-width:56px;
+  text-align:right;
+  color:white;
+  font-weight:900;
+}
+
+input[type=range]{
+  width:100%;
+  accent-color:var(--orange);
+}
+
+input, select{
+  width:100%;
+  border:1px solid rgba(231,184,79,.22);
+  border-radius:13px;
+  background:rgba(0,0,0,.28);
+  color:var(--text);
+  padding:12px 13px;
+  font:inherit;
+  outline:none;
+}
+
+input:focus, select:focus{
+  border-color:rgba(255,106,0,.55);
+  box-shadow:0 0 18px rgba(255,106,0,.12);
+}
+
+.formGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.formGrid.three{
+  grid-template-columns:1fr 1fr 1fr;
+}
+
+.compactScenes{
+  grid-template-columns:1fr 1fr;
+  margin-top:0;
+}
+
+.groupManage{
+  display:grid;
+  gap:14px;
+  margin-top:16px;
+}
+
+.groupCard{
+  padding:16px;
+  border:1px solid rgba(231,184,79,.2);
+  border-radius:18px;
+  background:rgba(255,255,255,.03);
+}
+
+.groupTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:12px;
+}
+
+.groupTop strong{
+  color:var(--gold2);
+  font-size:18px;
+}
+
+.tagRow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:10px;
+}
+
+.tag{
+  border:1px solid rgba(231,184,79,.22);
+  border-radius:999px;
+  color:var(--gold);
+  background:rgba(255,255,255,.03);
+  padding:6px 9px;
+  font-size:12px;
+}
+
+.toggle{
+  position:relative;
+  width:60px;
+  height:32px;
+  flex:0 0 60px;
+}
+
+.toggle input{display:none}
+
+.toggle span{
+  position:absolute;
+  inset:0;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#2a2118;
+  cursor:pointer;
+}
+
+.toggle span:before{
+  content:"";
+  width:24px;
+  height:24px;
+  position:absolute;
+  left:3px;
+  top:3px;
+  border-radius:50%;
+  background:#7e6a4f;
+  transition:.22s;
+}
+
+.toggle input:checked + span{
+  background:linear-gradient(90deg,var(--orange),var(--gold));
+  box-shadow:0 0 20px rgba(255,106,0,.35);
+}
+.toggle input:checked + span:before{
+  transform:translateX(28px);
+  background:#fff5cf;
+}
+
+.nodeList{
+  display:grid;
+  gap:12px;
+  margin-top:14px;
+}
+
+.node{
+  padding:15px;
+  border:1px solid rgba(231,184,79,.20);
+  border-radius:18px;
+  background:rgba(255,255,255,.032);
+}
+
+.nodeTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.nodeName{font-weight:900;color:#fff4cf;font-size:18px}
+.nodeStatus{color:var(--green);font-weight:800;font-size:13px}
+
+.nodeGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  color:var(--muted);
+}
+
+.bar{
+  margin-top:6px;
+  height:7px;
+  background:#21160e;
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.fill{
+  height:100%;
+  width:var(--v);
+  background:linear-gradient(90deg,var(--orange),var(--gold));
+  box-shadow:0 0 14px rgba(255,106,0,.48);
+}
+
+.sectionGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.sceneGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:16px;
+}
+
+.scene{
+  padding:16px;
+  border:1px solid rgba(231,184,79,.2);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.14), transparent 36%),
+    rgba(255,255,255,.03);
+  cursor:pointer;
+}
+.scene:hover,.scene.active{border-color:var(--orange);box-shadow:0 0 22px rgba(255,106,0,.13)}
+.scene strong{color:var(--gold2)}
+.scene small{display:block;color:var(--muted);margin-top:6px}
+
+.protocolGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:16px;
+}
+
+.protocol{
+  padding:16px;
+  border:1px solid rgba(231,184,79,.20);
+  border-radius:18px;
+  background:rgba(255,255,255,.03);
+}
+.protocol strong{display:block;color:var(--gold2);margin-bottom:8px}
+.protocol .state{color:var(--muted)}
+.protocol.active .state{color:var(--green);font-weight:900}
+.protocol.active{border-color:rgba(82,255,147,.35)}
+
+.hidden{display:none!important}
+
+.log{
+  height:190px;
+  overflow:auto;
+  padding:14px;
+  border-radius:16px;
+  border:1px solid rgba(231,184,79,.16);
+  background:#050505;
+  color:#d7c19a;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:12px;
+  line-height:1.55;
+}
+
+.flamePreview{
+  min-height:240px;
+  display:grid;
+  place-items:center;
+  position:relative;
+  overflow:hidden;
+  border-radius:20px;
+  border:1px solid rgba(231,184,79,.18);
+  background:
+    radial-gradient(circle at center, rgba(255,106,0,.16), transparent 35%),
+    linear-gradient(180deg,rgba(255,255,255,.035),rgba(0,0,0,.18));
+}
+
+.flame{
+  width:72px;
+  height:122px;
+  border-radius:62% 62% 55% 55%;
+  background:
+    radial-gradient(circle at 52% 68%, #fffbd1 0 10%, #ffd64d 21%, #ff801a 48%, #bd1700 70%, transparent 72%);
+  filter:drop-shadow(0 0 30px rgba(255,106,0,.75));
+  animation:flame 1.7s infinite ease-in-out;
+  transform-origin:bottom center;
+}
+
+.flame:after{
+  content:"";
+  position:absolute;
+  width:160px;
+  height:160px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,106,0,.23), transparent 62%);
+  transform:translate(-44px,28px);
+  z-index:-1;
+}
+
+@keyframes flame{
+  0%,100%{transform:scale(.92,1) rotate(-2deg);opacity:.82}
+  45%{transform:scale(1.05,1.18) rotate(2deg);opacity:1}
+  70%{transform:scale(.96,1.05) rotate(-1deg);opacity:.9}
+}
+
+.footerNote{
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  padding:22px 0 6px;
+}
+
+
+.helpTip{
+  position:relative;
+  cursor:help;
+}
+
+.tooltip{
+  position:absolute;
+  left:0;
+  top:125%;
+  min-width:240px;
+  max-width:320px;
+  padding:12px 14px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(8,8,8,.96);
+  color:var(--text);
+  font-size:13px;
+  line-height:1.45;
+  box-shadow:0 12px 40px rgba(0,0,0,.42);
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(4px);
+  transition:.22s;
+  z-index:999;
+}
+
+.helpTip.show .tooltip{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.navBtn .tooltip{
+  left:calc(100% + 10px);
+  top:0;
+}
+
+.pills .tooltip,
+.protocolGrid .protocol:nth-child(3) .tooltip,
+.sectionGrid .card:nth-child(3) .tooltip{
+  left:auto;
+  right:0;
+}
+
+.helpWrap{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.helpWrap select,
+.helpWrap input{
+  flex:1;
+}
+
+.inlineHelp{
+  flex:0 0 auto;
+}
+
+.helpIcon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:18px;
+  height:18px;
+  margin-left:8px;
+  border-radius:50%;
+  border:1px solid rgba(231,184,79,.28);
+  color:var(--gold);
+  font-size:11px;
+  font-weight:900;
+  background:rgba(255,255,255,.03);
+}
+
+
+
+.nodeSettings{
+  display:none;
+  margin-top:12px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:16px;
+  background:rgba(0,0,0,.22);
+}
+
+.nodeSettings.open{
+  display:block;
+}
+
+.settingGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:12px;
+}
+
+.settingItem{
+  padding:12px;
+  border:1px solid rgba(231,184,79,.14);
+  border-radius:14px;
+  background:rgba(255,255,255,.025);
+}
+
+.settingItem label{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  color:var(--gold2);
+  font-size:13px;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+
+.settingsBtn.active{
+  border:3px solid rgba(255,145,35,.95)!important;
+  background:
+    linear-gradient(180deg,rgba(255,125,20,.48),rgba(255,106,0,.18))!important;
+  color:#fff6dd!important;
+  box-shadow:
+    0 0 10px rgba(255,180,60,.65),
+    0 0 26px rgba(255,106,0,.58),
+    0 0 42px rgba(255,106,0,.34),
+    inset 0 0 16px rgba(255,220,120,.14);
+  transform:translateY(-1px);
+}
+
+.nodeSettings.open{
+  display:block;
+  border:3px solid rgba(255,145,35,.92)!important;
+  box-shadow:
+    0 0 16px rgba(255,180,60,.42),
+    0 0 34px rgba(255,106,0,.34),
+    inset 0 0 32px rgba(255,140,40,.08);
+  background:
+    radial-gradient(circle at top right, rgba(255,120,20,.18), transparent 42%),
+    linear-gradient(180deg, rgba(255,120,20,.05), rgba(0,0,0,.16)),
+    rgba(0,0,0,.24);
+}
+
+.nodeModeBadge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:5px 8px;
+  border:1px solid rgba(231,184,79,.2);
+  border-radius:999px;
+  color:var(--gold);
+  font-size:11px;
+  background:rgba(255,255,255,.03);
+}
+
+
+.controlSourceRow{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+
+.sourceChoice{
+  border:1px solid rgba(231,184,79,.20);
+  border-radius:15px;
+  padding:12px;
+  background:rgba(255,255,255,.025);
+  cursor:pointer;
+  color:var(--muted);
+  font-weight:800;
+  text-align:center;
+}
+
+.sourceChoice.active{
+  border-color:rgba(255,140,40,.75);
+  color:#fff4d4;
+  background:linear-gradient(180deg,rgba(255,120,20,.32),rgba(255,106,0,.10));
+  box-shadow:0 0 20px rgba(255,106,0,.26);
+}
+
+.individualOnly.disabledBlock{
+  opacity:.38;
+  pointer-events:none;
+  filter:grayscale(.35);
+}
+
+
+.webTopBar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+  padding:14px;
+  border:2px solid rgba(255,106,0,.38);
+  border-radius:20px;
+  background:radial-gradient(circle at top right, rgba(255,106,0,.16), transparent 42%), rgba(255,255,255,.025);
+}
+
+.webTopBar h1{margin:0}
+
+.bigBlackout{
+  font-size:18px;
+  padding:16px 24px;
+  border:3px solid rgba(255,80,40,.72)!important;
+  box-shadow:0 0 28px rgba(255,60,20,.22);
+}
+
+.webControlGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.controlTable{
+  display:grid;
+  gap:10px;
+  margin-top:14px;
+}
+
+.controlRow{
+  display:grid;
+  grid-template-columns:1.1fr 1fr 1fr 90px;
+  gap:10px;
+  align-items:center;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:16px;
+  background:rgba(255,255,255,.026);
+}
+
+.controlRow strong{color:var(--gold2)}
+
+.controlMini{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.controlMini label{
+  color:var(--muted);
+  font-size:12px;
+  min-width:44px;
+}
+
+.chasePanel{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:14px;
+}
+
+.chasePreview{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:12px;
+}
+
+.chaseDot{
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  border:1px solid rgba(231,184,79,.24);
+  background:rgba(255,255,255,.05);
+  display:inline-block;
+}
+
+.chaseDot.active{
+  background:radial-gradient(circle,#fff2b3,#ff8a16 60%,#371100);
+  box-shadow:0 0 18px rgba(255,106,0,.72);
+}
+
+.fadeButtons{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:12px;
+}
+
+
+.consoleSurface{
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:24px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(18,18,18,.96), rgba(5,5,5,.98));
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  margin-bottom:16px;
+}
+
+.consoleSelector{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.consoleSelector button.active{
+  border:2px solid rgba(255,145,35,.9);
+  box-shadow:0 0 20px rgba(255,106,0,.35);
+}
+
+.faderBank{
+  display:grid;
+  grid-template-columns:140px 1fr;
+  gap:16px;
+}
+
+.masterStrip{
+  min-height:440px;
+  padding:14px;
+  border:3px solid rgba(255,145,35,.78);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    rgba(255,255,255,.03);
+  box-shadow:0 0 32px rgba(255,106,0,.24);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.faderScroller{
+  overflow-x:auto;
+  padding-bottom:10px;
+}
+
+.faderRows{
+  display:flex;
+  gap:12px;
+  min-width:max-content;
+}
+
+.faderStrip{
+  width:118px;
+  min-height:440px;
+  padding:12px 10px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.faderStrip.active{
+  border-color:rgba(255,145,35,.82);
+  box-shadow:0 0 20px rgba(255,106,0,.18);
+}
+
+.faderName{
+  color:var(--gold2);
+  font-weight:900;
+  font-size:13px;
+  text-align:center;
+  min-height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.faderValue{
+  color:#fff5d6;
+  font-size:22px;
+  font-weight:900;
+  margin:8px 0;
+}
+
+.verticalFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:230px;
+  accent-color:var(--orange);
+}
+
+.faderLabel{
+  color:var(--muted);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.lifeSelectSmall{
+  font-size:12px;
+  padding:8px;
+  margin-top:8px;
+}
+
+.consoleSubControls{
+  margin-top:16px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+
+.consoleSurface{
+  background:
+    linear-gradient(180deg, rgba(32,34,72,.96), rgba(16,18,48,.98))!important;
+  border-color:rgba(120,150,255,.35)!important;
+}
+
+.consoleHeader h2{
+  color:#fff6d0;
+}
+
+.faderBank{
+  grid-template-columns:110px 1fr!important;
+}
+
+.masterStrip{
+  min-height:520px!important;
+  border-color:rgba(255,145,35,.9)!important;
+}
+
+.faderRows{
+  gap:10px!important;
+  align-items:stretch;
+}
+
+.consoleFixture{
+  width:260px;
+  min-height:520px;
+  padding:10px;
+  border:1px solid rgba(210,220,255,.24);
+  border-radius:10px;
+  background:
+    linear-gradient(180deg, rgba(59,61,112,.92), rgba(37,39,86,.96));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border-color:rgba(255,145,35,.85);
+  box-shadow:0 0 20px rgba(255,106,0,.22);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.18);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:8px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:#d6dafd;
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:410px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:8px;
+  background:rgba(0,0,0,.12);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(0,0,0,.22);
+  color:#e9eaff;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:6px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:#00ff77;
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:#f7f7ff;
+}
+
+.lifeReadout{
+  color:#ffd36e;
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+  accent-color:var(--orange);
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+
+/* Web Control v23 fixes */
+.consoleSurface,
+.addFaderPanel,
+.faderScroller,
+.faderRows{
+  overflow:visible!important;
+}
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+}
+
+.addFaderPanel{
+  display:block!important;
+  position:relative;
+  z-index:20;
+  margin-bottom:16px;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:10px 0 12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+  width:100%;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+.consoleFader,
+.verticalFader{
+  writing-mode:vertical-lr!important;
+  direction:rtl!important;
+  appearance:auto;
+  -webkit-appearance:slider-vertical;
+  width:34px;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.faderRows{
+  min-height:490px;
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+}
+
+
+/* v24 repair: visible group list and web-control add list */
+.groupManage{
+  display:grid!important;
+  gap:14px!important;
+  margin-top:16px!important;
+}
+
+.webAddPanel{
+  margin-bottom:16px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.webAddButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:10px 0 12px;
+}
+
+.webAddButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.webAddList{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+  gap:10px;
+}
+
+.webAddItem{
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+  width:100%;
+}
+
+.webAddItem strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.webAddItem small{
+  color:var(--muted);
+}
+
+.webAddItem.added{
+  opacity:.55;
+}
+
+.consoleSurface,
+.faderScroller,
+.faderRows{
+  overflow:visible!important;
+}
+
+.faderScroller{
+  overflow-x:auto!important;
+}
+
+
+/* v25 Web Control rebuild */
+.webAddPanel{
+  display:block!important;
+  margin-bottom:16px!important;
+  padding:14px!important;
+  border:1px solid rgba(231,184,79,.22)!important;
+  border-radius:18px!important;
+  background:rgba(255,255,255,.025)!important;
+  overflow:visible!important;
+}
+
+.webAddButtons{
+  display:flex!important;
+  gap:10px!important;
+  flex-wrap:wrap!important;
+  margin-bottom:12px!important;
+}
+
+.webAddButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32)!important;
+}
+
+.webAddList{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr))!important;
+  gap:10px!important;
+}
+
+.webAddItem{
+  width:100%!important;
+  text-align:left!important;
+  padding:12px!important;
+  border-radius:14px!important;
+  border:1px solid rgba(231,184,79,.22)!important;
+  background:rgba(255,255,255,.035)!important;
+  color:var(--text)!important;
+  cursor:pointer!important;
+}
+
+.webAddItem strong{
+  display:block!important;
+  color:var(--gold2)!important;
+  margin-bottom:4px!important;
+}
+
+.webAddItem small{
+  color:var(--muted)!important;
+}
+
+.webAddItem.added{
+  opacity:.55!important;
+}
+
+.consoleSurface{
+  overflow:visible!important;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+}
+
+.faderScroller{
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+}
+
+.faderRows{
+  min-height:500px!important;
+  align-items:stretch!important;
+}
+
+.consoleFader{
+  writing-mode:vertical-lr!important;
+  direction:rtl!important;
+  -webkit-appearance:slider-vertical!important;
+  appearance:slider-vertical!important;
+  width:34px!important;
+  accent-color:var(--orange)!important;
+}
+
+
+/* v26 simplified all-node web control */
+.simpleMasterPanel{
+  display:grid;
+  grid-template-columns:1fr 2fr 80px;
+  gap:14px;
+  align-items:center;
+  padding:16px;
+  border:2px solid rgba(255,145,35,.55);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.13), transparent 42%),
+    rgba(255,255,255,.03);
+  margin-bottom:16px;
+}
+
+.allNodeMiniFaders{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+  gap:12px;
+}
+
+.miniNodeStrip{
+  padding:12px;
+  border:1px solid rgba(231,184,79,.22);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.09), transparent 42%),
+    rgba(255,255,255,.025);
+}
+
+.miniNodeStrip.active{
+  border:2px solid rgba(255,145,35,.75);
+  box-shadow:0 0 22px rgba(255,106,0,.18);
+}
+
+.miniNodeTop{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:flex-start;
+  margin-bottom:10px;
+}
+
+.miniNodeTop strong{
+  color:var(--gold2);
+  font-size:15px;
+}
+
+.miniNodeTop small{
+  display:block;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.miniChannels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.miniChannel{
+  height:250px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:7px 4px;
+  border:1px solid rgba(231,184,79,.14);
+  border-radius:12px;
+  background:rgba(0,0,0,.16);
+}
+
+.miniChannel label{
+  color:var(--gold);
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  min-height:28px;
+}
+
+.miniFader{
+  writing-mode:vertical-lr!important;
+  direction:rtl!important;
+  -webkit-appearance:slider-vertical!important;
+  appearance:slider-vertical!important;
+  width:30px!important;
+  height:145px!important;
+  accent-color:var(--orange)!important;
+}
+
+.miniVal{
+  color:#fff;
+  font-weight:900;
+  font-size:13px;
+}
+
+.miniCh{
+  color:var(--green);
+  font-size:10px;
+  font-weight:900;
+}
+
+.miniLifeName{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:20px;
+}
+
+@media(max-width:800px){
+  .simpleMasterPanel{
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* v28 group + node console controls */
+.allNodeMiniFaders{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr))!important;
+  gap:12px!important;
+}
+
+.miniNodeStrip.groupStrip{
+  border-color:rgba(255,145,35,.42);
+  background:
+    radial-gradient(circle at top right, rgba(255,145,35,.13), transparent 42%),
+    rgba(255,255,255,.025);
+}
+
+.miniNodeStrip.nodeStrip{
+  border-color:rgba(231,184,79,.20);
+}
+
+
+/* v29 force render 7 groups + 20 nodes on Web Control */
+.allNodeMiniFaders{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr))!important;
+  gap:12px!important;
+  width:100%!important;
+}
+
+.miniNodeStrip{
+  display:block!important;
+  min-height:330px!important;
+}
+
+.miniChannels{
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+  gap:8px!important;
+}
+
+.groupStrip{
+  border:2px solid rgba(255,145,35,.48)!important;
+  background:
+    radial-gradient(circle at top right, rgba(255,145,35,.13), transparent 42%),
+    rgba(255,255,255,.025)!important;
+}
+
+.nodeStrip{
+  border:1px solid rgba(231,184,79,.22)!important;
+}
+
+.nodeModeBadge{
+  vertical-align:middle;
+  margin-left:8px;
+}
+
+
+/* v30 rendered strips */
+.allNodeMiniFaders{
+ display:grid!important;
+ grid-template-columns:repeat(auto-fill,minmax(240px,1fr))!important;
+ gap:14px!important;
+ margin-top:18px!important;
+}
+
+.miniNodeStrip{
+ background:linear-gradient(180deg, rgba(30,18,8,.95), rgba(5,5,5,.95));
+ border:2px solid rgba(255,145,35,.35)!important;
+ border-radius:22px;
+ padding:14px;
+ min-height:420px;
+ display:flex!important;
+ flex-direction:column;
+}
+
+.groupStrip{
+ box-shadow:0 0 24px rgba(255,120,0,.14);
+}
+
+.stripHeader{
+ display:flex;
+ justify-content:space-between;
+ align-items:flex-start;
+ margin-bottom:10px;
+}
+
+.stripTitle{
+ color:var(--gold2);
+ font-size:20px;
+ font-weight:900;
+}
+
+.stripSub{
+ color:var(--muted);
+ font-size:12px;
+ margin-top:3px;
+}
+
+.stripStatus{
+ color:#44ff99;
+ font-size:12px;
+ font-weight:800;
+}
+
+.stripFaders{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ flex:1;
+ align-items:end;
+ margin-top:10px;
+}
+
+.faderCol{
+ border:1px solid rgba(255,255,255,.08);
+ border-radius:16px;
+ padding:10px 6px;
+ background:rgba(255,255,255,.03);
+ text-align:center;
+ min-height:260px;
+ display:flex;
+ flex-direction:column;
+ justify-content:space-between;
+ align-items:center;
+}
+
+.faderCol label{
+ color:var(--gold);
+ font-size:11px;
+ font-weight:800;
+ line-height:1.2;
+}
+
+.consoleFader{
+ writing-mode:vertical-lr!important;
+ direction:rtl!important;
+ -webkit-appearance:slider-vertical!important;
+ appearance:slider-vertical!important;
+ width:28px!important;
+ height:170px!important;
+ accent-color:#ff7a00!important;
+}
+
+.faderValue{
+ color:white;
+ font-weight:900;
+ font-size:15px;
+}
+
+.blackoutBtn{
+ width:100%;
+ margin-top:14px;
+ background:linear-gradient(180deg,#ff7a00,#9c4200);
+ border:2px solid rgba(255,170,90,.6);
+ color:white;
+ font-weight:900;
+ padding:12px;
+ border-radius:14px;
+ cursor:pointer;
+ box-shadow:0 0 18px rgba(255,120,0,.22);
+}
+
+
+/* v31 force visible rendered faders */
+#allGroupMiniFaders,
+#allNodeMiniFaders{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr))!important;
+  gap:14px!important;
+  margin-top:20px!important;
+  min-height:0!important;
+}
+
+.miniNodeStrip{
+  display:flex!important;
+  flex-direction:column!important;
+  min-height:440px!important;
+  padding:14px!important;
+  border-radius:22px!important;
+  background:linear-gradient(180deg, rgba(30,18,8,.95), rgba(5,5,5,.95))!important;
+  border:2px solid rgba(255,145,35,.38)!important;
+  box-shadow:0 0 20px rgba(255,106,0,.12)!important;
+}
+
+.stripHeader{
+  display:flex!important;
+  justify-content:space-between!important;
+  gap:10px!important;
+  margin-bottom:12px!important;
+}
+
+.stripTitle{
+  color:var(--gold2)!important;
+  font-size:19px!important;
+  font-weight:900!important;
+}
+
+.stripSub{
+  color:var(--muted)!important;
+  font-size:12px!important;
+  margin-top:4px!important;
+}
+
+.stripStatus{
+  color:var(--green)!important;
+  font-size:12px!important;
+  font-weight:900!important;
+  white-space:nowrap!important;
+}
+
+.stripFaders{
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+  gap:9px!important;
+  flex:1!important;
+}
+
+.faderCol{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  min-height:275px!important;
+  padding:10px 5px!important;
+  border:1px solid rgba(231,184,79,.16)!important;
+  border-radius:14px!important;
+  background:rgba(0,0,0,.18)!important;
+  text-align:center!important;
+}
+
+.faderCol label{
+  color:var(--gold)!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  line-height:1.25!important;
+}
+
+.consoleFader{
+  writing-mode:vertical-lr!important;
+  direction:rtl!important;
+  -webkit-appearance:slider-vertical!important;
+  appearance:slider-vertical!important;
+  width:32px!important;
+  height:165px!important;
+  accent-color:var(--orange)!important;
+}
+
+.faderValue{
+  color:#fff!important;
+  font-weight:900!important;
+  font-size:15px!important;
+}
+
+.blackoutBtn{
+  margin-top:12px!important;
+  width:100%!important;
+  border:2px solid rgba(255,170,90,.6)!important;
+  background:linear-gradient(180deg,#ff7a00,#883600)!important;
+  color:white!important;
+  font-weight:900!important;
+  padding:11px!important;
+  border-radius:14px!important;
+  cursor:pointer!important;
+}
+
+.miniLifeName{
+  color:var(--gold)!important;
+  font-size:10px!important;
+  min-height:18px!important;
+}
+
+
+/* v32 selected-target console layout */
+.targetTabs{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:14px 0;
+}
+
+.targetTabs button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32)!important;
+}
+
+.targetGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:10px;
+  max-height:260px;
+  overflow:auto;
+  padding:10px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:18px;
+  background:rgba(0,0,0,.18);
+}
+
+.targetBtn{
+  text-align:left;
+  padding:11px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+  cursor:pointer;
+}
+
+.targetBtn.selected{
+  border:3px solid rgba(255,145,35,.95)!important;
+  background:linear-gradient(180deg,rgba(255,120,20,.30),rgba(255,106,0,.10));
+  box-shadow:0 0 18px rgba(255,106,0,.25);
+}
+
+.targetBtn strong{
+  display:block;
+  color:var(--gold2);
+  font-size:13px;
+}
+
+.targetBtn small{
+  color:var(--muted);
+  display:block;
+  margin-top:4px;
+}
+
+.selectedSummary{
+  margin-top:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:16px;
+  background:rgba(255,255,255,.025);
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.selectedSummary strong{
+  color:var(--gold);
+}
+
+.selectedConsole{
+  display:grid;
+  grid-template-columns:140px 1fr;
+  gap:18px;
+  align-items:stretch;
+}
+
+.compactMaster{
+  min-height:360px!important;
+}
+
+.channelConsole{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.bigFader{
+  min-height:360px;
+  padding:16px;
+  border:1px solid rgba(231,184,79,.22);
+  border-radius:22px;
+  background:rgba(255,255,255,.025);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.bigFader label{
+  color:var(--gold);
+  font-weight:900;
+  text-align:center;
+}
+
+.bigFader .consoleFader,
+.compactMaster .consoleFader{
+  height:220px!important;
+}
+
+@media(max-width:900px){
+  .selectedConsole{
+    grid-template-columns:1fr;
+  }
+  .channelConsole{
+    grid-template-columns:1fr;
+  }
+  .bigFader{
+    min-height:260px;
+  }
+}
+
+
+/* v33 compact all-visible web control */
+.compactWebTop{
+  padding:16px 18px!important;
+  margin-bottom:10px!important;
+}
+
+.compactMasterBar{
+  display:grid;
+  grid-template-columns:90px 1fr 70px;
+  gap:12px;
+  align-items:center;
+  padding:12px 14px;
+  border:2px solid rgba(255,145,35,.45);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+  margin-bottom:10px;
+}
+
+.compactMasterBar strong,
+.compactMasterBar b{
+  color:var(--gold);
+  font-weight:900;
+}
+
+.compactSection{
+  border:1px solid rgba(231,184,79,.22);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 34%),
+    rgba(255,255,255,.018);
+  padding:12px;
+  margin-bottom:10px;
+}
+
+.compactHeader{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.compactHeader h2{
+  margin:0;
+  color:var(--gold);
+  font-size:24px;
+}
+
+.compactGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:8px;
+}
+
+.compactStrip{
+  border:1px solid rgba(231,184,79,.20);
+  border-radius:14px;
+  padding:9px;
+  background:linear-gradient(180deg,rgba(28,17,9,.92),rgba(5,5,5,.95));
+  min-height:118px;
+}
+
+.compactStrip.groupStrip{
+  border-color:rgba(255,145,35,.42);
+}
+
+.compactTop{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:flex-start;
+  margin-bottom:6px;
+}
+
+.compactTop strong{
+  display:block;
+  color:var(--gold2);
+  font-size:14px;
+  line-height:1.05;
+}
+
+.compactTop small{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+  line-height:1.1;
+}
+
+.miniBlackout{
+  padding:5px 7px!important;
+  border-radius:9px!important;
+  font-size:10px!important;
+  background:linear-gradient(180deg,#ff7a00,#7b3000)!important;
+  color:white!important;
+  border:1px solid rgba(255,170,90,.45)!important;
+  white-space:nowrap;
+}
+
+.compactSliders{
+  display:grid;
+  gap:5px;
+}
+
+.compactSliders label{
+  display:grid;
+  grid-template-columns:44px 1fr 42px;
+  gap:6px;
+  align-items:center;
+}
+
+.compactSliders span{
+  color:var(--gold);
+  font-size:10px;
+  font-weight:900;
+}
+
+.compactSliders input[type=range]{
+  width:100%;
+  accent-color:var(--orange);
+}
+
+.compactSliders b{
+  color:#fff;
+  font-size:11px;
+  text-align:right;
+}
+
+.compactSliders em{
+  grid-column:2 / 4;
+  color:var(--muted);
+  font-size:9px;
+  font-style:normal;
+  margin-top:-3px;
+}
+
+@media(max-width:1400px){
+  .compactGrid{
+    grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+  }
+  .compactStrip{
+    min-height:110px;
+  }
+}
+
+@media(max-width:900px){
+  .compactMasterBar{
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* v35 multi-node group assignment */
+.multiNodeTools{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:10px 0;
+}
+
+.multiNodeList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+  gap:8px;
+  max-height:180px;
+  overflow:auto;
+  padding:10px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:14px;
+  background:rgba(0,0,0,.16);
+}
+
+.nodeCheck{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px;
+  border:1px solid rgba(231,184,79,.14);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+  color:var(--text);
+  font-size:12px;
+  cursor:pointer;
+}
+
+.nodeCheck input{
+  width:auto;
+}
+
+.nodeCheck span{
+  color:var(--gold2);
+  font-weight:800;
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{
+    grid-template-columns:1fr;
+  }
+  .masterStrip{
+    min-height:260px;
+  }
+  .consoleSubControls{
+    grid-template-columns:1fr;
+  }
+}
+
+
+.consoleSurface{
+  background:
+    linear-gradient(180deg, rgba(32,34,72,.96), rgba(16,18,48,.98))!important;
+  border-color:rgba(120,150,255,.35)!important;
+}
+
+.consoleHeader h2{
+  color:#fff6d0;
+}
+
+.faderBank{
+  grid-template-columns:110px 1fr!important;
+}
+
+.masterStrip{
+  min-height:520px!important;
+  border-color:rgba(255,145,35,.9)!important;
+}
+
+.faderRows{
+  gap:10px!important;
+  align-items:stretch;
+}
+
+.consoleFixture{
+  width:260px;
+  min-height:520px;
+  padding:10px;
+  border:1px solid rgba(210,220,255,.24);
+  border-radius:10px;
+  background:
+    linear-gradient(180deg, rgba(59,61,112,.92), rgba(37,39,86,.96));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border-color:rgba(255,145,35,.85);
+  box-shadow:0 0 20px rgba(255,106,0,.22);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.18);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:8px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:#d6dafd;
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:410px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:8px;
+  background:rgba(0,0,0,.12);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(0,0,0,.22);
+  color:#e9eaff;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:6px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:#00ff77;
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:#f7f7ff;
+}
+
+.lifeReadout{
+  color:#ffd36e;
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+  accent-color:var(--orange);
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .webControlGrid,.chasePanel{grid-template-columns:1fr}
+  .controlRow{grid-template-columns:1fr}
+}
+
+
+.consoleSurface{
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:24px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(18,18,18,.96), rgba(5,5,5,.98));
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  margin-bottom:16px;
+}
+
+.consoleSelector{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.consoleSelector button.active{
+  border:2px solid rgba(255,145,35,.9);
+  box-shadow:0 0 20px rgba(255,106,0,.35);
+}
+
+.faderBank{
+  display:grid;
+  grid-template-columns:140px 1fr;
+  gap:16px;
+}
+
+.masterStrip{
+  min-height:440px;
+  padding:14px;
+  border:3px solid rgba(255,145,35,.78);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    rgba(255,255,255,.03);
+  box-shadow:0 0 32px rgba(255,106,0,.24);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.faderScroller{
+  overflow-x:auto;
+  padding-bottom:10px;
+}
+
+.faderRows{
+  display:flex;
+  gap:12px;
+  min-width:max-content;
+}
+
+.faderStrip{
+  width:118px;
+  min-height:440px;
+  padding:12px 10px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.faderStrip.active{
+  border-color:rgba(255,145,35,.82);
+  box-shadow:0 0 20px rgba(255,106,0,.18);
+}
+
+.faderName{
+  color:var(--gold2);
+  font-weight:900;
+  font-size:13px;
+  text-align:center;
+  min-height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.faderValue{
+  color:#fff5d6;
+  font-size:22px;
+  font-weight:900;
+  margin:8px 0;
+}
+
+.verticalFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:230px;
+  accent-color:var(--orange);
+}
+
+.faderLabel{
+  color:var(--muted);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.lifeSelectSmall{
+  font-size:12px;
+  padding:8px;
+  margin-top:8px;
+}
+
+.consoleSubControls{
+  margin-top:16px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+
+.consoleSurface{
+  background:
+    linear-gradient(180deg, rgba(32,34,72,.96), rgba(16,18,48,.98))!important;
+  border-color:rgba(120,150,255,.35)!important;
+}
+
+.consoleHeader h2{
+  color:#fff6d0;
+}
+
+.faderBank{
+  grid-template-columns:110px 1fr!important;
+}
+
+.masterStrip{
+  min-height:520px!important;
+  border-color:rgba(255,145,35,.9)!important;
+}
+
+.faderRows{
+  gap:10px!important;
+  align-items:stretch;
+}
+
+.consoleFixture{
+  width:260px;
+  min-height:520px;
+  padding:10px;
+  border:1px solid rgba(210,220,255,.24);
+  border-radius:10px;
+  background:
+    linear-gradient(180deg, rgba(59,61,112,.92), rgba(37,39,86,.96));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border-color:rgba(255,145,35,.85);
+  box-shadow:0 0 20px rgba(255,106,0,.22);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.18);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:8px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:#d6dafd;
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:410px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:8px;
+  background:rgba(0,0,0,.12);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(0,0,0,.22);
+  color:#e9eaff;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:6px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:#00ff77;
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:#f7f7ff;
+}
+
+.lifeReadout{
+  color:#ffd36e;
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+  accent-color:var(--orange);
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{
+    grid-template-columns:1fr;
+  }
+  .masterStrip{
+    min-height:260px;
+  }
+  .consoleSubControls{
+    grid-template-columns:1fr;
+  }
+}
+
+
+.consoleSurface{
+  background:
+    linear-gradient(180deg, rgba(32,34,72,.96), rgba(16,18,48,.98))!important;
+  border-color:rgba(120,150,255,.35)!important;
+}
+
+.consoleHeader h2{
+  color:#fff6d0;
+}
+
+.faderBank{
+  grid-template-columns:110px 1fr!important;
+}
+
+.masterStrip{
+  min-height:520px!important;
+  border-color:rgba(255,145,35,.9)!important;
+}
+
+.faderRows{
+  gap:10px!important;
+  align-items:stretch;
+}
+
+.consoleFixture{
+  width:260px;
+  min-height:520px;
+  padding:10px;
+  border:1px solid rgba(210,220,255,.24);
+  border-radius:10px;
+  background:
+    linear-gradient(180deg, rgba(59,61,112,.92), rgba(37,39,86,.96));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border-color:rgba(255,145,35,.85);
+  box-shadow:0 0 20px rgba(255,106,0,.22);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.18);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:8px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:#d6dafd;
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:410px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:8px;
+  background:rgba(0,0,0,.12);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(0,0,0,.22);
+  color:#e9eaff;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:6px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:#00ff77;
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:#f7f7ff;
+}
+
+.lifeReadout{
+  color:#ffd36e;
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+  accent-color:var(--orange);
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+}
+
+
+.consoleSurface{
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.12), transparent 38%),
+    linear-gradient(180deg, rgba(22,18,13,.96), rgba(7,7,7,.98))!important;
+  border:1px solid rgba(231,184,79,.24)!important;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.42);
+}
+
+.consoleHeader h2{
+  color:var(--gold)!important;
+}
+
+.faderBank{
+  grid-template-columns:120px 1fr!important;
+  align-items:stretch;
+}
+
+.masterStrip{
+  min-height:500px!important;
+  border:3px solid rgba(255,145,35,.9)!important;
+  background:
+    radial-gradient(circle at top, rgba(255,106,0,.16), transparent 45%),
+    linear-gradient(180deg, rgba(30,22,14,.95), rgba(8,8,8,.98))!important;
+}
+
+.faderScroller{
+  min-height:520px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  padding:14px;
+}
+
+.faderRows{
+  gap:12px!important;
+  align-items:stretch;
+  min-height:490px;
+}
+
+.consoleFixture{
+  width:255px;
+  min-height:485px;
+  padding:12px;
+  border:1px solid rgba(231,184,79,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at top right, rgba(255,106,0,.10), transparent 42%),
+    linear-gradient(180deg, rgba(24,19,13,.96), rgba(9,9,9,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+}
+
+.consoleFixture.active{
+  border:2px solid rgba(255,145,35,.86);
+  box-shadow:0 0 24px rgba(255,106,0,.24);
+}
+
+.fixtureNameEdit{
+  width:100%;
+  text-align:center;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(0,0,0,.28);
+  color:#fff7d6;
+  font-weight:900;
+  padding:8px;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.fixtureMeta{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.threeFaders{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.channelStrip{
+  height:405px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 5px;
+  border:1px solid rgba(231,184,79,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.channelLabel{
+  width:100%;
+  border:1px solid rgba(231,184,79,.18);
+  background:rgba(0,0,0,.24);
+  color:#fff2c8;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:6px 4px;
+  border-radius:8px;
+}
+
+.channelValue{
+  color:#ffffff;
+  font-weight:900;
+  font-size:16px;
+  min-height:20px;
+}
+
+.channelNumber{
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+.consoleFader{
+  writing-mode:bt-lr;
+  -webkit-appearance:slider-vertical;
+  appearance:slider-vertical;
+  width:34px;
+  height:250px;
+  accent-color:var(--orange);
+}
+
+.lifeReadout{
+  color:var(--gold);
+  font-size:10px;
+  text-align:center;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.masterStrip .consoleFader{
+  height:300px;
+}
+
+.addFaderPanel{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid rgba(231,184,79,.18);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+
+.emptyFaderMessage{
+  min-width:520px;
+  min-height:460px;
+  border:1px dashed rgba(231,184,79,.26);
+  border-radius:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+}
+
+.removeFaderBtn{
+  padding:7px 9px;
+  font-size:11px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .faderBank{grid-template-columns:1fr!important}
+  .consoleFixture{width:245px}
+  .addFaderPanel{grid-template-columns:1fr}
+}
+
+
+.consoleSurface,
+.addFaderPanel,
+.webTopBar{
+  overflow:visible!important;
+  position:relative;
+}
+
+.addFaderPanel{
+  z-index:50;
+}
+
+.addFaderPanel select,
+.addFaderPanel input,
+.addFaderPanel button{
+  position:relative;
+  z-index:60;
+}
+
+.faderScroller{
+  position:relative;
+  z-index:1;
+}
+
+.consoleFixture{
+  overflow:visible;
+}
+
+select{
+  position:relative;
+  z-index:20;
+}
+
+
+.addFaderPanel{
+  grid-template-columns:1fr!important;
+}
+
+.addTypeButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.addTypeButtons button.active{
+  border:3px solid rgba(255,145,35,.9)!important;
+  box-shadow:0 0 22px rgba(255,106,0,.32);
+}
+
+.addVisibleList{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+
+.addItemBtn{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(231,184,79,.22);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+}
+
+.addItemBtn:hover{
+  border-color:rgba(255,145,35,.75);
+  box-shadow:0 0 18px rgba(255,106,0,.2);
+}
+
+.addItemBtn.added{
+  color:var(--muted);
+  opacity:.55;
+}
+
+.addItemBtn strong{
+  display:block;
+  color:var(--gold2);
+  margin-bottom:4px;
+}
+
+.addItemBtn small{
+  color:var(--muted);
+}
+
+@media(max-width:1050px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{min-height:auto}
+  .heroGrid,.sectionGrid,.protocolGrid{grid-template-columns:1fr}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .topbar{align-items:flex-start;flex-direction:column}
+  .pills{justify-content:flex-start}
+}
+
+@media(max-width:620px){
+  .app{padding:12px}
+  .metrics,.nodeGrid,.sceneGrid,.formGrid,.formGrid.three,.settingGrid{grid-template-columns:1fr}
+  .brandText strong{font-size:18px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logoMark"></div>
+      <div class="brandText">
+        <strong>STAGE<span>FLAME</span></strong>
+        <small>REAL FLAME. REAL MAGIC.</small>
+      </div>
+    </div>
+    <div class="pills">
+      <div class="pill active">Demo Mode</div>
+      <div class="pill active">Hub Online</div>
+      <div class="pill" id="protoPill">Protocol: Auto</div>
+      <div class="pill">Universe 7</div>
+      <div class="pill" id="topNodeCount">20 Nodes</div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="navTitle">Hub Navigation</div>
+      <button class="navBtn active helpTip" data-page="dashboard"><span>Dashboard</span><span>Live</span><span class="tooltip">Main operating screen for live control, scenes, quick setup, node status, and blackout.</span></button>
+      <button class="navBtn helpTip" data-page="webcontrol"><span>Web Control</span><span>Live</span><span class="tooltip">Simple live control page for groups, nodes, fades, chase sequences, and blackout.</span></button>
+      <button class="navBtn helpTip" data-page="nodes"><span>Nodes</span><span id="sideNodeCount">20</span><span class="tooltip">View each connected fixture, check battery and signal, assign groups, set addresses, identify, or rename fixtures.</span></button>
+      <button class="navBtn helpTip" data-page="groups"><span>Groups</span><span id="sideGroupCount">7</span><span class="tooltip">Create fixture groups, assign fixtures, choose addressing modes, and set group start addresses.</span></button>
+      <button class="navBtn helpTip" data-page="protocols"><span>DMX / Art-Net / sACN</span><span>Auto</span><span class="tooltip">Configure lighting input, universe, protocol behavior, and addressing source.</span></button>
+      <button class="navBtn helpTip" data-page="network"><span>Network / WiFi</span><span>House</span><span class="tooltip">Connect the Hub to venue WiFi or view the local dashboard access address.</span></button>
+      <button class="navBtn helpTip" data-page="power"><span>Power Modes</span><span>Standby</span><span class="tooltip">Choose Show, Standby, Deep Sleep, or Rehearsal mode for runtime and operating behavior.</span></button>
+      <button class="navBtn helpTip" data-page="diagnostics"><span>Diagnostics</span><span>OK</span><span class="tooltip">Review system messages, connection events, settings changes, and simulated Hub activity.</span></button>
+      <button class="navBtn helpTip" data-page="instructions"><span>Instructions</span><span>Guide</span><span class="tooltip">Open the customer quick guide for basic operation and setup workflow.</span></button>
+    </aside>
+
+    <main class="content">
+
+      <section id="dashboard" class="page">
+        <div class="demoBanner">
+          <div>
+            <strong>Interactive website demo</strong>
+            <small>This version simulates a StageFlame Hub so future customers can test the interface without hardware.</small>
+          </div>
+          <div class="btnRow">
+            <span class="helpTip"><button id="wakeAll">Wake All</button><span class="tooltip">Wakes connected fixtures and returns them to active control mode.</span></span>
+            <span class="helpTip"><button class="danger" id="blackout">Blackout</button><span class="tooltip">Immediately turns all flame outputs off.</span></span>
+          </div>
+        </div>
+
+        <div class="heroGrid">
+          <div class="card">
+            <h1>StageFlame Hub</h1>
+            <p>Wireless flame control for candles, torches, sconces, chandeliers, and stage practicals.</p>
+
+            <div class="metrics">
+              <div class="metric"><div class="label">Nodes</div><div class="value" id="metricNodeCount">20</div></div>
+              <div class="metric"><div class="label">Input</div><div class="value" id="metricInput">Auto</div></div>
+              <div class="metric"><div class="label">Mode</div><div class="value" id="metricMode">Show</div></div>
+              <div class="metric"><div class="label">Battery Avg</div><div class="value" id="batteryAvg">82%</div></div>
+              <div class="metric"><div class="label">Groups</div><div class="value" id="metricGroupCount">7</div></div>
+            </div>
+
+            <div class="controls">
+              <div class="control">
+                <div class="controlHead">
+                  <div><div class="controlTitle">Hero Flame <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Controls the main visible flame output. Use this for the primary candle, torch, or practical flame level.</span></span></div><div class="controlSub">Primary animated flame channel</div></div>
+                  <label class="toggle"><input id="pin5On" type="checkbox" checked><span></span></label>
+                </div>
+                <div class="rangeLine"><input id="heroMaster" type="range" min="0" max="100" value="82"><div class="valueBox" id="heroMasterVal">82%</div></div>
+              </div>
+
+              <div class="control">
+                <div class="controlHead">
+                  <div><div class="controlTitle">Hero Flame Low Range <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Sets the lowest brightness the Hero Flame will dip to while bounce is enabled.</span></span></div><div class="controlSub">Lowest point of the flame bounce</div></div>
+                </div>
+                <div class="rangeLine"><input id="heroLow" type="range" min="0" max="100" value="42"><div class="valueBox" id="heroLowVal">42%</div></div>
+              </div>
+
+              <div class="control">
+                <div class="controlHead">
+                  <div><div class="controlTitle">Hero Flame High Range <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Sets the brightest point the Hero Flame can reach while bounce is enabled.</span></span></div><div class="controlSub">Highest point of the flame bounce</div></div>
+                </div>
+                <div class="rangeLine"><input id="heroHigh" type="range" min="0" max="100" value="88"><div class="valueBox" id="heroHighVal">88%</div></div>
+              </div>
+
+              <div class="control">
+                <div class="controlHead">
+                  <div>
+                    <div class="controlTitle">Hero Flame Bounce <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Turns the natural rising and falling flame motion on or off. Off gives a steady Hero Flame level.</span></span></div>
+                    <div class="controlSub">Enable or disable animated flame movement</div>
+                  </div>
+                  <label class="toggle">
+                    <input id="heroBounce" type="checkbox" checked>
+                    <span></span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="control">
+                <div class="controlHead">
+                  <div>
+                    <div class="controlTitle">Life Mode <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Life Mode adds automatic organic motion to the Hero Flame so it feels alive without manually programming every movement.</span></span></div>
+                    <div class="controlSub">Automatic flame life and bounce behavior</div>
+                  </div>
+                  <select id="globalLifeMode" style="max-width:190px">
+                    <option>Calm</option>
+                    <option>Light Air</option>
+                    <option>Breeze</option>
+                    <option>Windy</option>
+                    <option>Storm</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="control">
+                <div class="controlHead">
+                  <div><div class="controlTitle">Flicker <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Controls the secondary shimmer/glow channel. Use it to add fullness or subtle flame detail.</span></span></div><div class="controlSub">Secondary flame channel for shimmer and glow control</div></div>
+                  <label class="toggle"><input id="pin7On" type="checkbox" checked><span></span></label>
+                </div>
+                <div class="rangeLine"><input id="pin7" type="range" min="0" max="100" value="55"><div class="valueBox" id="pin7Val">55%</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Quick Setup</h2>
+            <p>Demo controls for customer-facing setup: network selection, grouping, addressing, and show presets.</p>
+
+            <div class="controls">
+              <div class="control">
+                <div class="controlHead">
+                  <div><div class="controlTitle">House WiFi <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Enter the venue WiFi so phones, tablets, or computers on that network can open the Hub dashboard.</span></span></div><div class="controlSub">Connect the Hub to in-house WiFi for browser control and wireless node management.</div></div>
+                </div>
+                <div class="formGrid">
+                  <span class="helpTip"><input id="wifiSsidQuick" placeholder="Network name / SSID" value="StageFlame_ShowNet"><span class="tooltip">Name of the WiFi network the Hub should join.</span></span>
+                  <span class="helpTip"><input id="wifiPassQuick" placeholder="Password" type="password" value="stageflame"><span class="tooltip">Password for the selected WiFi network. This demo does not actually store credentials.</span></span>
+                </div>
+                <div class="btnRow" style="margin-top:12px">
+                  <span class="helpTip"><button onclick="connectWifiQuick()">Connect WiFi</button><span class="tooltip">Connects the Hub to the entered venue or house WiFi network.</span></span>
+                  <span class="helpTip"><button class="secondary" onclick="scanWifi()">Scan Networks</button><span class="tooltip">Searches for available WiFi networks near the Hub.</span></span>
+                </div>
+              </div>
+
+              <div class="control">
+                <div class="controlHead">
+                  <div><div class="controlTitle">Fast Group Add <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Quickly creates a new fixture group from the dashboard. Use Groups & Addressing later to add fixtures and refine settings.</span></span></div><div class="controlSub">Create a group, then assign nodes from the Groups page.</div></div>
+                </div>
+                <div class="formGrid">
+                  <span class="helpTip"><input id="quickGroupName" placeholder="Group name" value="Balcony Candles"><span class="tooltip">Name for the new fixture group, such as Chandelier A, Balcony Rail, or Table Candles.</span></span>
+                  <span class="helpTip"><input id="quickGroupStart" placeholder="DMX start address" type="number" value="151"><span class="tooltip">First lighting address assigned to this group.</span></span>
+                </div>
+                <span class="helpTip"><button style="margin-top:12px" onclick="quickCreateGroup()">Create Group</button><span class="tooltip">Creates a new fixture group using the name and DMX start address entered above.</span></span>
+              </div>
+
+              <div class="control">
+                <div class="controlHead">
+                  <div><div class="controlTitle">Scenes <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Scenes are saved looks that quickly change flame behavior for different moods or production needs.</span></span></div><div class="controlSub">Load a simulated look without showing a flame preview.</div></div>
+                </div>
+                <div class="sceneGrid compactScenes">
+                  <div class="scene active helpTip" data-scene="Calm Warm"><strong>Calm Warm</strong><small>Soft realistic candlelight.</small><span class="tooltip">Loads a warm, subtle candle look suited for theatre, opera, church scenes, and classical interiors.</span></div>
+                  <div class="scene helpTip" data-scene="Light Air Low"><strong>Light Air Low</strong><small>Dim uneasy flicker.</small><span class="tooltip">Loads a low, moody look for haunted scenes, crypts, mansions, and suspenseful lighting.</span></div>
+                  <div class="scene helpTip" data-scene="Breeze Procession"><strong>Breeze Procession</strong><small>Brighter movement.</small><span class="tooltip">Loads a brighter, more active look intended for handheld torches or processional effects.</span></div>
+                  <div class="scene helpTip" data-scene="Storm Flicker"><strong>Storm Flicker</strong><small>Chaotic candle reaction.</small><span class="tooltip">Loads a more unstable look for storm, wind, or supernatural disturbance moments.</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sectionGrid" style="margin-top:14px">
+          <div class="card"><h2>Input Priority</h2><p>Wired DMX, Art-Net, or sACN can override manual controls during show mode.</p><span class="helpTip"><button class="secondary" onclick="demoProtocol()">Simulate Input Change</button><span class="tooltip">Cycles the demo through input sources so you can see how the Hub displays active lighting control.</span></span></div>
+          <div class="card"><h2>Power Control</h2><p>Wake all nodes, enter standby between shows, or deep sleep overnight.</p><span class="helpTip"><button class="secondary" onclick="setMode('Standby')">Enter Standby</button><span class="tooltip">Places fixtures into a lower-power state between performances while keeping them ready to wake.</span></span></div>
+          <div class="card"><h2>Safety</h2><p>Emergency blackout turns off all simulated flame outputs immediately.</p><span class="helpTip"><button class="danger" onclick="blackoutNow()">Blackout</button><span class="tooltip">Immediately turns all flame outputs off.</span></span></div>
+        </div>
+      </section>
+
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <section id="webcontrol" class="page hidden">
+        <div class="webTopBar compactWebTop">
+          <div>
+            <h1>Web Control</h1>
+            <p style="margin:6px 0 0;color:var(--muted)">Per-group and per-node 3-channel controls. Group faders also update the nodes assigned to that group.</p>
+          </div>
+          <button class="danger bigBlackout" onclick="sfCompactBlackoutAll()">Blackout All</button>
+        </div>
+
+        <div class="compactMasterBar">
+          <strong>Master</strong>
+          <input id="compactMaster" type="range" min="0" max="100" value="100" oninput="document.getElementById('compactMasterVal').textContent=this.value+'%'">
+          <b id="compactMasterVal">100%</b>
+        </div>
+
+        <div class="compactSection">
+          <div class="compactHeader">
+            <h2>Group Faders</h2>
+            <span class="nodeModeBadge" id="compactGroupCount">7 Groups</span>
+          </div>
+          <div class="compactGrid groupGrid" id="compactGroupGrid"></div>
+        </div>
+
+        <div class="compactSection">
+          <div class="compactHeader">
+            <h2>Node Faders</h2>
+            <span class="nodeModeBadge" id="compactNodeCount">20 Nodes</span>
+          </div>
+          <div class="compactGrid nodeGridCompact" id="compactNodeGrid"></div>
+        </div>
+      </section>
+
+      <section id="nodes" class="page hidden">
+        <div class="card">
+          <h1>Connected Nodes</h1>
+          <p>Simulated wireless StageFlame nodes automatically appear when connected to the hub.</p>
+          <div class="nodeList" id="nodeList"></div>
+        </div>
+      </section>
+
+      
+      <section id="groups" class="page hidden">
+        <div class="card">
+          <h1>Groups & Addressing</h1>
+          <p>Create groups, assign nodes, and set DMX start addresses.</p>
+
+          <div class="groupManage" id="groupManage"></div>
+
+          <div class="control" style="margin-top:18px">
+            <div class="controlHead">
+              <div>
+                <div class="controlTitle">Create New Group</div>
+                <div class="controlSub">Example: Chandelier A, Breezeways, Table Candles, Stage Left, Balcony Rail.</div>
+              </div>
+            </div>
+
+            <div class="formGrid three">
+              <span class="helpTip">
+                <input id="newGroupName" placeholder="Group name">
+                <span class="tooltip">Enter a customer-friendly group name, such as Chandelier A, Torches, or Stage Left.</span>
+              </span>
+
+              <span class="helpTip">
+                <input id="newGroupStart" type="number" min="1" max="512" placeholder="DMX start">
+                <span class="tooltip">First control address assigned to this group.</span>
+              </span>
+
+              <div class="helpWrap">
+                <div class="selectLike">3-Channel</div>
+                <span class="helpTip inlineHelp">
+                  <span class="helpIcon">?</span>
+                  <span class="tooltip">All StageFlame fixtures use 3 channels: Channel 1 Hero Flame, Channel 2 Flicker, Channel 3 Life Mode.</span>
+                </span>
+              </div>
+            </div>
+
+            <span class="helpTip">
+              <button style="margin-top:12px" onclick="createGroupFromForm()">Add Group</button>
+              <span class="tooltip">Adds this group to the Hub so fixtures can be assigned to it.</span>
+            </span>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="protocols" class="page hidden">
+        <div class="card">
+          <h1>DMX / Art-Net / sACN</h1>
+          <p>The real hub can accept wired 5-pin DMX input, Ethernet Art-Net, Ethernet sACN, or WiFi network input.</p>
+
+          <div class="protocolGrid">
+            <div class="protocol active helpTip"><strong>Wired DMX</strong><div class="state">Active Signal</div><p>5-pin DMX IN with DMX THRU.</p><span class="tooltip">Uses a physical lighting cable from the console or DMX network. THRU passes signal to other fixtures.</span></div>
+            <div class="protocol helpTip"><strong>Art-Net</strong><div class="state">Listening</div><p>Universe 7 over Ethernet or WiFi.</p><span class="tooltip">Receives Art-Net control over the network from a console, media server, or show controller.</span></div>
+            <div class="protocol helpTip"><strong>sACN / E1.31</strong><div class="state">Listening</div><p>Multicast or unicast input.</p><span class="tooltip">Receives sACN/E1.31 control over the network, commonly used by modern lighting consoles.</span></div>
+          </div>
+
+          <div class="controls">
+            <div class="control">
+              <div class="controlHead">
+                <div>
+                  <div class="controlTitle">Input Mode <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Auto Detect chooses the active lighting source automatically. Manual modes can lock the Hub to a specific input.</span></span></div>
+                  <div class="controlSub">Auto Detect, DMX, Art-Net, or sACN</div>
+                </div>
+                <div class="selectLike">Auto Detect</div>
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlHead">
+                <div>
+                  <div class="controlTitle">Universe <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">The lighting universe is the control network number the Hub listens to. It must match the console output.</span></span></div>
+                  <div class="controlSub">Primary lighting universe</div>
+                </div>
+              </div>
+
+              <div class="formGrid">
+                <span class="helpTip"><input id="universeInput" type="number" min="1" max="63999" value="7"><span class="tooltip">Enter the desired universe number. Typical DMX universe addressing uses 1–512 channels per universe.</span></span>
+                <span class="helpTip"><button onclick="setUniverse()">Apply Universe</button><span class="tooltip">Sets the lighting universe the Hub listens to for DMX, Art-Net, or sACN control.</span></span>
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlHead">
+                <div>
+                  <div class="controlTitle">DMX Addressing <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Choose whether fixtures respond individually or as groups from shared control addresses.</span></span></div>
+                  <div class="controlSub">Group or individual node addressing</div>
+                </div>
+                <div class="selectLike">Individual</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="network" class="page hidden">
+        <div class="card">
+          <h1>Network / WiFi Setup</h1>
+          <p>Demo page for connecting the StageFlame Hub to the venue or in-house WiFi network.</p>
+
+          <div class="sectionGrid">
+            <div class="card">
+              <h2>Current Network</h2>
+              <p><strong>SSID:</strong> <span id="currentSsid">StageFlame_ShowNet</span></p>
+              <p><strong>IP Address:</strong> 192.168.1.122</p>
+              <p><strong>Signal:</strong> -48 dBm</p>
+            </div>
+
+            <div class="card">
+              <h2>Connect to WiFi</h2>
+              <div class="controls">
+                <span class="helpTip"><input id="wifiSsid" placeholder="House WiFi SSID" value="Theatre_WiFi"><span class="tooltip">Name of the venue or house WiFi network.</span></span>
+                <span class="helpTip"><input id="wifiPass" placeholder="WiFi Password" type="password"><span class="tooltip">Password for the selected venue WiFi network.</span></span>
+                <span class="helpTip"><button onclick="connectWifi()">Connect</button><span class="tooltip">Saves the entered WiFi network and connects the Hub to it.</span></span>
+              </div>
+            </div>
+
+            <div class="card">
+              <h2>Hub Access</h2>
+              <p>Local dashboard address:</p>
+              <p><strong>http://stageflame-hub.local</strong></p>
+              <p>Fallback AP:</p>
+              <p><strong>StageFlame_Setup</strong></p>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:14px">
+            <h2>Detected Networks</h2>
+            <div class="nodeList" id="wifiList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="power" class="page hidden">
+        <div class="card">
+          <h1>Power Modes</h1>
+          <p>Reduce battery use between shows without losing professional show control.</p>
+          <div class="sceneGrid">
+            <div class="scene active" onclick="setMode('Show')"><strong>Show Mode</strong><span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Show Mode is intended for live performances and active operation. All fixtures respond at full speed and external lighting control takes priority.</span></span><small>Full response, DMX priority, live flame output.</small></div>
+            <div class="scene" onclick="setMode('Standby')"><strong>Standby</strong><span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Standby Mode reduces power consumption between performances while keeping fixtures connected and ready to wake quickly.</span></span><small>LEDs off or ember low, slower heartbeat.</small></div>
+            <div class="scene" onclick="setMode('Deep Sleep')"><strong>Deep Sleep</strong><span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Deep Sleep is intended for overnight shutdown, storage, and transport. Wireless communication is minimized for maximum battery life.</span></span><small>Overnight / storage mode, lowest battery use.</small></div>
+            <div class="scene" onclick="setMode('Rehearsal')"><strong>Rehearsal</strong><span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Rehearsal Mode allows manual adjustment and testing without requiring live console input.</span></span><small>Manual controls unlocked for setup and testing.</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="diagnostics" class="page hidden">
+        <div class="card">
+          <h1>Diagnostics <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Diagnostics show connection events, fixture activity, network changes, and system messages for troubleshooting.</span></span></h1>
+          <p>Simulated system log and health reporting.</p>
+          <div class="log" id="log"></div>
+        </div>
+      </section>
+
+      
+      <section id="instructions" class="page hidden">
+        <div class="card">
+          <h1>StageFlame Hub Instructions</h1>
+          <p>This guide explains how to use the StageFlame Hub to manage wireless flame fixtures during setup, rehearsal, and live operation.</p>
+
+          <div class="controls">
+
+            <div class="control">
+              <div class="controlTitle">1. Powering the System</div>
+              <div class="controlSub" style="margin-top:8px">
+                Power on the StageFlame Hub first, then turn on all StageFlame fixtures. 
+                Connected fixtures will automatically appear in the Nodes page once detected.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">2. Connecting to WiFi</div>
+              <div class="controlSub" style="margin-top:8px">
+                Open the Network / WiFi page to connect the Hub to the venue or in-house wireless network. 
+                Once connected, the Hub can be accessed from any device on the same network using the local dashboard address.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">3. Creating Groups</div>
+              <div class="controlSub" style="margin-top:8px">
+                Use the Groups page to create fixture groups such as chandeliers, torches, sconces, or table candles.
+                Fixtures can be assigned to groups for synchronized control and shared addressing.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">4. Addressing Fixtures</div>
+              <div class="controlSub" style="margin-top:8px">
+                Fixtures may operate in individual addressing mode or group addressing mode.
+                DMX start addresses can be assigned from the Nodes or Groups pages.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">Addressing Modes</div>
+              <div class="controlSub" style="margin-top:8px">
+                <strong>3-Channel</strong> uses two control channels: Hero Flame intensity and Flicker intensity. This is best when you want direct control and want to use fewer lighting channels.<br><br>
+
+                <strong>3-Channel</strong> adds a third control channel for flame personality. Low values select Calm, mid-low values select Light Air, mid-high values select Breeze, and high values select Storm.<br><br>
+
+                <strong>3-Channel</strong> lets a full group of fixtures respond together from one address block. This is ideal for chandeliers, wall sconces, table candles, torch lines, and other grouped scenic elements.
+              </div>
+            </div>
+
+
+            <div class="control">
+              <div class="controlTitle">Match Group Settings vs Individual Control</div>
+              <div class="controlSub" style="margin-top:8px">
+                Each fixture can operate in only one control style at a time.<br><br>
+                <strong>Match Group Settings</strong> means the fixture follows the settings assigned to its group. This is best for chandeliers, sconces, tables, or any fixtures that should behave together.<br><br>
+                <strong>Individual Control</strong> unlocks the fixture’s own settings so it can have separate intensity, Flicker, bounce rate, low range, and high range values.<br><br>
+                Switching one option on automatically disables the other.
+              </div>
+            </div>
+
+
+            <div class="control">
+              <div class="controlTitle">Node Settings Dropdown</div>
+              <div class="controlSub" style="margin-top:8px">
+                Each fixture has a Settings button. Open it to choose the fixture’s DMX mode and adjust the controls available for that mode.<br><br>
+
+                <strong>3-Channel</strong> shows Hero Flame intensity and Flicker only.<br><br>
+
+                <strong>3-Channel</strong> shows Hero Flame intensity, Flicker, and a Life Mode slider that selects Calm, Light Air, Breeze, Windy, or Storm.<br><br>
+
+                <strong>Life Mode</strong> controls the automatic organic bounce behavior, including strength, speed, low range, and high range.<br><br>
+
+                <strong>3-Channel</strong> lets the fixture follow its assigned group while allowing local trim adjustments.
+              </div>
+            </div>
+
+
+            <div class="control">
+              
+            <div class="control">
+              
+            <div class="control">
+              <div class="controlTitle">Web Control Page</div>
+              <div class="controlSub" style="margin-top:8px">
+                The Web Control tab is designed for simple live operation from a browser. It shows group controls and individual node controls on one page.<br><br>
+                Use the top Blackout button to immediately turn off all flame outputs.<br><br>
+                Use Add Slider Strip to place only the groups or nodes you want on the Web Control surface. Each added strip shows Hero, Flicker, and Life Mode vertical faders.<br><br>
+                Timed Fades let you quickly fade levels up or down using a selected fade time.<br><br>
+                Chase Sequence runs a simple moving effect across groups or nodes.
+              </div>
+            </div>
+
+              <div class="controlTitle">3-Channel Layout</div>
+              <div class="controlSub" style="margin-top:8px">
+                <strong>Channel 1 — Hero Flame:</strong> main flame intensity.<br><br>
+                <strong>Channel 2 — Flicker:</strong> secondary Flicker intensity.<br><br>
+                <strong>Channel 3 — Life Mode:</strong> selects automatic candle life from 1–255.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">Life Mode Levels</div>
+              <div class="controlSub" style="margin-top:8px">
+                <strong>Calm:</strong> high level 255, low level 200, slow bounce.<br><br>
+                <strong>Light Air:</strong> high level 255, low level 150, medium bounce.<br><br>
+                <strong>Breeze:</strong> high level 220, low level 100, moderately fast bounce.<br><br>
+                <strong>Windy:</strong> high level 100, low level 30, moderate bounce.<br><br>
+                <strong>Storm:</strong> high level 30, low level 1, fast bounce.
+              </div>
+            </div>
+
+              <div class="controlTitle">5. Hero Flame</div>
+              <div class="controlSub" style="margin-top:8px">
+                Hero Flame controls the primary animated flame behavior.
+                Adjust intensity, low range, high range, and bounce behavior to achieve the desired flame appearance.
+                Bounce may be enabled or disabled using the Hero Flame Bounce toggle.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">6. Flicker</div>
+              <div class="controlSub" style="margin-top:8px">
+                Flicker controls the secondary flame shimmer and dimming level.
+                This channel is designed for supplemental glow and subtle movement enhancement.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">7. Input Sources</div>
+              <div class="controlSub" style="margin-top:8px">
+                The Hub supports wired DMX, Art-Net, and sACN input.
+                Input priority can be configured from the DMX / Art-Net / sACN page.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">8. Calmting Modes</div>
+              <div class="controlSub" style="margin-top:8px">
+                <strong>Show Mode</strong> is intended for live performances and active operation. Fixtures respond immediately and external lighting input takes priority.<br><br>
+
+                <strong>Standby Mode</strong> reduces power consumption between shows while keeping fixtures available for quick wake and reconnection.<br><br>
+
+                <strong>Deep Sleep Mode</strong> is intended for overnight shutdown, storage, and transportation. Battery usage is minimized and wireless activity is greatly reduced.<br><br>
+
+                <strong>Rehearsal Mode</strong> is intended for programming, setup, and testing where manual adjustment of fixtures and scenes is preferred.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">9. Blackout</div>
+              <div class="controlSub" style="margin-top:8px">
+                The Blackout command immediately disables all flame outputs across connected fixtures.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+
+      <div class="footerNote">StageFlame Hub Demo · Website-safe simulated interface · No hardware connection required</div>
+    </main>
+  </div>
+</div>
+
+<script>
+const nodes = [
+  {name:"Candle 01", battery:91, wifi:-48, dmx:101, group:"Chandelier A", status:"Online", mode:"3-Channel", controlSource:"group", intensity:82, flicker:55, lifeMode:20},
+  {name:"Candle 02", battery:76, wifi:-61, dmx:104, group:"Chandelier A", status:"Online", mode:"3-Channel", controlSource:"group", intensity:78, flicker:50, lifeMode:20},
+  {name:"Torch 01", battery:84, wifi:-54, dmx:121, group:"Torches", status:"Online", mode:"3-Channel", controlSource:"individual", intensity:95, flicker:70, lifeMode:145},
+  {name:"Table Candle 01", battery:77, wifi:-67, dmx:141, group:"Table Candles", status:"Online", mode:"3-Channel", controlSource:"group", intensity:65, flicker:35, lifeMode:50},
+  {name:"Candle 03", battery:88, wifi:-49, dmx:151, group:"Balcony Candles", status:"Online", mode:"3-Channel", controlSource:"group", intensity:80, flicker:58, lifeMode:30},
+  {name:"Candle 04", battery:86, wifi:-51, dmx:154, group:"Balcony Candles", status:"Online", mode:"3-Channel", controlSource:"group", intensity:79, flicker:52, lifeMode:30},
+  {name:"Candle 05", battery:82, wifi:-57, dmx:157, group:"Balcony Candles", status:"Online", mode:"3-Channel", controlSource:"group", intensity:81, flicker:56, lifeMode:30},
+  {name:"Torch 02", battery:91, wifi:-46, dmx:161, group:"Torches", status:"Online", mode:"3-Channel", controlSource:"individual", intensity:100, flicker:74, lifeMode:150},
+  {name:"Torch 03", battery:79, wifi:-59, dmx:164, group:"Torches", status:"Online", mode:"3-Channel", controlSource:"individual", intensity:94, flicker:72, lifeMode:150},
+  {name:"Sconce 01", battery:75, wifi:-63, dmx:171, group:"Wall Sconces", status:"Online", mode:"3-Channel", controlSource:"group", intensity:66, flicker:40, lifeMode:80},
+  {name:"Sconce 02", battery:73, wifi:-66, dmx:174, group:"Wall Sconces", status:"Online", mode:"3-Channel", controlSource:"group", intensity:64, flicker:38, lifeMode:80},
+  {name:"Sconce 03", battery:81, wifi:-56, dmx:177, group:"Wall Sconces", status:"Online", mode:"3-Channel", controlSource:"group", intensity:69, flicker:42, lifeMode:80},
+  {name:"Lantern 01", battery:93, wifi:-44, dmx:181, group:"Lanterns", status:"Online", mode:"3-Channel", controlSource:"individual", intensity:88, flicker:62, lifeMode:110},
+  {name:"Lantern 02", battery:90, wifi:-47, dmx:184, group:"Lanterns", status:"Online", mode:"3-Channel", controlSource:"individual", intensity:86, flicker:60, lifeMode:110},
+  {name:"Lantern 03", battery:85, wifi:-53, dmx:187, group:"Lanterns", status:"Online", mode:"3-Channel", controlSource:"individual", intensity:87, flicker:61, lifeMode:110},
+  {name:"Table Candle 02", battery:71, wifi:-69, dmx:201, group:"Table Candles", status:"Online", mode:"3-Channel", controlSource:"group", intensity:61, flicker:33, lifeMode:50},
+  {name:"Table Candle 03", battery:74, wifi:-64, dmx:204, group:"Table Candles", status:"Online", mode:"3-Channel", controlSource:"group", intensity:63, flicker:35, lifeMode:50},
+  {name:"Table Candle 04", battery:77, wifi:-61, dmx:207, group:"Table Candles", status:"Online", mode:"3-Channel", controlSource:"group", intensity:65, flicker:37, lifeMode:50},
+  {name:"Chandelier B 01", battery:89, wifi:-50, dmx:221, group:"Chandelier B", status:"Online", mode:"3-Channel", controlSource:"group", intensity:83, flicker:57, lifeMode:20},
+  {name:"Chandelier B 02", battery:87, wifi:-52, dmx:224, group:"Chandelier B", status:"Online", mode:"3-Channel", controlSource:"group", intensity:82, flicker:56, lifeMode:20}
+];
+
+const groups = [
+  {name:"Chandelier A", start:101, mode:"3-Channel", nodes:["Candle 01","Candle 02"]},
+  {name:"Torches", start:121, mode:"3-Channel", nodes:["Torch 01","Torch 02","Torch 03"]},
+  {name:"Table Candles", start:141, mode:"3-Channel", nodes:["Table Candle 01","Table Candle 02","Table Candle 03","Table Candle 04"]},
+  {name:"Balcony Candles", start:151, mode:"3-Channel", nodes:["Candle 03","Candle 04","Candle 05"]},
+  {name:"Wall Sconces", start:171, mode:"3-Channel", nodes:["Sconce 01","Sconce 02","Sconce 03"]},
+  {name:"Lanterns", start:181, mode:"3-Channel", nodes:["Lantern 01","Lantern 02","Lantern 03"]},
+  {name:"Chandelier B", start:221, mode:"3-Channel", nodes:["Chandelier B 01","Chandelier B 02"]}
+];
+
+const wifiNetworks = [
+  {ssid:"Theatre_WiFi", signal:-45, security:"WPA2"},
+  {ssid:"StageFlame_ShowNet", signal:-48, security:"WPA2"},
+  {ssid:"Backstage_Guest", signal:-64, security:"WPA2"},
+  {ssid:"Lighting_Network", signal:-58, security:"Hidden / Manual"}
+];
+
+const log = document.getElementById("log");
+
+function addLog(msg){
+  const time = new Date().toLocaleTimeString();
+  log.innerHTML = `[${time}] ${msg}<br>` + log.innerHTML;
+}
+
+function wifiPercent(dbm){
+  return Math.max(12, Math.min(100, Math.round((dbm + 90) * 2.1)));
+}
+
+
+function updateCounts(){
+  const nodeCount = Array.isArray(nodes) ? nodes.length : 0;
+  const groupCount = Array.isArray(groups) ? groups.length : 0;
+
+  const topNodeCount = document.getElementById("topNodeCount");
+  const sideNodeCount = document.getElementById("sideNodeCount");
+  const sideGroupCount = document.getElementById("sideGroupCount");
+  const metricNodeCount = document.getElementById("metricNodeCount");
+  const metricGroupCount = document.getElementById("metricGroupCount");
+  const batteryAvg = document.getElementById("batteryAvg");
+
+  if(topNodeCount) topNodeCount.textContent = `${nodeCount} Nodes`;
+  if(sideNodeCount) sideNodeCount.textContent = nodeCount;
+  if(sideGroupCount) sideGroupCount.textContent = groupCount;
+  if(metricNodeCount) metricNodeCount.textContent = nodeCount;
+  if(metricGroupCount) metricGroupCount.textContent = groupCount;
+
+  if(batteryAvg && nodeCount){
+    const avg = Math.round(nodes.reduce((sum,n)=>sum + Number(n.battery || 0), 0) / nodeCount);
+    batteryAvg.textContent = `${avg}%`;
+  }
+}
+
+function renderNodes(){
+  updateCounts();
+  const wrap = document.getElementById("nodeList");
+  if(!wrap) return;
+
+  const groupOptions = groups.map(g => `<option>${g.name}</option>`).join("");
+
+  wrap.innerHTML = nodes.map((n,i)=>`
+    <div class="node">
+      <div class="nodeTop">
+        <div>
+          <div class="nodeName">${n.name}</div>
+          <div class="tagRow" style="margin-top:6px">
+            <span class="nodeModeBadge">${n.mode}</span>
+            <span class="nodeModeBadge">DMX ${n.dmx}</span>
+            <span class="nodeModeBadge">${n.group}</span>
+          </div>
+        </div>
+        <div class="nodeStatus">${n.status}</div>
+      </div>
+
+      <div class="nodeGrid">
+        <div>Battery: ${n.battery}%<div class="bar"><div class="fill" style="--v:${n.battery}%"></div></div></div>
+        <div>WiFi: ${n.wifi} dBm<div class="bar"><div class="fill" style="--v:${wifiPercent(n.wifi)}%"></div></div></div>
+        <div>
+          <label style="color:var(--muted);font-size:13px">DMX Address</label>
+          <span class="helpTip"><input type="number" min="1" max="512" value="${n.dmx}" onchange="setNodeAddress(${i}, this.value)"><span class="tooltip">Sets this fixture’s first control address.</span></span>
+        </div>
+        <div>
+          <label style="color:var(--muted);font-size:13px">Group</label>
+          <span class="helpTip"><select onchange="assignNodeGroup(${i}, this.value)">
+            ${groupOptions.replace(`<option>${n.group}</option>`, `<option selected>${n.group}</option>`)}
+          </select><span class="tooltip">Assigns this fixture to a group so it can be controlled with related fixtures.</span></span>
+        </div>
+      </div>
+
+      <div class="btnRow" style="margin-top:12px">
+        <span class="helpTip"><button class="secondary" onclick="identifyNode(${i})">Identify</button><span class="tooltip">Briefly flashes or pulses the selected fixture so you can find it physically.</span></span>
+        <span class="helpTip"><button class="secondary" onclick="renameNode(${i})">Rename</button><span class="tooltip">Changes the display name for this fixture inside the Hub.</span></span>
+        <span class="helpTip"><button class="settingsBtn" id="settingsBtn-${i}" onclick="toggleNodeSettings(${i})">Settings</button><span class="tooltip">Opens fixture-specific settings including DMX mode, intensity, Flicker, bounce rate, and range controls.</span></span>
+      </div>
+
+      <div class="nodeSettings" id="nodeSettings-${i}">
+        <div class="controlHead">
+          <div>
+            <div class="controlTitle">Node Settings</div>
+            <div class="controlSub">${nodeModeDescription(n.mode)}</div>
+          </div>
+        </div>
+
+        <div class="formGrid">
+          <div>
+            <label style="color:var(--muted);font-size:13px">Control Mode</label>
+            <span class="helpTip">
+              <div class="selectLike">3-Channel</div>
+              <span class="tooltip">${modeHelp(n.mode)}</span>
+            </span>
+          </div>
+
+          <div>
+            <label style="color:var(--muted);font-size:13px">Address Preview</label>
+            <div class="selectLike">${nodeAddressPreview(n)}</div>
+          </div>
+        </div>
+
+        <div class="controlSourceRow">
+          <span class="helpTip">
+            <div class="sourceChoice ${n.controlSource==="group" ? "active" : ""}" onclick="setNodeControlSource(${i}, 'group')">Match Group Settings</div>
+            <span class="tooltip">This fixture follows the settings of its assigned group. Individual controls are locked while this is active.</span>
+          </span>
+
+          <span class="helpTip">
+            <div class="sourceChoice ${n.controlSource==="individual" ? "active" : ""}" onclick="setNodeControlSource(${i}, 'individual')">Individual Control</div>
+            <span class="tooltip">This fixture uses its own intensity, Flicker, bounce, and range settings instead of matching the group.</span>
+          </span>
+        </div>
+
+        <div class="settingGrid individualOnly ${n.controlSource==="group" ? "disabledBlock" : ""}">
+          ${nodeSettingsControls(n,i)}
+        </div>
+
+        ${n.controlSource==="group" ? `<p class="controlSub" style="margin-top:12px">This node is currently matching <strong>${n.group}</strong>. Switch to Individual Control to edit node-specific settings.</p>` : ""}
+      </div>
+    </div>
+  `).join("");
+}
+
+function identifyNode(i){
+  addLog(`Identify command sent to ${nodes[i].name}.`);
+}
+
+function renameNode(i){
+  const next = prompt("Demo rename:", nodes[i].name);
+  if(next){
+    nodes[i].name = next;
+    
+const tooltipTimers = new WeakMap();
+
+document.addEventListener('mouseover', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  const timer = setTimeout(() => {
+    tip.classList.add('show');
+  }, 2000);
+
+  tooltipTimers.set(tip, timer);
+});
+
+document.addEventListener('mouseout', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  clearTimeout(tooltipTimers.get(tip));
+  tip.classList.remove('show');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+let webMaster = 100;
+let webChaseTimer = null;
+let webChaseIndex = 0;
+let webChaseForward = true;
+
+function webDefaults(item, type){
+  if(typeof item.webHero !== "number") item.webHero = item.intensity ?? 80;
+  if(typeof item.webFlicker !== "number") item.webFlicker = item.flicker ?? 50;
+  if(typeof item.webLife !== "number") item.webLife = item.lifeMode ?? 20;
+
+  if(type === "group"){
+    if(typeof item.webHero !== "number") item.webHero = 80;
+    if(typeof item.webFlicker !== "number") item.webFlicker = 50;
+    if(typeof item.webLife !== "number") item.webLife = 20;
+  }
+}
+
+
+function renderWebControl(){
+  const groupWrap = document.getElementById("allGroupMiniFaders");
+  const nodeWrap = document.getElementById("allNodeMiniFaders");
+
+  if(groupWrap){
+    groupWrap.innerHTML = groups.map((g,i)=>renderStrip(g,i,'group')).join('');
+  }
+
+  if(nodeWrap){
+    nodeWrap.innerHTML = nodes.map((n,i)=>renderStrip(n,i,'node')).join('');
+  }
+
+  const groupCount = document.getElementById("webGroupCount");
+  const nodeCount = document.getElementById("webNodeCount");
+
+  if(groupCount) groupCount.textContent = `${groups.length} Groups`;
+  if(nodeCount) nodeCount.textContent = `${nodes.length} Nodes`;
+}
+
+function renderStrip(item,index,type){
+  if(item.webHero === undefined) item.webHero = item.intensity || 80;
+  if(item.webFlicker === undefined) item.webFlicker = item.flicker || 50;
+  if(item.webLife === undefined) item.webLife = item.lifeMode || 20;
+
+  const start = Number(item.dmx || item.start || 1);
+  const hero = Math.round(item.webHero * webMaster / 100);
+  const flicker = Math.round(item.webFlicker * webMaster / 100);
+  const life = item.webLife;
+
+  return `
+    <div class="miniNodeStrip ${type==='group'?'groupStrip':'nodeStrip'}">
+      <div class="stripHeader">
+        <div>
+          <div class="stripTitle">${item.name}</div>
+          <div class="stripSub">
+            ${type === 'group' ? 'GROUP' : item.group} · DMX ${start}-${start+2}
+          </div>
+        </div>
+        <div class="stripStatus">
+          ${type === 'group' ? ((item.nodes?.length || 0) + ' Nodes') : 'ONLINE'}
+        </div>
+      </div>
+
+      <div class="stripFaders">
+
+        <div class="faderCol">
+          <label>CH ${start}<br>Hero Flame</label>
+          <input class="consoleFader" type="range" min="0" max="100"
+            value="${item.webHero}"
+            oninput="webSetValue('${type}',${index},'webHero',this.value)">
+          <div class="faderValue" id="${type}-${index}-hero">${hero}%</div>
+        </div>
+
+        <div class="faderCol">
+          <label>CH ${start+1}<br>Flicker</label>
+          <input class="consoleFader" type="range" min="0" max="100"
+            value="${item.webFlicker}"
+            oninput="webSetValue('${type}',${index},'webFlicker',this.value)">
+          <div class="faderValue" id="${type}-${index}-flicker">${flicker}%</div>
+        </div>
+
+        <div class="faderCol">
+          <label>CH ${start+2}<br>Life Mode</label>
+          <input class="consoleFader" type="range" min="1" max="255"
+            value="${item.webLife}"
+            oninput="webSetValue('${type}',${index},'webLife',this.value)">
+          <div class="faderValue" id="${type}-${index}-life">${life}</div>
+          <div style="color:var(--gold);font-size:10px;text-align:center">
+            ${lifeModeName(life)}
+          </div>
+        </div>
+
+      </div>
+
+      <button class="blackoutBtn"
+        onclick="webBlackout('${type}',${index})">
+        BLACKOUT
+      </button>
+    </div>
+  `;
+}
+
+function webBlackout(type,index){
+  const item = type === 'group' ? groups[index] : nodes[index];
+
+  item.webHero = 0;
+  item.webFlicker = 0;
+
+  renderWebControl();
+  addLog(`${item.name} blackout activated.`);
+}
+
+function webSetMaster(value){
+  webMaster = Number(value);
+
+  const label = document.getElementById("masterFaderVal");
+  if(label) label.textContent = webMaster + "%";
+
+  renderWebControl();
+}
+
+function webCollection(type){
+  return type === "group" ? groups : nodes;
+}
+
+function updateMiniValues(type,index){
+  const item = webCollection(type)[index];
+  if(!item) return;
+
+  const idBase = `${type}-${index}`;
+  const hero = item.webHero ?? 80;
+  const flicker = item.webFlicker ?? 50;
+  const life = item.webLife ?? 20;
+
+  const heroOut = Math.round(hero * webMaster / 100);
+  const flickerOut = Math.round(flicker * webMaster / 100);
+
+  const heroEl = document.getElementById(`mini-${idBase}-hero`);
+  const flickerEl = document.getElementById(`mini-${idBase}-flicker`);
+  const lifeEl = document.getElementById(`mini-${idBase}-life`);
+  const lifeNameEl = document.getElementById(`mini-${idBase}-lifeName`);
+  const strip = document.getElementById(`mini-${idBase}`);
+
+  if(heroEl) heroEl.textContent = heroOut + "%";
+  if(flickerEl) flickerEl.textContent = flickerOut + "%";
+  if(lifeEl) lifeEl.textContent = life;
+  if(lifeNameEl) lifeNameEl.textContent = lifeModeName(life);
+  if(strip) strip.classList.toggle("active", heroOut > 0 || flickerOut > 0);
+}
+
+function webSetValue(type,index,key,value){
+  const item = type === 'group' ? groups[index] : nodes[index];
+  item[key] = Number(value);
+
+  const hero = Math.round((item.webHero || 0) * webMaster / 100);
+  const flicker = Math.round((item.webFlicker || 0) * webMaster / 100);
+
+  const heroEl = document.getElementById(`${type}-${index}-hero`);
+  const flickerEl = document.getElementById(`${type}-${index}-flicker`);
+  const lifeEl = document.getElementById(`${type}-${index}-life`);
+
+  if(heroEl) heroEl.textContent = hero + '%';
+  if(flickerEl) flickerEl.textContent = flicker + '%';
+  if(lifeEl) lifeEl.textContent = item.webLife;
+}
+
+function webFade(direction){
+  const level = direction === "up" ? 100 : 0;
+
+  groups.forEach((group,index)=>{
+    group.webHero = level;
+    group.webFlicker = direction === "up" ? 60 : 0;
+    updateMiniValues("group",index);
+  });
+
+  nodes.forEach((node,index)=>{
+    node.webHero = level;
+    node.webFlicker = direction === "up" ? 60 : 0;
+    updateMiniValues("node",index);
+  });
+
+  addLog(`Web Control ${direction === "up" ? "fade up" : "fade down"} applied to ${groups.length} groups and ${nodes.length} nodes.`);
+}
+
+function webRenderChasePreview(){
+  const preview = document.getElementById("chasePreview");
+  if(!preview) return;
+
+  const target = document.getElementById("chaseTarget")?.value || "nodes";
+  const list = target === "groups" ? groups : nodes;
+
+  preview.innerHTML = list.map((item,i)=>{
+    return `<span class="helpTip"><span class="chaseDot ${i === webChaseIndex ? "active" : ""}"></span><span class="tooltip">${item.name}</span></span>`;
+  }).join("");
+}
+
+function webStartChase(){
+  webStopChase();
+
+  const speed = Number(document.getElementById("chaseSpeed")?.value || 5);
+  const interval = Math.max(120, 900 - speed * 70);
+
+  webChaseTimer = setInterval(()=>{
+    const target = document.getElementById("chaseTarget")?.value || "nodes";
+    const type = target === "groups" ? "group" : "node";
+    const list = target === "groups" ? groups : nodes;
+    const direction = document.getElementById("chaseDirection")?.value || "forward";
+    const level = Number(document.getElementById("chaseLevel")?.value || 80);
+
+    if(!list.length) return;
+
+    list.forEach((item,index)=>{
+      item.webHero = 0;
+      updateMiniValues(type,index);
+    });
+
+    if(direction === "reverse"){
+      webChaseIndex = (webChaseIndex - 1 + list.length) % list.length;
+    } else if(direction === "bounce"){
+      if(webChaseForward){
+        webChaseIndex++;
+        if(webChaseIndex >= list.length - 1) webChaseForward = false;
+      } else {
+        webChaseIndex--;
+        if(webChaseIndex <= 0) webChaseForward = true;
+      }
+    } else {
+      webChaseIndex = (webChaseIndex + 1) % list.length;
+    }
+
+    list[webChaseIndex].webHero = level;
+    updateMiniValues(type,webChaseIndex);
+    webRenderChasePreview();
+  }, interval);
+
+  addLog("Web Control chase started.");
+}
+
+function webStopChase(){
+  if(webChaseTimer){
+    clearInterval(webChaseTimer);
+    webChaseTimer = null;
+    addLog("Web Control chase stopped.");
+  }
+}
+
+renderNodes();
+    addLog(`Node renamed to ${next}.`);
+  }
+}
+
+function updateSliders(){
+  ["heroMaster","heroLow","heroHigh","pin7"].forEach(id=>{
+    const el = document.getElementById(id);
+    const val = document.getElementById(id+"Val");
+    if(el && val) val.textContent = el.value + "%";
+  });
+}
+
+function setScene(name){
+  document.querySelectorAll(".scene").forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll(`[data-scene="${name}"]`).forEach(s=>s.classList.add("active"));
+
+  const presets = {
+    "Calm Warm":[82,42,88,55],
+    "Light Air Low":[34,12,48,22],
+    "Breeze Procession":[95,55,100,70],
+    "Storm Flicker":[72,10,100,45]
+  };
+  const p = presets[name] || presets["Calm Warm"];
+  ["heroMaster","heroLow","heroHigh","pin7"].forEach((id,i)=>document.getElementById(id).value = p[i]);
+  updateSliders();
+  addLog(`Scene loaded: ${name}.`);
+}
+
+function setMode(mode){
+  document.getElementById("metricMode").textContent = mode;
+  addLog(`Power mode changed to ${mode}.`);
+}
+
+function modeHelp(mode){
+  return "Fixed 3-Channel mode: Channel 1 controls Hero Flame, Channel 2 controls Flicker, and Channel 3 selects Life Mode from 1–255.";
+}
+
+function nodeModeDescription(mode){
+  return "Fixed 3-Channel control: Hero Flame, Flicker, and Life Mode.";
+}
+
+function nodeAddressPreview(n){
+  return `CH ${n.dmx}: Hero · CH ${Number(n.dmx)+1}: Flicker · CH ${Number(n.dmx)+2}: Life Mode`;
+}
+
+function lifeModeName(value){
+  const v = Number(value);
+  if(v <= 51) return "Calm";
+  if(v <= 102) return "Light Air";
+  if(v <= 153) return "Breeze";
+  if(v <= 204) return "Windy";
+  return "Storm";
+}
+
+function lifeModeDetails(value){
+  const name = lifeModeName(value);
+  if(name === "Calm") return "High 255 · Low 200 · Slow bounce";
+  if(name === "Light Air") return "High 255 · Low 150 · Medium bounce";
+  if(name === "Breeze") return "High 220 · Low 100 · Moderately fast bounce";
+  if(name === "Windy") return "High 100 · Low 30 · Moderate bounce";
+  return "High 30 · Low 1 · Fast bounce";
+}
+
+function settingControl(label, key, value, nodeIndex, help, min=0, max=100, suffix="%"){
+  return `
+    <div class="settingItem">
+      <label>
+        <span>${label} <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">${help}</span></span></span>
+        <span id="node-${nodeIndex}-${key}-val">${key==="lifeMode" ? lifeModeName(value) : value + suffix}</span>
+      </label>
+      <input type="range" min="${min}" max="${max}" value="${value}" oninput="setNodeSetting(${nodeIndex}, '${key}', this.value)">
+      ${key==="lifeMode" ? `<div class="controlSub" id="node-${nodeIndex}-lifeMode-detail" style="margin-top:8px">${lifeModeDetails(value)}</div>` : ""}
+    </div>
+  `;
+}
+
+function nodeSettingsControls(n,i){
+  return `
+    ${settingControl("Channel 1 — Hero Flame", "intensity", n.intensity, i, "Channel 1 controls the main Hero Flame intensity.")}
+    ${settingControl("Channel 2 — Flicker", "flicker", n.flicker, i, "Channel 2 controls Flicker intensity.")}
+    ${settingControl("Channel 3 — Life Mode", "lifeMode", n.lifeMode ?? 1, i, "Channel 3 selects automatic candle life from 1–255: Calm, Light Air, Breeze, Windy, or Storm.", 1, 255, "")}
+  `;
+}
+
+function toggleNodeSettings(i){
+  const panel = document.getElementById(`nodeSettings-${i}`);
+  const btn = document.getElementById(`settingsBtn-${i}`);
+
+  if(panel){
+    panel.classList.toggle("open");
+
+    if(btn){
+      btn.classList.toggle("active", panel.classList.contains("open"));
+    }
+  }
+}
+
+function setNodeControlSource(i, source){
+  nodes[i].controlSource = source;
+  renderNodes();
+
+  const panel = document.getElementById(`nodeSettings-${i}`);
+  const btn = document.getElementById(`settingsBtn-${i}`);
+
+  if(panel) panel.classList.add("open");
+  if(btn) btn.classList.add("active");
+
+  const label = source === "group" ? "Match Group Settings" : "Individual Control";
+  addLog(`${nodes[i].name} control source changed to ${label}.`);
+}
+
+function setNodeMode(i, mode){
+  nodes[i].mode = "3-Channel";
+  addLog(`${nodes[i].name} uses fixed 3-Channel mode.`);
+}
+
+function setNodeSetting(i, key, value){
+  if(nodes[i].controlSource === "group"){
+    addLog(`${nodes[i].name} is matching group settings. Switch to Individual Control before editing node settings.`);
+    return;
+  }
+
+  nodes[i][key] = Number(value);
+  const val = document.getElementById(`node-${i}-${key}-val`);
+
+  if(val){
+    if(key === "lifeMode"){
+      val.textContent = lifeModeName(value);
+      const detail = document.getElementById(`node-${i}-lifeMode-detail`);
+      if(detail) detail.textContent = lifeModeDetails(value);
+    } else {
+      val.textContent = value + "%";
+    }
+  }
+
+  const display = key === "lifeMode" ? `${lifeModeName(value)} (${lifeModeDetails(value)})` : value + "%";
+  addLog(`${nodes[i].name} ${key} set to ${display}.`);
+}
+
+function renderGroups(){
+  updateCounts();
+  const wrap = document.getElementById("groupManage");
+  if(!wrap) return;
+
+  wrap.innerHTML = groups.map((g,i)=>`
+    <div class="node">
+      <div class="nodeTop">
+        <div>
+          <div class="nodeName">${g.name}</div>
+          <div class="tagRow" style="margin-top:6px">
+            <span class="nodeModeBadge">3-Channel</span>
+            <span class="nodeModeBadge">DMX ${g.start}</span>
+            <span class="nodeModeBadge">${g.nodes.length} Nodes</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="formGrid">
+        <span class="helpTip">
+          <input value="${g.name}" onchange="updateGroupName(${i}, this.value)">
+          <span class="tooltip">Renames this group in the Hub.</span>
+        </span>
+
+        <span class="helpTip">
+          <input type="number" min="1" max="512" value="${g.start}" onchange="updateGroupStart(${i}, this.value)">
+          <span class="tooltip">Changes the first lighting address used by this group.</span>
+        </span>
+
+        <div class="helpWrap">
+          <div class="selectLike">3-Channel</div>
+          <span class="helpTip inlineHelp">
+            <span class="helpIcon">?</span>
+            <span class="tooltip">Fixed 3-channel mode: Hero Flame, Flicker, and Life Mode.</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="control" style="margin-top:12px">
+        <div class="controlHead">
+          <div>
+            <div class="controlTitle">Assign Nodes to Group</div>
+            <div class="controlSub">Select one or more nodes, then add them to this group.</div>
+          </div>
+        </div>
+
+        <div class="multiNodeTools">
+          <button class="secondary" onclick="selectAllNodesForGroup(${i}, true)">Select All</button>
+          <button class="secondary" onclick="selectAllNodesForGroup(${i}, false)">Clear Selection</button>
+          <button onclick="addSelectedNodesToGroup(${i})">Add Selected Nodes</button>
+        </div>
+
+        <div class="multiNodeList" id="multiNodeList-${i}">
+          ${nodes.map((n,nodeIndex)=>{
+            const checked = g.nodes.includes(n.name) ? "checked" : "";
+            return `
+              <label class="nodeCheck">
+                <input type="checkbox" value="${nodeIndex}" ${checked}>
+                <span>${n.name}</span>
+              </label>
+            `;
+          }).join("")}
+        </div>
+      </div>
+
+      <div class="controlSub" style="margin-top:10px">
+        <strong>Assigned:</strong> ${g.nodes.length ? g.nodes.join(", ") : "No nodes assigned"}
+      </div>
+
+      <div class="btnRow" style="margin-top:12px">
+        <span class="helpTip">
+          <button class="secondary" onclick="deleteGroup(${i})">Delete</button>
+          <span class="tooltip">Removes this group from the Hub. Fixtures are not deleted; they become unassigned until added to another group.</span>
+        </span>
+      </div>
+    </div>
+  `).join("");
+}
+
+
+function selectAllNodesForGroup(groupIndex, checked){
+  const list = document.getElementById(`multiNodeList-${groupIndex}`);
+  if(!list) return;
+
+  list.querySelectorAll("input[type='checkbox']").forEach(box=>{
+    box.checked = checked;
+  });
+}
+
+function addSelectedNodesToGroup(groupIndex){
+  const list = document.getElementById(`multiNodeList-${groupIndex}`);
+  if(!list || !groups[groupIndex]) return;
+
+  const selectedNames = [...list.querySelectorAll("input[type='checkbox']:checked")]
+    .map(box => nodes[Number(box.value)]?.name)
+    .filter(Boolean);
+
+  groups[groupIndex].nodes = [...new Set([...groups[groupIndex].nodes, ...selectedNames])];
+
+  selectedNames.forEach(name=>{
+    const node = nodes.find(n=>n.name === name);
+    if(node) node.group = groups[groupIndex].name;
+  });
+
+  renderGroups();
+  renderNodes();
+
+  if(typeof renderCompactWebControl === "function") renderCompactWebControl();
+  if(typeof renderWebControl === "function") renderWebControl();
+
+  addLog(`${selectedNames.length} node(s) assigned to ${groups[groupIndex].name}.`);
+}
+
+function createGroup(name, start, mode="3-Channel"){
+  if(!name) return;
+  groups.push({name, start:Number(start)||1, mode, nodes:[]});
+  renderGroups();
+  
+const tooltipTimers = new WeakMap();
+
+document.addEventListener('mouseover', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  const timer = setTimeout(() => {
+    tip.classList.add('show');
+  }, 2000);
+
+  tooltipTimers.set(tip, timer);
+});
+
+document.addEventListener('mouseout', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  clearTimeout(tooltipTimers.get(tip));
+  tip.classList.remove('show');
+});
+
+
+renderNodes();
+  addLog(`Group created: ${name}, DMX start ${start}.`);
+}
+
+function createGroupFromForm(){
+  createGroup(
+    document.getElementById("newGroupName").value,
+    document.getElementById("newGroupStart").value,
+    "3-Channel"
+  );
+}
+
+function quickCreateGroup(){
+  createGroup(
+    document.getElementById("quickGroupName").value,
+    document.getElementById("quickGroupStart").value,
+    "3-Channel"
+  );
+}
+
+function addNodeToGroup(groupIndex){
+  const nodeName = document.getElementById(`addNode-${groupIndex}`).value;
+  const g = groups[groupIndex];
+  if(!g.nodes.includes(nodeName)) g.nodes.push(nodeName);
+
+  const node = nodes.find(n => n.name === nodeName);
+  if(node) node.group = g.name;
+
+  renderGroups();
+  
+const tooltipTimers = new WeakMap();
+
+document.addEventListener('mouseover', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  const timer = setTimeout(() => {
+    tip.classList.add('show');
+  }, 2000);
+
+  tooltipTimers.set(tip, timer);
+});
+
+document.addEventListener('mouseout', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  clearTimeout(tooltipTimers.get(tip));
+  tip.classList.remove('show');
+});
+
+
+renderNodes();
+  addLog(`${nodeName} added to ${g.name}.`);
+}
+
+function assignNodeGroup(nodeIndex, groupName){
+  const node = nodes[nodeIndex];
+  groups.forEach(g => g.nodes = g.nodes.filter(n => n !== node.name));
+  const g = groups.find(g => g.name === groupName);
+  if(g && !g.nodes.includes(node.name)) g.nodes.push(node.name);
+  node.group = groupName;
+  renderGroups();
+  addLog(`${node.name} assigned to ${groupName}.`);
+}
+
+function setNodeAddress(nodeIndex, value){
+  nodes[nodeIndex].dmx = Number(value);
+  addLog(`${nodes[nodeIndex].name} DMX address set to ${value}.`);
+}
+
+function updateGroupName(i, value){
+  const old = groups[i].name;
+  groups[i].name = value;
+  nodes.forEach(n => { if(n.group === old) n.group = value; });
+  renderGroups();
+  
+const tooltipTimers = new WeakMap();
+
+document.addEventListener('mouseover', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  const timer = setTimeout(() => {
+    tip.classList.add('show');
+  }, 2000);
+
+  tooltipTimers.set(tip, timer);
+});
+
+document.addEventListener('mouseout', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  clearTimeout(tooltipTimers.get(tip));
+  tip.classList.remove('show');
+});
+
+
+renderNodes();
+}
+
+function updateGroupStart(i, value){
+  groups[i].start = Number(value);
+  addLog(`${groups[i].name} DMX start changed to ${value}.`);
+}
+
+function updateGroupMode(i, value){
+  groups[i].mode = value;
+  addLog(`${groups[i].name} mode changed to ${value}.`);
+}
+
+function deleteGroup(i){
+  const name = groups[i].name;
+  groups.splice(i,1);
+  nodes.forEach(n => { if(n.group === name) n.group = "Unassigned"; });
+  renderGroups();
+  
+const tooltipTimers = new WeakMap();
+
+document.addEventListener('mouseover', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  const timer = setTimeout(() => {
+    tip.classList.add('show');
+  }, 2000);
+
+  tooltipTimers.set(tip, timer);
+});
+
+document.addEventListener('mouseout', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  clearTimeout(tooltipTimers.get(tip));
+  tip.classList.remove('show');
+});
+
+
+renderNodes();
+  addLog(`Group deleted: ${name}.`);
+}
+
+function renderWifi(){
+  const wrap = document.getElementById("wifiList");
+  if(!wrap) return;
+  wrap.innerHTML = wifiNetworks.map(w=>`
+    <div class="node">
+      <div class="nodeTop">
+        <div class="nodeName">${w.ssid}</div>
+        <div class="nodeStatus">${w.security}</div>
+      </div>
+      <div class="nodeGrid">
+        <div>Signal: ${w.signal} dBm<div class="bar"><div class="fill" style="--v:${wifiPercent(w.signal)}%"></div></div></div>
+        <div><span class="helpTip"><button class="secondary" onclick="chooseWifi('${w.ssid}')">Use Network</button><span class="tooltip">Copies this network name into the WiFi connection field.</span></span></div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function chooseWifi(ssid){
+  document.getElementById("wifiSsid").value = ssid;
+  document.getElementById("wifiSsidQuick").value = ssid;
+  addLog(`Selected WiFi network: ${ssid}.`);
+}
+
+function connectWifi(){
+  const ssid = document.getElementById("wifiSsid").value;
+  document.getElementById("currentSsid").textContent = ssid;
+  addLog(`Demo WiFi connected to ${ssid}.`);
+}
+
+function connectWifiQuick(){
+  const ssid = document.getElementById("wifiSsidQuick").value;
+  const current = document.getElementById("currentSsid");
+  if(current) current.textContent = ssid;
+  addLog(`Demo WiFi connected to ${ssid}.`);
+}
+
+function scanWifi(){
+  renderWifi();
+  addLog("WiFi scan complete: 4 demo networks found.");
+}
+
+function blackoutNow(){
+  document.getElementById("heroMaster").value = 0;
+  document.getElementById("pin7").value = 0;
+  updateSliders();
+
+  if(typeof groups !== "undefined"){
+    groups.forEach((g,index) => {
+      g.webHero = 0;
+      g.webFlicker = 0;
+      if(typeof updateMiniValues === "function") updateMiniValues("group",index);
+    });
+  }
+
+  if(typeof nodes !== "undefined"){
+    nodes.forEach((n,index) => {
+      n.webHero = 0;
+      n.webFlicker = 0;
+      if(typeof updateMiniValues === "function") updateMiniValues("node",index);
+    });
+  }
+
+  if(typeof renderWebControl === "function") renderWebControl();
+  addLog("Blackout activated: all group and node outputs set to 0%.");
+}
+
+function setUniverse(){
+  const universe = document.getElementById("universeInput").value;
+  document.querySelectorAll(".pill").forEach(p => {
+    if(p.textContent.includes("Universe")){
+      p.textContent = "Universe " + universe;
+    }
+  });
+  addLog(`Universe changed to ${universe}.`);
+}
+
+
+function demoProtocol(){
+  const list = ["Wired DMX","Art-Net","sACN","Auto"];
+  const current = document.getElementById("metricInput").textContent;
+  const next = list[(list.indexOf(current)+1) % list.length] || "Wired DMX";
+  document.getElementById("metricInput").textContent = next;
+  document.getElementById("protoPill").textContent = "Protocol: " + next;
+  addLog(`Input source simulated: ${next}.`);
+}
+
+document.querySelectorAll(".navBtn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".navBtn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+    document.getElementById(btn.dataset.page).classList.remove("hidden");
+    if(btn.dataset.page === "webcontrol"){ if(typeof renderCompactWebControl === "function") renderCompactWebControl(); }
+  });
+});
+
+document.querySelectorAll("input[type=range], input[type=checkbox]").forEach(el=>{
+  el.addEventListener("input", updateSliders);
+  el.addEventListener("change", updateSliders);
+});
+
+document.querySelectorAll("[data-scene]").forEach(el=>{
+  el.addEventListener("click",()=>setScene(el.dataset.scene));
+});
+
+document.getElementById("wakeAll").addEventListener("click",()=>{setMode("Show"); addLog("Wake all nodes command sent.");});
+document.getElementById("blackout").addEventListener("click",blackoutNow);
+
+
+const tooltipTimers = new WeakMap();
+
+document.addEventListener('mouseover', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  const timer = setTimeout(() => {
+    tip.classList.add('show');
+  }, 2000);
+
+  tooltipTimers.set(tip, timer);
+});
+
+document.addEventListener('mouseout', (event) => {
+  const tip = event.target.closest('.helpTip');
+  if(!tip || tip.contains(event.relatedTarget)) return;
+
+  clearTimeout(tooltipTimers.get(tip));
+  tip.classList.remove('show');
+});
+
+
+updateCounts();
+renderNodes();
+renderWebControl();
+renderGroups();
+renderWifi();
+updateSliders();
+addLog("StageFlame Hub demo initialized.");
+addLog(`${nodes.length} simulated nodes connected.`);
+
+function sfUpdateStatic(input){
+  const val = input.parentElement.querySelector(".faderValue");
+  if(val) val.textContent = input.value + "%";
+}
+function sfLifeName(v){
+  v = Number(v);
+  if(v <= 51) return "Calm";
+  if(v <= 102) return "Light Air";
+  if(v <= 153) return "Breeze";
+  if(v <= 204) return "Windy";
+  return "Storm";
+}
+function sfUpdateLifeStatic(input){
+  const val = input.parentElement.querySelector(".faderValue");
+  const name = input.parentElement.querySelector(".miniLifeName");
+  if(val) val.textContent = input.value;
+  if(name) name.textContent = sfLifeName(input.value);
+}
+function sfBlackoutStrip(btn){
+  const strip = btn.closest(".miniNodeStrip");
+  if(!strip) return;
+  const sliders = strip.querySelectorAll("input[type='range']");
+  sliders.forEach((s, i) => {
+    if(i < 2){
+      s.value = 0;
+      sfUpdateStatic(s);
+    }
+  });
+}
+
+
+const sfOriginalRenderWebControl = typeof renderWebControl === "function" ? renderWebControl : null;
+renderWebControl = function(){
+  // Static faders are pre-rendered in v31. Keep them visible.
+  return true;
+};
+
+
+// v32 selected-target web control
+let sfActiveTab = "groups";
+let sfSelected = new Set();
+let sfMasterValue = 100;
+
+function sfKey(type,index){ return `${type}:${index}`; }
+
+function sfTargetsForTab(){
+  if(sfActiveTab === "groups") return groups.map((g,i)=>({type:"group", index:i, item:g}));
+  if(sfActiveTab === "nodes") return nodes.map((n,i)=>({type:"node", index:i, item:n}));
+  return [
+    ...groups.map((g,i)=>({type:"group", index:i, item:g})),
+    ...nodes.map((n,i)=>({type:"node", index:i, item:n}))
+  ];
+}
+
+function sfSetTab(tab){
+  sfActiveTab = tab;
+  document.getElementById("sfTabGroups")?.classList.toggle("active", tab==="groups");
+  document.getElementById("sfTabNodes")?.classList.toggle("active", tab==="nodes");
+  document.getElementById("sfTabAll")?.classList.toggle("active", tab==="all");
+  sfRenderTargets();
+}
+
+function sfRenderTargets(){
+  const grid = document.getElementById("sfTargetGrid");
+  if(!grid) return;
+
+  const targets = sfTargetsForTab();
+  grid.innerHTML = targets.map(t=>{
+    const key = sfKey(t.type,t.index);
+    const isSelected = sfSelected.has(key);
+    const addr = t.item.start || t.item.dmx || "";
+    const sub = t.type === "group" ? `${t.item.nodes?.length || 0} nodes` : t.item.group;
+    return `
+      <button class="targetBtn ${isSelected ? "selected" : ""}" onclick="sfToggleTarget('${t.type}',${t.index})">
+        <strong>${t.item.name}</strong>
+        <small>${t.type.toUpperCase()} · ${sub} · DMX ${addr}</small>
+      </button>
+    `;
+  }).join("");
+
+  sfUpdateSummary();
+}
+
+function sfToggleTarget(type,index){
+  const key = sfKey(type,index);
+  if(sfSelected.has(key)) sfSelected.delete(key);
+  else sfSelected.add(key);
+  sfRenderTargets();
+}
+
+function sfSelectedEntries(){
+  return [...sfSelected].map(key=>{
+    const [type, idx] = key.split(":");
+    const index = Number(idx);
+    const item = type === "group" ? groups[index] : nodes[index];
+    return {type,index,item};
+  }).filter(e=>e.item);
+}
+
+function sfUpdateSummary(){
+  const entries = sfSelectedEntries();
+  const count = document.getElementById("sfSelectedCount");
+  const names = document.getElementById("sfSelectedNames");
+  if(count) count.textContent = `${entries.length} Selected`;
+  if(names) names.textContent = entries.length ? entries.map(e=>e.item.name).slice(0,10).join(", ") + (entries.length>10 ? "…" : "") : "Choose targets above.";
+}
+
+function sfSelectAll(){
+  sfTargetsForTab().forEach(t=>sfSelected.add(sfKey(t.type,t.index)));
+  sfRenderTargets();
+}
+
+function sfClearSelection(){
+  sfSelected.clear();
+  sfRenderTargets();
+}
+
+function sfApplyMaster(value){
+  sfMasterValue = Number(value);
+  const el = document.getElementById("sfMasterVal");
+  if(el) el.textContent = `${sfMasterValue}%`;
+}
+
+function sfApplyChannel(channel,value){
+  const v = Number(value);
+  const entries = sfSelectedEntries();
+
+  entries.forEach(e=>{
+    if(channel === "hero") e.item.webHero = v;
+    if(channel === "flicker") e.item.webFlicker = v;
+    if(channel === "life") e.item.webLife = v;
+  });
+
+  if(channel === "hero") document.getElementById("sfHeroVal").textContent = `${v}%`;
+  if(channel === "flicker") document.getElementById("sfFlickerVal").textContent = `${v}%`;
+  if(channel === "life"){
+    document.getElementById("sfLifeVal").textContent = v;
+    document.getElementById("sfLifeName").textContent = sfLifeName(v);
+  }
+}
+
+function sfFadeSelected(direction){
+  const level = direction === "up" ? 100 : 0;
+  sfSelectedEntries().forEach(e=>{
+    e.item.webHero = level;
+    e.item.webFlicker = direction === "up" ? 60 : 0;
+  });
+  document.getElementById("sfHeroVal").textContent = `${level}%`;
+  document.getElementById("sfFlickerVal").textContent = `${direction === "up" ? 60 : 0}%`;
+}
+
+function sfSelectedBlackout(){
+  sfSelectedEntries().forEach(e=>{
+    e.item.webHero = 0;
+    e.item.webFlicker = 0;
+  });
+  document.getElementById("sfHeroVal").textContent = "0%";
+  document.getElementById("sfFlickerVal").textContent = "0%";
+}
+
+function sfLifeName(v){
+  v = Number(v);
+  if(v <= 51) return "Calm";
+  if(v <= 102) return "Light Air";
+  if(v <= 153) return "Breeze";
+  if(v <= 204) return "Windy";
+  return "Storm";
+}
+
+const sfOldNavClick = document.addEventListener;
+setTimeout(()=>sfRenderTargets(), 0);
+
+
+function sfCompactUpdate(input,suffix){
+  const b = input.parentElement.querySelector("b");
+  if(b) b.textContent = input.value + suffix;
+}
+
+function sfCompactLife(input){
+  const b = input.parentElement.querySelector("b");
+  const em = input.parentElement.querySelector("em");
+  if(b) b.textContent = input.value;
+  if(em) em.textContent = sfCompactLifeName(input.value);
+}
+
+function sfCompactLifeName(v){
+  v = Number(v);
+  if(v <= 51) return "Calm";
+  if(v <= 102) return "Light Air";
+  if(v <= 153) return "Breeze";
+  if(v <= 204) return "Windy";
+  return "Storm";
+}
+
+function sfCompactBlackout(btn){
+  const card = btn.closest(".compactStrip");
+  if(!card) return;
+  const sliders = card.querySelectorAll("input[type='range']");
+  sliders.forEach((s,i)=>{
+    if(i < 2){
+      s.value = 0;
+      sfCompactUpdate(s,"%");
+    }
+  });
+}
+
+function sfCompactBlackoutAll(){
+  document.querySelectorAll(".compactStrip").forEach(card=>{
+    const sliders = card.querySelectorAll("input[type='range']");
+    sliders.forEach((s,i)=>{
+      if(i < 2){
+        s.value = 0;
+        sfCompactUpdate(s,"%");
+      }
+    });
+  });
+}
+
+
+function compactLifeName(v){
+  v = Number(v);
+  if(v <= 51) return "Calm";
+  if(v <= 102) return "Light Air";
+  if(v <= 153) return "Breeze";
+  if(v <= 204) return "Windy";
+  return "Storm";
+}
+
+function compactEnsureValues(item){
+  if(typeof item.webHero !== "number") item.webHero = item.intensity ?? 80;
+  if(typeof item.webFlicker !== "number") item.webFlicker = item.flicker ?? 50;
+  if(typeof item.webLife !== "number") item.webLife = item.lifeMode ?? 20;
+}
+
+function compactCard(item, index, type){
+  compactEnsureValues(item);
+
+  const start = Number(item.start || item.dmx || 1);
+  const sub = type === "group"
+    ? `${item.nodes?.length || 0} Nodes`
+    : item.group;
+
+  return `
+    <div class="compactStrip ${type}Strip" data-kind="${type}" data-index="${index}">
+      <div class="compactTop">
+        <div>
+          <strong>${item.name}</strong>
+          <small>${sub} · DMX ${start}-${start + 2}</small>
+        </div>
+        <button class="miniBlackout" onclick="sfCompactBlackout(this)">Blackout</button>
+      </div>
+
+      <div class="compactSliders">
+        <label>
+          <span>Hero</span>
+          <input type="range" min="0" max="100" value="${item.webHero}" oninput="sfCompactUpdateLive(this,'${type}',${index},'webHero','%')">
+          <b>${item.webHero}%</b>
+        </label>
+
+        <label>
+          <span>Flicker</span>
+          <input type="range" min="0" max="100" value="${item.webFlicker}" oninput="sfCompactUpdateLive(this,'${type}',${index},'webFlicker','%')">
+          <b>${item.webFlicker}%</b>
+        </label>
+
+        <label>
+          <span>Life</span>
+          <input type="range" min="1" max="255" value="${item.webLife}" oninput="sfCompactUpdateLifeLive(this,'${type}',${index})">
+          <b>${item.webLife}</b>
+          <em>${compactLifeName(item.webLife)}</em>
+        </label>
+      </div>
+    </div>
+  `;
+}
+
+function renderCompactWebControl(){
+  const groupGrid = document.getElementById("compactGroupGrid");
+  const nodeGrid = document.getElementById("compactNodeGrid");
+  const groupCount = document.getElementById("compactGroupCount");
+  const nodeCount = document.getElementById("compactNodeCount");
+
+  if(groupGrid){
+    groupGrid.innerHTML = groups.map((group,index)=>compactCard(group,index,"group")).join("");
+  }
+
+  if(nodeGrid){
+    nodeGrid.innerHTML = nodes.map((node,index)=>compactCard(node,index,"node")).join("");
+  }
+
+  if(groupCount) groupCount.textContent = `${groups.length} Groups`;
+  if(nodeCount) nodeCount.textContent = `${nodes.length} Nodes`;
+}
+
+function sfCompactUpdateLive(input,type,index,key,suffix){
+  const collection = type === "group" ? groups : nodes;
+  if(collection[index]) collection[index][key] = Number(input.value);
+  sfCompactUpdate(input,suffix);
+}
+
+function sfCompactUpdateLifeLive(input,type,index){
+  const collection = type === "group" ? groups : nodes;
+  if(collection[index]) collection[index].webLife = Number(input.value);
+  sfCompactLife(input);
+}
+
+const oldSfCompactBlackout = typeof sfCompactBlackout === "function" ? sfCompactBlackout : null;
+sfCompactBlackout = function(btn){
+  const card = btn.closest(".compactStrip");
+  if(!card) return;
+
+  const type = card.dataset.kind;
+  const index = Number(card.dataset.index);
+  const collection = type === "group" ? groups : nodes;
+  if(collection[index]){
+    collection[index].webHero = 0;
+    collection[index].webFlicker = 0;
+  }
+
+  const sliders = card.querySelectorAll("input[type='range']");
+  sliders.forEach((s,i)=>{
+    if(i < 2){
+      s.value = 0;
+      sfCompactUpdate(s,"%");
+    }
+  });
+};
+
+sfCompactBlackoutAll = function(){
+  groups.forEach(g=>{
+    g.webHero = 0;
+    g.webFlicker = 0;
+  });
+  nodes.forEach(n=>{
+    n.webHero = 0;
+    n.webFlicker = 0;
+  });
+  renderCompactWebControl();
+};
+
+
+/* v36 group fader propagation */
+function sfFindGroupForCard(card){
+  if(!card) return null;
+  const groupName = card.querySelector(".compactTop strong")?.textContent?.trim();
+  return groups.find(g => g.name === groupName) || null;
+}
+
+function sfUpdateNodeCardsForGroup(group, key, value){
+  if(!group || !Array.isArray(group.nodes)) return;
+
+  group.nodes.forEach(nodeName => {
+    const node = nodes.find(n => n.name === nodeName);
+    if(!node) return;
+
+    node[key] = Number(value);
+
+    document.querySelectorAll(".nodeStrip").forEach(card => {
+      const title = card.querySelector(".compactTop strong")?.textContent?.trim();
+      if(title !== node.name) return;
+
+      const sliders = card.querySelectorAll("input[type='range']");
+
+      if(key === "webHero" && sliders[0]){
+        sliders[0].value = value;
+        sfCompactUpdate(sliders[0], "%");
+      }
+
+      if(key === "webFlicker" && sliders[1]){
+        sliders[1].value = value;
+        sfCompactUpdate(sliders[1], "%");
+      }
+
+      if(key === "webLife" && sliders[2]){
+        sliders[2].value = value;
+        sfCompactLife(sliders[2]);
+      }
+    });
+  });
+}
+
+function sfCompactUpdateLive(input,type,index,key,suffix){
+  const collection = type === "group" ? groups : nodes;
+
+  if(collection[index]){
+    collection[index][key] = Number(input.value);
+  }
+
+  sfCompactUpdate(input,suffix);
+
+  if(type === "group"){
+    sfUpdateNodeCardsForGroup(collection[index], key, input.value);
+  }
+}
+
+function sfCompactUpdateLifeLive(input,type,index){
+  const collection = type === "group" ? groups : nodes;
+
+  if(collection[index]){
+    collection[index].webLife = Number(input.value);
+  }
+
+  sfCompactLife(input);
+
+  if(type === "group"){
+    sfUpdateNodeCardsForGroup(collection[index], "webLife", input.value);
+  }
+}
+
+sfCompactBlackout = function(btn){
+  const card = btn.closest(".compactStrip");
+  if(!card) return;
+
+  const type = card.dataset.kind;
+  const index = Number(card.dataset.index);
+  const collection = type === "group" ? groups : nodes;
+
+  if(collection[index]){
+    collection[index].webHero = 0;
+    collection[index].webFlicker = 0;
+  }
+
+  const sliders = card.querySelectorAll("input[type='range']");
+  sliders.forEach((s,i)=>{
+    if(i < 2){
+      s.value = 0;
+      sfCompactUpdate(s,"%");
+    }
+  });
+
+  if(type === "group"){
+    sfUpdateNodeCardsForGroup(collection[index], "webHero", 0);
+    sfUpdateNodeCardsForGroup(collection[index], "webFlicker", 0);
+  }
+};
+
+</script>
+</body>
+</html>
