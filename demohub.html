@@ -719,23 +719,29 @@ input:focus, select:focus{
 
 
 .settingsBtn.active{
-  border-color:rgba(255,140,40,.75)!important;
-  background:linear-gradient(180deg,rgba(255,120,20,.35),rgba(255,106,0,.12))!important;
-  color:#fff4d4!important;
+  border:3px solid rgba(255,145,35,.95)!important;
+  background:
+    linear-gradient(180deg,rgba(255,125,20,.48),rgba(255,106,0,.18))!important;
+  color:#fff6dd!important;
   box-shadow:
-    0 0 22px rgba(255,106,0,.38),
-    inset 0 0 12px rgba(255,180,60,.08);
+    0 0 10px rgba(255,180,60,.65),
+    0 0 26px rgba(255,106,0,.58),
+    0 0 42px rgba(255,106,0,.34),
+    inset 0 0 16px rgba(255,220,120,.14);
+  transform:translateY(-1px);
 }
 
 .nodeSettings.open{
   display:block;
-  border-color:rgba(255,140,40,.72)!important;
+  border:3px solid rgba(255,145,35,.92)!important;
   box-shadow:
-    0 0 28px rgba(255,106,0,.22),
-    inset 0 0 24px rgba(255,140,40,.05);
+    0 0 16px rgba(255,180,60,.42),
+    0 0 34px rgba(255,106,0,.34),
+    inset 0 0 32px rgba(255,140,40,.08);
   background:
-    radial-gradient(circle at top right, rgba(255,120,20,.12), transparent 42%),
-    rgba(0,0,0,.22);
+    radial-gradient(circle at top right, rgba(255,120,20,.18), transparent 42%),
+    linear-gradient(180deg, rgba(255,120,20,.05), rgba(0,0,0,.16)),
+    rgba(0,0,0,.24);
 }
 
 .nodeModeBadge{
@@ -894,6 +900,22 @@ input:focus, select:focus{
 
               <div class="control">
                 <div class="controlHead">
+                  <div>
+                    <div class="controlTitle">Life Mode <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Life Mode adds automatic organic motion to the Hero Flame so it feels alive without manually programming every movement.</span></span></div>
+                    <div class="controlSub">Automatic flame life and bounce behavior</div>
+                  </div>
+                  <select id="globalLifeMode" style="max-width:190px">
+                    <option>Calm</option>
+                    <option>Light Air</option>
+                    <option>Breeze</option>
+                    <option>Windy</option>
+                    <option>Storm</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="control">
+                <div class="controlHead">
                   <div><div class="controlTitle">Flicker <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Controls the secondary shimmer/glow channel. Use it to add fullness or subtle flame detail.</span></span></div><div class="controlSub">Secondary flame channel for shimmer and glow control</div></div>
                   <label class="toggle"><input id="pin7On" type="checkbox" checked><span></span></label>
                 </div>
@@ -937,9 +959,9 @@ input:focus, select:focus{
                   <div><div class="controlTitle">Scenes <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">Scenes are saved looks that quickly change flame behavior for different moods or production needs.</span></span></div><div class="controlSub">Load a simulated look without showing a flame preview.</div></div>
                 </div>
                 <div class="sceneGrid compactScenes">
-                  <div class="scene active helpTip" data-scene="Opera Warm"><strong>Opera Warm</strong><small>Soft realistic candlelight.</small><span class="tooltip">Loads a warm, subtle candle look suited for theatre, opera, church scenes, and classical interiors.</span></div>
-                  <div class="scene helpTip" data-scene="Haunted Low"><strong>Haunted Low</strong><small>Dim uneasy flicker.</small><span class="tooltip">Loads a low, moody look for haunted scenes, crypts, mansions, and suspenseful lighting.</span></div>
-                  <div class="scene helpTip" data-scene="Torch Procession"><strong>Torch Procession</strong><small>Brighter movement.</small><span class="tooltip">Loads a brighter, more active look intended for handheld torches or processional effects.</span></div>
+                  <div class="scene active helpTip" data-scene="Calm Warm"><strong>Calm Warm</strong><small>Soft realistic candlelight.</small><span class="tooltip">Loads a warm, subtle candle look suited for theatre, opera, church scenes, and classical interiors.</span></div>
+                  <div class="scene helpTip" data-scene="Light Air Low"><strong>Light Air Low</strong><small>Dim uneasy flicker.</small><span class="tooltip">Loads a low, moody look for haunted scenes, crypts, mansions, and suspenseful lighting.</span></div>
+                  <div class="scene helpTip" data-scene="Breeze Procession"><strong>Breeze Procession</strong><small>Brighter movement.</small><span class="tooltip">Loads a brighter, more active look intended for handheld torches or processional effects.</span></div>
                   <div class="scene helpTip" data-scene="Storm Flicker"><strong>Storm Flicker</strong><small>Chaotic candle reaction.</small><span class="tooltip">Loads a more unstable look for storm, wind, or supernatural disturbance moments.</span></div>
                 </div>
               </div>
@@ -967,29 +989,29 @@ input:focus, select:focus{
           <h1>Groups & Addressing</h1>
           <p>Create groups, assign nodes, choose addressing mode, and set DMX start addresses.</p>
 
+          <div class="groupManage" id="groupManage"></div>
+
+
+
           <div class="control">
             <div class="controlHead">
               <div>
                 <div class="controlTitle">Create New Group</div>
-                <div class="controlSub">Example: Chandelier A, Torches, Table Candles, Stage Left, Balcony Rail.</div>
+                <div class="controlSub">Example: Chandelier A, Breezees, Table Candles, Stage Left, Balcony Rail.</div>
               </div>
             </div>
             <div class="formGrid three">
-              <span class="helpTip"><input id="newGroupName" placeholder="Group name"><span class="tooltip">Enter a customer-friendly group name, such as Chandelier A, Torches, or Stage Left.</span></span>
+              <span class="helpTip"><input id="newGroupName" placeholder="Group name"><span class="tooltip">Enter a customer-friendly group name, such as Chandelier A, Breezees, or Stage Left.</span></span>
               <span class="helpTip"><input id="newGroupStart" type="number" min="1" max="512" placeholder="DMX start"><span class="tooltip">First control address assigned to this group.</span></span>
               <div class="helpWrap">
-                <select id="newGroupMode">
-                  <option>2-Channel Basic</option>
-                  <option>5-Channel Extended</option>
-                  <option>Group Master</option>
-                </select>
-                <span class="helpTip inlineHelp"><span class="helpIcon">?</span><span class="tooltip">Choose how the group listens to lighting control. Basic uses fewer channels, Extended gives more flame shaping control, and Group Master controls the whole group together.</span></span>
+                <div class="selectLike">3-Channel</div>
+                <span class="helpTip inlineHelp"><span class="helpIcon">?</span><span class="tooltip">Choose how the group listens to lighting control. 3-Channel uses direct intensity control, 3-Channel adds a mode slider for flame personality, and 3-Channel controls the whole group together.</span></span>
               </div>
             </div>
             <span class="helpTip"><button style="margin-top:12px" onclick="createGroupFromForm()">Add Group</button><span class="tooltip">Adds this group to the Hub so fixtures can be assigned to it.</span></span>
           </div>
 
-          <div class="groupManage" id="groupManage"></div>
+          
         </div>
       </section>
 
@@ -1144,11 +1166,11 @@ input:focus, select:focus{
             <div class="control">
               <div class="controlTitle">Addressing Modes</div>
               <div class="controlSub" style="margin-top:8px">
-                <strong>2-Channel Basic</strong> uses two control channels: Hero Flame intensity and Flicker intensity. This is best when you want simple control and want to use fewer lighting channels.<br><br>
+                <strong>3-Channel</strong> uses two control channels: Hero Flame intensity and Flicker intensity. This is best when you want direct control and want to use fewer lighting channels.<br><br>
 
-                <strong>5-Channel Extended</strong> gives the lighting operator more creative control. In addition to Hero Flame and Flicker intensity, it allows control over Hero Flame low range, high range, and bounce behavior.<br><br>
+                <strong>3-Channel</strong> adds a third control channel for flame personality. Low values select Calm, mid-low values select Light Air, mid-high values select Breeze, and high values select Storm.<br><br>
 
-                <strong>Group Master</strong> lets a full group of fixtures respond together from one address block. This is ideal for chandeliers, wall sconces, table candles, torch lines, and other grouped scenic elements.
+                <strong>3-Channel</strong> lets a full group of fixtures respond together from one address block. This is ideal for chandeliers, wall sconces, table candles, torch lines, and other grouped scenic elements.
               </div>
             </div>
 
@@ -1169,16 +1191,39 @@ input:focus, select:focus{
               <div class="controlSub" style="margin-top:8px">
                 Each fixture has a Settings button. Open it to choose the fixture’s DMX mode and adjust the controls available for that mode.<br><br>
 
-                <strong>2-Channel Basic</strong> shows Hero Flame intensity and Flicker only.<br><br>
+                <strong>3-Channel</strong> shows Hero Flame intensity and Flicker only.<br><br>
 
-                <strong>5-Channel Extended</strong> shows Hero Flame intensity, Flicker, bounce rate, low range, and high range.<br><br>
+                <strong>3-Channel</strong> shows Hero Flame intensity, Flicker, and a Life Mode slider that selects Calm, Light Air, Breeze, Windy, or Storm.<br><br>
 
-                <strong>Group Master</strong> lets the fixture follow its assigned group while allowing local trim adjustments.
+                <strong>Life Mode</strong> controls the automatic organic bounce behavior, including strength, speed, low range, and high range.<br><br>
+
+                <strong>3-Channel</strong> lets the fixture follow its assigned group while allowing local trim adjustments.
               </div>
             </div>
 
 
             <div class="control">
+              
+            <div class="control">
+              <div class="controlTitle">3-Channel Layout</div>
+              <div class="controlSub" style="margin-top:8px">
+                <strong>Channel 1 — Hero Flame:</strong> main flame intensity.<br><br>
+                <strong>Channel 2 — Flicker:</strong> secondary Flicker intensity.<br><br>
+                <strong>Channel 3 — Life Mode:</strong> selects automatic candle life from 1–255.
+              </div>
+            </div>
+
+            <div class="control">
+              <div class="controlTitle">Life Mode Levels</div>
+              <div class="controlSub" style="margin-top:8px">
+                <strong>Calm:</strong> high level 255, low level 200, slow bounce.<br><br>
+                <strong>Light Air:</strong> high level 255, low level 150, medium bounce.<br><br>
+                <strong>Breeze:</strong> high level 220, low level 100, moderately fast bounce.<br><br>
+                <strong>Windy:</strong> high level 100, low level 30, moderate bounce.<br><br>
+                <strong>Storm:</strong> high level 30, low level 1, fast bounce.
+              </div>
+            </div>
+
               <div class="controlTitle">5. Hero Flame</div>
               <div class="controlSub" style="margin-top:8px">
                 Hero Flame controls the primary animated flame behavior.
@@ -1204,7 +1249,7 @@ input:focus, select:focus{
             </div>
 
             <div class="control">
-              <div class="controlTitle">8. Operating Modes</div>
+              <div class="controlTitle">8. Calmting Modes</div>
               <div class="controlSub" style="margin-top:8px">
                 <strong>Show Mode</strong> is intended for live performances and active operation. Fixtures respond immediately and external lighting input takes priority.<br><br>
 
@@ -1235,41 +1280,36 @@ input:focus, select:focus{
 
 <script>
 const nodes = [
-  {name:"Candle 01", battery:91, wifi:-48, dmx:101, group:"Chandelier A", status:"Online", mode:"2-Channel Basic", controlSource:"group", intensity:82, flicker:55, bounce:4, low:42, high:88},
-  {name:"Candle 02", battery:76, wifi:-61, dmx:103, group:"Chandelier A", status:"Online", mode:"2-Channel Basic", controlSource:"group", intensity:78, flicker:50, bounce:4, low:40, high:86},
-  {name:"Torch 01", battery:84, wifi:-54, dmx:121, group:"Torches", status:"Online", mode:"5-Channel Extended", controlSource:"individual", intensity:95, flicker:70, bounce:7, low:55, high:100},
-  {name:"Table Candle 01", battery:77, wifi:-67, dmx:141, group:"Table Candles", status:"Online", mode:"Group Master", controlSource:"group", intensity:65, flicker:35, bounce:3, low:25, high:72},
-
-  {name:"Candle 03", battery:88, wifi:-49, dmx:151, group:"Balcony Candles", status:"Online", mode:"2-Channel Basic", controlSource:"group", intensity:80, flicker:58, bounce:4, low:40, high:82},
-  {name:"Candle 04", battery:86, wifi:-51, dmx:153, group:"Balcony Candles", status:"Online", mode:"2-Channel Basic", controlSource:"group", intensity:79, flicker:52, bounce:4, low:39, high:84},
-  {name:"Candle 05", battery:82, wifi:-57, dmx:155, group:"Balcony Candles", status:"Online", mode:"2-Channel Basic", controlSource:"group", intensity:81, flicker:56, bounce:5, low:42, high:85},
-  {name:"Torch 02", battery:91, wifi:-46, dmx:161, group:"Torches", status:"Online", mode:"5-Channel Extended", controlSource:"individual", intensity:100, flicker:74, bounce:8, low:58, high:100},
-  {name:"Torch 03", battery:79, wifi:-59, dmx:166, group:"Torches", status:"Online", mode:"5-Channel Extended", controlSource:"individual", intensity:94, flicker:72, bounce:7, low:54, high:98},
-
-  {name:"Sconce 01", battery:75, wifi:-63, dmx:171, group:"Wall Sconces", status:"Online", mode:"Group Master", controlSource:"group", intensity:66, flicker:40, bounce:3, low:28, high:70},
-  {name:"Sconce 02", battery:73, wifi:-66, dmx:173, group:"Wall Sconces", status:"Online", mode:"Group Master", controlSource:"group", intensity:64, flicker:38, bounce:3, low:26, high:68},
-  {name:"Sconce 03", battery:81, wifi:-56, dmx:175, group:"Wall Sconces", status:"Online", mode:"Group Master", controlSource:"group", intensity:69, flicker:42, bounce:3, low:30, high:72},
-
-  {name:"Lantern 01", battery:93, wifi:-44, dmx:181, group:"Lanterns", status:"Online", mode:"5-Channel Extended", controlSource:"individual", intensity:88, flicker:62, bounce:5, low:48, high:92},
-  {name:"Lantern 02", battery:90, wifi:-47, dmx:186, group:"Lanterns", status:"Online", mode:"5-Channel Extended", controlSource:"individual", intensity:86, flicker:60, bounce:5, low:46, high:90},
-  {name:"Lantern 03", battery:85, wifi:-53, dmx:191, group:"Lanterns", status:"Online", mode:"5-Channel Extended", controlSource:"individual", intensity:87, flicker:61, bounce:5, low:47, high:91},
-
-  {name:"Table Candle 02", battery:71, wifi:-69, dmx:201, group:"Table Candles", status:"Online", mode:"Group Master", controlSource:"group", intensity:61, flicker:33, bounce:2, low:24, high:66},
-  {name:"Table Candle 03", battery:74, wifi:-64, dmx:203, group:"Table Candles", status:"Online", mode:"Group Master", controlSource:"group", intensity:63, flicker:35, bounce:2, low:26, high:68},
-  {name:"Table Candle 04", battery:77, wifi:-61, dmx:205, group:"Table Candles", status:"Online", mode:"Group Master", controlSource:"group", intensity:65, flicker:37, bounce:3, low:28, high:70},
-
-  {name:"Chandelier B 01", battery:89, wifi:-50, dmx:221, group:"Chandelier B", status:"Online", mode:"2-Channel Basic", controlSource:"group", intensity:83, flicker:57, bounce:4, low:41, high:87},
-  {name:"Chandelier B 02", battery:87, wifi:-52, dmx:223, group:"Chandelier B", status:"Online", mode:"2-Channel Basic", controlSource:"group", intensity:82, flicker:56, bounce:4, low:40, high:86}
+  {name:"Candle 01", battery:91, wifi:-48, dmx:101, group:"Chandelier A", status:"Online", mode:"3-Channel", controlSource:"group", intensity:82, flicker:55, lifeMode:20},
+  {name:"Candle 02", battery:76, wifi:-61, dmx:104, group:"Chandelier A", status:"Online", mode:"3-Channel", controlSource:"group", intensity:78, flicker:50, lifeMode:20},
+  {name:"Torch 01", battery:84, wifi:-54, dmx:121, group:"Torches", status:"Online", mode:"3-Channel", controlSource:"individual", intensity:95, flicker:70, lifeMode:145},
+  {name:"Table Candle 01", battery:77, wifi:-67, dmx:141, group:"Table Candles", status:"Online", mode:"3-Channel", controlSource:"group", intensity:65, flicker:35, lifeMode:50},
+  {name:"Candle 03", battery:88, wifi:-49, dmx:151, group:"Balcony Candles", status:"Online", mode:"3-Channel", controlSource:"group", intensity:80, flicker:58, lifeMode:30},
+  {name:"Candle 04", battery:86, wifi:-51, dmx:154, group:"Balcony Candles", status:"Online", mode:"3-Channel", controlSource:"group", intensity:79, flicker:52, lifeMode:30},
+  {name:"Candle 05", battery:82, wifi:-57, dmx:157, group:"Balcony Candles", status:"Online", mode:"3-Channel", controlSource:"group", intensity:81, flicker:56, lifeMode:30},
+  {name:"Torch 02", battery:91, wifi:-46, dmx:161, group:"Torches", status:"Online", mode:"3-Channel", controlSource:"individual", intensity:100, flicker:74, lifeMode:150},
+  {name:"Torch 03", battery:79, wifi:-59, dmx:164, group:"Torches", status:"Online", mode:"3-Channel", controlSource:"individual", intensity:94, flicker:72, lifeMode:150},
+  {name:"Sconce 01", battery:75, wifi:-63, dmx:171, group:"Wall Sconces", status:"Online", mode:"3-Channel", controlSource:"group", intensity:66, flicker:40, lifeMode:80},
+  {name:"Sconce 02", battery:73, wifi:-66, dmx:174, group:"Wall Sconces", status:"Online", mode:"3-Channel", controlSource:"group", intensity:64, flicker:38, lifeMode:80},
+  {name:"Sconce 03", battery:81, wifi:-56, dmx:177, group:"Wall Sconces", status:"Online", mode:"3-Channel", controlSource:"group", intensity:69, flicker:42, lifeMode:80},
+  {name:"Lantern 01", battery:93, wifi:-44, dmx:181, group:"Lanterns", status:"Online", mode:"3-Channel", controlSource:"individual", intensity:88, flicker:62, lifeMode:110},
+  {name:"Lantern 02", battery:90, wifi:-47, dmx:184, group:"Lanterns", status:"Online", mode:"3-Channel", controlSource:"individual", intensity:86, flicker:60, lifeMode:110},
+  {name:"Lantern 03", battery:85, wifi:-53, dmx:187, group:"Lanterns", status:"Online", mode:"3-Channel", controlSource:"individual", intensity:87, flicker:61, lifeMode:110},
+  {name:"Table Candle 02", battery:71, wifi:-69, dmx:201, group:"Table Candles", status:"Online", mode:"3-Channel", controlSource:"group", intensity:61, flicker:33, lifeMode:50},
+  {name:"Table Candle 03", battery:74, wifi:-64, dmx:204, group:"Table Candles", status:"Online", mode:"3-Channel", controlSource:"group", intensity:63, flicker:35, lifeMode:50},
+  {name:"Table Candle 04", battery:77, wifi:-61, dmx:207, group:"Table Candles", status:"Online", mode:"3-Channel", controlSource:"group", intensity:65, flicker:37, lifeMode:50},
+  {name:"Chandelier B 01", battery:89, wifi:-50, dmx:221, group:"Chandelier B", status:"Online", mode:"3-Channel", controlSource:"group", intensity:83, flicker:57, lifeMode:20},
+  {name:"Chandelier B 02", battery:87, wifi:-52, dmx:224, group:"Chandelier B", status:"Online", mode:"3-Channel", controlSource:"group", intensity:82, flicker:56, lifeMode:20}
 ];
 
 const groups = [
-  {name:"Chandelier A", start:101, mode:"2-Channel Basic", nodes:["Candle 01","Candle 02"]},
-  {name:"Torches", start:121, mode:"5-Channel Extended", nodes:["Torch 01","Torch 02","Torch 03"]},
-  {name:"Table Candles", start:141, mode:"Group Master", nodes:["Table Candle 01","Table Candle 02","Table Candle 03","Table Candle 04"]},
-  {name:"Balcony Candles", start:151, mode:"2-Channel Basic", nodes:["Candle 03","Candle 04","Candle 05"]},
-  {name:"Wall Sconces", start:171, mode:"Group Master", nodes:["Sconce 01","Sconce 02","Sconce 03"]},
-  {name:"Lanterns", start:181, mode:"5-Channel Extended", nodes:["Lantern 01","Lantern 02","Lantern 03"]},
-  {name:"Chandelier B", start:221, mode:"2-Channel Basic", nodes:["Chandelier B 01","Chandelier B 02"]}
+  {name:"Chandelier A", start:101, mode:"3-Channel", nodes:["Candle 01","Candle 02"]},
+  {name:"Torches", start:121, mode:"3-Channel", nodes:["Torch 01","Torch 02","Torch 03"]},
+  {name:"Table Candles", start:141, mode:"3-Channel", nodes:["Table Candle 01","Table Candle 02","Table Candle 03","Table Candle 04"]},
+  {name:"Balcony Candles", start:151, mode:"3-Channel", nodes:["Candle 03","Candle 04","Candle 05"]},
+  {name:"Wall Sconces", start:171, mode:"3-Channel", nodes:["Sconce 01","Sconce 02","Sconce 03"]},
+  {name:"Lanterns", start:181, mode:"3-Channel", nodes:["Lantern 01","Lantern 02","Lantern 03"]},
+  {name:"Chandelier B", start:221, mode:"3-Channel", nodes:["Chandelier B 01","Chandelier B 02"]}
 ];
 
 const wifiNetworks = [
@@ -1341,13 +1381,9 @@ function renderNodes(){
 
         <div class="formGrid">
           <div>
-            <label style="color:var(--muted);font-size:13px">DMX Mode</label>
+            <label style="color:var(--muted);font-size:13px">Control Mode</label>
             <span class="helpTip">
-              <select onchange="setNodeMode(${i}, this.value)">
-                <option ${n.mode==="2-Channel Basic"?"selected":""}>2-Channel Basic</option>
-                <option ${n.mode==="5-Channel Extended"?"selected":""}>5-Channel Extended</option>
-                <option ${n.mode==="Group Master"?"selected":""}>Group Master</option>
-              </select>
+              <div class="selectLike">3-Channel</div>
               <span class="tooltip">${modeHelp(n.mode)}</span>
             </span>
           </div>
@@ -1429,12 +1465,12 @@ function setScene(name){
   document.querySelectorAll(`[data-scene="${name}"]`).forEach(s=>s.classList.add("active"));
 
   const presets = {
-    "Opera Warm":[82,42,88,55],
-    "Haunted Low":[34,12,48,22],
-    "Torch Procession":[95,55,100,70],
+    "Calm Warm":[82,42,88,55],
+    "Light Air Low":[34,12,48,22],
+    "Breeze Procession":[95,55,100,70],
     "Storm Flicker":[72,10,100,45]
   };
-  const p = presets[name] || presets["Opera Warm"];
+  const p = presets[name] || presets["Calm Warm"];
   ["heroMaster","heroLow","heroHigh","pin7"].forEach((id,i)=>document.getElementById(id).value = p[i]);
   updateSliders();
   addLog(`Scene loaded: ${name}.`);
@@ -1446,76 +1482,54 @@ function setMode(mode){
 }
 
 function modeHelp(mode){
-  if(mode === "2-Channel Basic"){
-    return "2-Channel Basic uses two control channels: Hero Flame intensity and Flicker intensity. Best for simple setups and conserving DMX channels.";
-  }
-  if(mode === "5-Channel Extended"){
-    return "5-Channel Extended gives more control: Hero Flame intensity, Flicker intensity, Hero low range, Hero high range, and Hero bounce speed/behavior.";
-  }
-  if(mode === "Group Master"){
-    return "Group Master lets one address block control every fixture in the group together. Best for chandeliers, table groups, sconces, or matching looks.";
-  }
-  return "Select how this fixture or group responds to lighting control.";
+  return "Fixed 3-Channel mode: Channel 1 controls Hero Flame, Channel 2 controls Flicker, and Channel 3 selects Life Mode from 1–255.";
 }
 
 function nodeModeDescription(mode){
-  if(mode === "2-Channel Basic") return "Basic control: Hero Flame intensity and Flicker intensity.";
-  if(mode === "5-Channel Extended") return "Extended control: intensity, Flicker, bounce rate, low range, and high range.";
-  if(mode === "Group Master") return "This fixture follows its group master settings while allowing local trim adjustment.";
-  return "Choose how this fixture responds to lighting control.";
+  return "Fixed 3-Channel control: Hero Flame, Flicker, and Life Mode.";
 }
 
 function nodeAddressPreview(n){
-  if(n.mode === "2-Channel Basic"){
-    return `CH ${n.dmx}: Hero · CH ${Number(n.dmx)+1}: Flicker`;
-  }
-  if(n.mode === "5-Channel Extended"){
-    return `CH ${n.dmx}-${Number(n.dmx)+4}: Extended`;
-  }
-  if(n.mode === "Group Master"){
-    return `Group: ${n.group}`;
-  }
-  return `CH ${n.dmx}`;
+  return `CH ${n.dmx}: Hero · CH ${Number(n.dmx)+1}: Flicker · CH ${Number(n.dmx)+2}: Life Mode`;
 }
 
-function settingControl(label, key, value, nodeIndex, help, min=0, max=100){
+function lifeModeName(value){
+  const v = Number(value);
+  if(v <= 51) return "Calm";
+  if(v <= 102) return "Light Air";
+  if(v <= 153) return "Breeze";
+  if(v <= 204) return "Windy";
+  return "Storm";
+}
+
+function lifeModeDetails(value){
+  const name = lifeModeName(value);
+  if(name === "Calm") return "High 255 · Low 200 · Slow bounce";
+  if(name === "Light Air") return "High 255 · Low 150 · Medium bounce";
+  if(name === "Breeze") return "High 220 · Low 100 · Moderately fast bounce";
+  if(name === "Windy") return "High 100 · Low 30 · Moderate bounce";
+  return "High 30 · Low 1 · Fast bounce";
+}
+
+function settingControl(label, key, value, nodeIndex, help, min=0, max=100, suffix="%"){
   return `
     <div class="settingItem">
       <label>
         <span>${label} <span class="helpTip"><span class="helpIcon">?</span><span class="tooltip">${help}</span></span></span>
-        <span id="node-${nodeIndex}-${key}-val">${value}${key==="bounce" ? "" : "%"}</span>
+        <span id="node-${nodeIndex}-${key}-val">${key==="lifeMode" ? lifeModeName(value) : value + suffix}</span>
       </label>
       <input type="range" min="${min}" max="${max}" value="${value}" oninput="setNodeSetting(${nodeIndex}, '${key}', this.value)">
+      ${key==="lifeMode" ? `<div class="controlSub" id="node-${nodeIndex}-lifeMode-detail" style="margin-top:8px">${lifeModeDetails(value)}</div>` : ""}
     </div>
   `;
 }
 
 function nodeSettingsControls(n,i){
-  if(n.mode === "2-Channel Basic"){
-    return `
-      ${settingControl("Hero Flame Intensity", "intensity", n.intensity, i, "Controls the main flame brightness for this fixture.")}
-      ${settingControl("Flicker", "flicker", n.flicker, i, "Controls the secondary shimmer/glow level for this fixture.")}
-    `;
-  }
-
-  if(n.mode === "5-Channel Extended"){
-    return `
-      ${settingControl("Hero Flame Intensity", "intensity", n.intensity, i, "Controls the main flame brightness for this fixture.")}
-      ${settingControl("Flicker", "flicker", n.flicker, i, "Controls the secondary shimmer/glow level for this fixture.")}
-      ${settingControl("Bounce Rate", "bounce", n.bounce, i, "Controls how quickly the Hero Flame rises and falls when bounce is enabled.", 1, 10)}
-      ${settingControl("Low Range", "low", n.low, i, "Lowest brightness point used by the Hero Flame bounce.")}
-      ${settingControl("High Range", "high", n.high, i, "Highest brightness point used by the Hero Flame bounce.")}
-    `;
-  }
-
-  if(n.mode === "Group Master"){
-    return `
-      ${settingControl("Local Intensity Trim", "intensity", n.intensity, i, "Adjusts this fixture slightly above or below the group master look.")}
-      ${settingControl("Local Flicker Trim", "flicker", n.flicker, i, "Adjusts this fixture’s Flicker level relative to the group master.")}
-    `;
-  }
-
-  return "";
+  return `
+    ${settingControl("Channel 1 — Hero Flame", "intensity", n.intensity, i, "Channel 1 controls the main Hero Flame intensity.")}
+    ${settingControl("Channel 2 — Flicker", "flicker", n.flicker, i, "Channel 2 controls Flicker intensity.")}
+    ${settingControl("Channel 3 — Life Mode", "lifeMode", n.lifeMode ?? 1, i, "Channel 3 selects automatic candle life from 1–255: Calm, Light Air, Breeze, Windy, or Storm.", 1, 255, "")}
+  `;
 }
 
 function toggleNodeSettings(i){
@@ -1546,21 +1560,8 @@ function setNodeControlSource(i, source){
 }
 
 function setNodeMode(i, mode){
-  nodes[i].mode = mode;
-
-  if(mode === "Group Master"){
-    nodes[i].controlSource = "group";
-  }
-
-  renderNodes();
-
-  const panel = document.getElementById(`nodeSettings-${i}`);
-  const btn = document.getElementById(`settingsBtn-${i}`);
-
-  if(panel) panel.classList.add("open");
-  if(btn) btn.classList.add("active");
-
-  addLog(`${nodes[i].name} DMX mode changed to ${mode}.`);
+  nodes[i].mode = "3-Channel";
+  addLog(`${nodes[i].name} uses fixed 3-Channel mode.`);
 }
 
 function setNodeSetting(i, key, value){
@@ -1571,8 +1572,19 @@ function setNodeSetting(i, key, value){
 
   nodes[i][key] = Number(value);
   const val = document.getElementById(`node-${i}-${key}-val`);
-  if(val) val.textContent = value + (key === "bounce" ? "" : "%");
-  addLog(`${nodes[i].name} ${key} set to ${value}${key === "bounce" ? "" : "%"}.`);
+
+  if(val){
+    if(key === "lifeMode"){
+      val.textContent = lifeModeName(value);
+      const detail = document.getElementById(`node-${i}-lifeMode-detail`);
+      if(detail) detail.textContent = lifeModeDetails(value);
+    } else {
+      val.textContent = value + "%";
+    }
+  }
+
+  const display = key === "lifeMode" ? `${lifeModeName(value)} (${lifeModeDetails(value)})` : value + "%";
+  addLog(`${nodes[i].name} ${key} set to ${display}.`);
 }
 
 function renderGroups(){
@@ -1598,11 +1610,7 @@ function renderGroups(){
         <span class="helpTip"><input value="${g.name}" onchange="updateGroupName(${i}, this.value)"><span class="tooltip">Renames this group in the Hub.</span></span>
         <span class="helpTip"><input type="number" min="1" max="512" value="${g.start}" onchange="updateGroupStart(${i}, this.value)"><span class="tooltip">Changes the first lighting address used by this group.</span></span>
         <div class="helpWrap">
-          <select onchange="updateGroupMode(${i}, this.value)">
-            <option ${g.mode==="2-Channel Basic"?"selected":""}>2-Channel Basic</option>
-            <option ${g.mode==="5-Channel Extended"?"selected":""}>5-Channel Extended</option>
-            <option ${g.mode==="Group Master"?"selected":""}>Group Master</option>
-          </select>
+          <div class="selectLike">3-Channel</div>
           <span class="helpTip inlineHelp"><span class="helpIcon">?</span><span class="tooltip">${modeHelp(g.mode)}</span></span>
         </div>
       </div>
@@ -1617,7 +1625,7 @@ function renderGroups(){
   `).join("");
 }
 
-function createGroup(name, start, mode="2-Channel Basic"){
+function createGroup(name, start, mode="3-Channel"){
   if(!name) return;
   groups.push({name, start:Number(start)||1, mode, nodes:[]});
   renderGroups();
@@ -1652,7 +1660,7 @@ function createGroupFromForm(){
   createGroup(
     document.getElementById("newGroupName").value,
     document.getElementById("newGroupStart").value,
-    document.getElementById("newGroupMode").value
+    "3-Channel"
   );
 }
 
@@ -1660,7 +1668,7 @@ function quickCreateGroup(){
   createGroup(
     document.getElementById("quickGroupName").value,
     document.getElementById("quickGroupStart").value,
-    "2-Channel Basic"
+    "3-Channel"
   );
 }
 
